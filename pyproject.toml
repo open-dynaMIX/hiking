@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "hiking"
+version = "0.1.0"
+description = "hiking stats"
+authors = ["Fabio Ambauen <fabio@dnmx.ch>"]
+readme = "README.md"
+license = "MIT"
+packages = [{include = "hiking"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+geopy = "^2.2.0"
+gpxpy = "^1.5.0"
+sqlalchemy = "^1.4.41"
+plotille = "^4.0.2"
+rich = "^12.5.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.8.0"
+flake8 = "^5.0.4"
+flake8-bugbear = "^22.9.11"
+flake8-debugger = "^4.1.2"
+flake8-isort = "^4.2.0"
+flake8-string-format = "^0.3.0"
+flake8-tuple = "^0.4.1"
+ipython = "^8.5.0"
+isort = "^5.10.1"
+pdbpp = "^0.10.3"
+
+[tool.isort]
+known_first_party = ["hiking"]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 88
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -93,33 +93,35 @@ class HikeCollection:
         ]
 
     def get_totals(self) -> List[str]:
+        def get_summary_cell(attr: str, supported_calculations: List[str]):
+            if supported_calculations:
+                cell = {}
+                for calc, pretty_calc in [
+                    ("sum", "Σ "),
+                    ("avg", "⌀ "),
+                    ("max", "↑ "),
+                    ("min", "↓ "),
+                ]:
+                    cell[pretty_calc] = "-"
+                    if calc in supported_calculations:
+                        cell[pretty_calc] = self.calc_and_format_value(calc, attr)
+                return cell
+
         d = [
             "",
             "STATS",
             str(self.hikes.count()),
-            *(
-                "".join(
-                    (
-                        f"{pretty_calc}: {self.calc_and_format_value(calc, attr)}{opt_newline}"
-                        if calc in config["supported_calculations"]
-                        else "-\n"
-                        for calc, pretty_calc, opt_newline in [
-                            ("sum", "Σ", "\n"),
-                            ("avg", "⌀", "\n"),
-                            ("max", "↑", "\n"),
-                            ("min", "↓", ""),
-                        ]
-                    )
-                )
+            *[
+                get_summary_cell(attr, config["supported_calculations"])
                 for attr, config in Hike.FIELD_PROPS.items()
                 if config["supported_calculations"]
-            ),
+            ],
         ]
         return d
 
     def get_collection_stats(
         self, order_params: Tuple[str, bool], add_totals: bool = True
-    ) -> Tuple[List[List[str]], List[str]]:
+    ) -> Tuple[List, List]:
         stats = self.get_hikes_stats(order_params)
 
         result = [

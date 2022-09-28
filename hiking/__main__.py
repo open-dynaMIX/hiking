@@ -40,14 +40,26 @@ def get_table(
         header_style="bold",
         box=table_style,
     )
-    table.add_column("ID", justify="right", footer=footer and footer[0])
-    table.add_column("Date", justify="left", footer=footer and footer[1])
-    table.add_column("Name", justify="left", footer=footer and footer[2])
-    table.add_column("➡ km", justify="right", footer=footer and footer[3])
-    table.add_column("⬈ m", justify="right", footer=footer and footer[4])
-    table.add_column("⬊ m", justify="right", footer=footer and footer[5])
-    table.add_column("⏱", justify="right", footer=footer and footer[6])
-    table.add_column("km/h", justify="right", footer=footer and footer[7])
+
+    def get_grid(content: dict):
+        if isinstance(content, str):
+            return content
+
+        grid = Table.grid(expand=True)
+        grid.add_column()
+        grid.add_column(justify="right")
+        for k, v in content.items():
+            grid.add_row(k, v)
+        return grid
+
+    table.add_column("ID", justify="right", footer=footer and get_grid(footer[0]))
+    table.add_column("Date", justify="left", footer=footer and get_grid(footer[1]))
+    table.add_column("Name", justify="left", footer=footer and get_grid(footer[2]))
+    table.add_column("➡ km", justify="right", footer=footer and get_grid(footer[3]))
+    table.add_column("⬈ m", justify="right", footer=footer and get_grid(footer[4]))
+    table.add_column("⬊ m", justify="right", footer=footer and get_grid(footer[5]))
+    table.add_column("⏱", justify="right", footer=footer and get_grid(footer[6]))
+    table.add_column("km/h", justify="right", footer=footer and get_grid(footer[7]))
 
     for d in data:
         table.add_row(*d)

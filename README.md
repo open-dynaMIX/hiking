@@ -6,7 +6,7 @@
 <a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="code style black"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/open-dynaMIX/hiking.svg" alt="license MIT"></a>
 
-<h2><i>nom nom hike data ➡ 💩 stats</i></h2>
+<h2><i>nom nom hike data &#8594; 💩 stats</i></h2>
 <h3>your typical *it started as a small script* thingy</h3>
 
 <pre>

@@ -239,6 +239,27 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         help="Import from *.gpx-file",
     )
 
+    edit = subparsers.add_parser(
+        "edit",
+        help="Edit a record",
+        description="Edit a record.",
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+
+    edit.add_argument(
+        "id",
+        metavar="ID",
+        help="Hike ID",
+        type=int,
+    )
+
+    edit.add_argument(
+        "--gpx",
+        metavar="GPX_FILE",
+        type=GPXFileType("r"),
+        help="Import from *.gpx-file",
+    )
+
     delete = subparsers.add_parser(
         "delete",
         help="Delete records by ID",
@@ -272,20 +293,6 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         metavar="ID",
         help="Hike ID",
         nargs="*",
-        type=int,
-    )
-
-    edit = subparsers.add_parser(
-        "edit",
-        help="Edit a record",
-        description="Edit a record.",
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-
-    edit.add_argument(
-        "id",
-        metavar="ID",
-        help="Hike ID",
         type=int,
     )
 

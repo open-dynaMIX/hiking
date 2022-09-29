@@ -148,6 +148,22 @@ class Hike(Base):
 
         return serialized
 
+    def load_gpx(self, gpx: str):
+        gpx_obj = gpxpy.parse(gpx)
+
+        data = {
+            "date": gpx_obj.time.date() if gpx_obj.time else None,
+            "name": gpx_obj.name,
+            "distance": round(gpx_obj.length_3d() / 1000, 2),
+            "elevation_gain": round(gpx_obj.get_uphill_downhill().uphill),
+            "elevation_loss": round(gpx_obj.get_uphill_downhill().downhill),
+            "duration": gpx_obj.get_duration(),
+            "gpx_xml": gpx,
+        }
+        for attr, value in data.items():
+            if value:
+                setattr(self, attr, value)
+
     def save(self):
         if self.id is None:
             session.add(self)

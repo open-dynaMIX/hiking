@@ -100,9 +100,7 @@ def user_create_edit_interaction(hike: Hike):
         },
         "body": {
             "prompt": None,
-            "default": f"# {hike.name}  (Markdown supported)"
-            if hike.name
-            else "# My Awesome Hike  (Markdown supported)",
+            "default": None,  # We set this as soon as we get the hike name
             "prompt_class": None,
             "exceptions": (),
             "assignment_func": lambda v: v,
@@ -158,5 +156,8 @@ def user_create_edit_interaction(hike: Hike):
         },
     }
 
-    for a, config in attr_map.items():
-        single_interaction(a, config, hike)
+    for attr, config in attr_map.items():
+        if attr == "body":
+            # In case of a `create`, `hike.name` was empty earlier
+            config["default"] = f"# {hike.name}  (Markdown supported)"
+        single_interaction(attr, config, hike)

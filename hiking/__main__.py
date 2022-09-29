@@ -4,7 +4,6 @@ import sys
 from pathlib import Path
 from typing import List, Tuple
 
-import gpxpy
 from rich import box
 from rich.markdown import Markdown
 from rich.table import Table
@@ -81,7 +80,29 @@ def draw_plot(
     )
 
 
-def create_edit_stats_and_write(stats: dict, hike: Hike):
+def command_create_edit(pk: int = None, gpx: str = None):
+    """
+    Create or edit a record.
+
+    If `pk` is provided, `edit` will be performed.
+    """
+    hike = session.query(Hike).get(pk) if pk else Hike()
+
+    if not hike:
+        print("No hike found with provided ID")
+        return
+
+    if gpx:
+        hike.load_gpx(gpx)
+
+    user_create_edit_interaction(hike)
+
+    stats = hike.get_detail_stats()
+    stats["GPX"] = "available" if hike.gpx_xml else "not available"
+
+    if not pk:
+        stats.pop("ID")
+
     print_detail_stats(stats)
 
     try:
@@ -96,50 +117,12 @@ def create_edit_stats_and_write(stats: dict, hike: Hike):
     hike.save()
 
 
-def command_edit(_id: int):
-    hike = session.query(Hike).get(_id)
-
-    if not hike:
-        print("No hike found with provided ID")
-        return
-
-    user_create_edit_interaction(hike)
-
-    stats = hike.get_detail_stats()
-    stats["GPX"] = "available" if hike.gpx_xml else "not available"
-
-    create_edit_stats_and_write(stats, hike)
-
-
-def command_create(gpx=None):
-    hike = Hike()
-
-    if gpx:
-        gpx_obj = gpxpy.parse(gpx)
-        hike.date = gpx_obj.time.date() if gpx_obj.time else None
-        hike.name = gpx_obj.name
-        hike.distance = round(gpx_obj.length_3d() / 1000, 2)
-        hike.elevation_gain = round(gpx_obj.get_uphill_downhill().uphill)
-        hike.elevation_loss = round(gpx_obj.get_uphill_downhill().downhill)
-        hike.duration = gpx_obj.get_duration()
-        hike.duration = gpx_obj.get_duration()
-        hike.gpx_xml = gpx
-
-    user_create_edit_interaction(hike)
-
-    stats = hike.get_detail_stats()
-    stats["gpx"] = "available" if hike.gpx_xml else "not available"
-    stats.pop("ID")
-
-    create_edit_stats_and_write(stats, hike)
-
-
 def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
     query = session.query(Hike)
     if not all:
         query = session.query(Hike).filter(Hike.id.in_(ids))
     if not query.first():
-        print("No hikes found with provided IDs")
+        print("No hikes found with provided ID(s)")
         return
     elif query.count() < len(ids):
         raise HikingException("Invalid ID(s) provided")
@@ -239,12 +222,10 @@ def main():
                     args.order_key,
                     args.plot,
                 )
-            case "create":
-                command_create(args.gpx)
+            case "create" | "edit":
+                command_create_edit(pk=getattr(args, "id", None), gpx=args.gpx)
             case "delete":
                 command_delete(args.ids, args.all, args.force, args.quiet)
-            case "edit":
-                command_edit(args.id)
             case "import":
                 command_import(args.json_data)
             case "export":

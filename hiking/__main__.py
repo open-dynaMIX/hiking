@@ -9,10 +9,10 @@ from rich.markdown import Markdown
 from rich.table import Table
 
 from hiking.arg_parsing import parse_arguments
+from hiking.collection import HikeCollection
 from hiking.db_utils import get_collection, get_filtered_query
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.gpx import get_elevation_profile
-from hiking.hike import HikeCollection
 from hiking.import_export import JSON_IMPORT_EXAMPLE, json_exporter, json_importer
 from hiking.interactivity import user_create_edit_interaction
 from hiking.models import Hike, init_db, session

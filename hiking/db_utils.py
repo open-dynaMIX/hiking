@@ -1,6 +1,6 @@
 from typing import List
 
-from hiking.hike import HikeCollection
+from hiking.collection import HikeCollection
 from hiking.models import Hike, session
 from hiking.utils import SlimDateRange
 

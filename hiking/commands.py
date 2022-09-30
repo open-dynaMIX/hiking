@@ -3,6 +3,7 @@ from typing import List, Tuple
 
 from rich import box
 from rich.markdown import Markdown
+from rich.prompt import Confirm
 from rich.table import Table
 
 from hiking.collection import HikeCollection
@@ -85,7 +86,7 @@ def command_create_edit(pk: int = None, gpx: str = None):
     hike = session.query(Hike).get(pk) if pk else Hike()
 
     if not hike:
-        print("No hike found with provided ID")
+        console.print("No hike found with provided ID")
         return
 
     if gpx:
@@ -102,12 +103,12 @@ def command_create_edit(pk: int = None, gpx: str = None):
     print_detail_stats(stats)
 
     try:
-        confirmation = input("Should this hike be written to the DB? Y/n: ")
+        confirmation = Confirm.ask("Should this hike be written to the DB?")
     except (KeyboardInterrupt, EOFError):
         return
 
-    if confirmation.lower() not in ["y", "j"]:
-        print("Aborting")
+    if not confirmation:
+        console.print("Aborting")
         return
 
     hike.save()
@@ -118,13 +119,13 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
     if not all:
         query = session.query(Hike).filter(Hike.id.in_(ids))
     if not query.first():
-        print("No hikes found with provided ID(s)")
+        console.print("No hikes found with provided ID(s)")
         return
     elif query.count() < len(ids):
         raise HikingException("Invalid ID(s) provided")
 
     if not quiet:
-        print("This action will delete following hikes:\n")
+        console.print("This action will delete following hikes:\n")
         table = get_table(
             HikeCollection(hikes=query, session=session),
             ("date", False),
@@ -134,12 +135,12 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
 
     if not force:
         try:
-            confirmation = input("\nAre you sure you want them deleted? Y/n: ")
+            confirmation = Confirm.ask("Are you sure you want them deleted?")
         except (KeyboardInterrupt, EOFError):
             return
 
-        if confirmation.lower() not in ["y", "j"]:
-            print("Aborting")
+        if not confirmation:
+            console.print("Aborting")
             return
 
     for hike in query:
@@ -171,12 +172,12 @@ def command_show(
     plot_params: Tuple[str, str],
 ) -> None:
     if not session.query(Hike).first():
-        print('No hikes in DB. Add some hikes with "create" or "import"')
+        console.print('No hikes in DB. Add some hikes with "create" or "import"')
         return
 
     collection = get_collection(ids, daterange)
     if not collection.hikes.first():
-        print("No hikes found")
+        console.print("No hikes found")
         return
 
     if len(ids) != 1:
@@ -199,4 +200,4 @@ def command_show(
 
     if plot_params:
         plot_params = draw_plot(collection, plot_params[0], plot_params[1])
-        print(plot_params)
+        console.print(plot_params)

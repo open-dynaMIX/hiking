@@ -11,7 +11,7 @@ from hiking.db_utils import get_collection, get_filtered_query
 from hiking.exceptions import HikingException
 from hiking.gpx import get_elevation_profile
 from hiking.import_export import json_exporter, json_importer
-from hiking.interactivity import user_create_edit_interaction
+from hiking.interactivity import display_gpx, user_create_edit_interaction
 from hiking.models import Hike, session
 from hiking.plot import plot
 from hiking.utils import DEFAULT_BOX_STYLE, SlimDateRange, console
@@ -197,6 +197,9 @@ def command_show(
             console.print()
 
         print(get_elevation_profile(hike))
+
+        console.print()
+        display_gpx(hike.gpx_xml)
 
     if plot_params:
         plot_params = draw_plot(collection, plot_params[0], plot_params[1])

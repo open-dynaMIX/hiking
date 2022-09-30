@@ -2,30 +2,59 @@ import datetime
 import sys
 import tempfile
 from pathlib import Path
+from shutil import which
 from subprocess import call
 from typing import Union
 
 import gpxpy
-from rich.prompt import FloatPrompt, IntPrompt, Prompt
+from rich.prompt import Confirm, FloatPrompt, IntPrompt, Prompt
 
 from hiking.models import Hike
-from hiking.utils import EDITOR
+from hiking.utils import EDITOR, GPX_VIEWER, console
+
+
+def call_external_command(
+    command: str, initial_content: str = None, return_content: bool = False
+):
+    with tempfile.NamedTemporaryFile(
+        suffix=".gpx", mode="w+" if return_content else "w"
+    ) as tf:
+        if initial_content:
+            tf.write(initial_content)
+            tf.flush()
+        call([command, tf.name])
+
+        if return_content:
+            tf.seek(0)
+            new_content = tf.read()
+            return new_content
+
+
+def display_gpx(gpx_xml: str):
+    if not which(GPX_VIEWER):
+        console.print("GPXSee not found. Install it to view your gpx")
+        return
+
+    try:
+        confirmation = Confirm.ask("Open external GPX-viewer?")
+    except (KeyboardInterrupt, EOFError):
+        return
+
+    if not confirmation:
+        print("Aborting")
+        return
+    call_external_command("/usr/bin/gpxsee", initial_content=gpx_xml)
 
 
 def editor_input(initial_text: Union[str, None] = None):
-    with tempfile.NamedTemporaryFile(suffix=".tmp", mode="w+") as tf:
-        if initial_text:
-            tf.write(initial_text)
-            tf.flush()
-        call([EDITOR, tf.name])
+    edited_text = call_external_command(
+        EDITOR, initial_content=initial_text, return_content=True
+    )
 
-        tf.seek(0)
-        edited_text = tf.read()
-
-    edit_strip_init = (
+    edit_strip_changes = (
         edited_text.replace(initial_text, "") if initial_text else edited_text
     )
-    if not edit_strip_init or edit_strip_init.isspace():
+    if not edit_strip_changes or edit_strip_changes.isspace():
         return None
     return edited_text
 

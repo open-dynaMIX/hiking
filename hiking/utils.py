@@ -15,6 +15,7 @@ DATA_HOME = (
 
 DB_PATH = DATA_HOME / "hikes.sqlite"
 EDITOR = os.environ.get("EDITOR", "vi")
+GPX_VIEWER = "/usr/bin/gpxsee"
 DEFAULT_BOX_STYLE = box.HORIZONTALS
 console = Console()
 

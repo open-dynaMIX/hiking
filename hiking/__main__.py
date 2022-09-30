@@ -8,7 +8,7 @@ from hiking.arg_parsing import parse_arguments
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.import_export import JSON_IMPORT_EXAMPLE
 from hiking.models import init_db
-from hiking.utils import DATA_HOME
+from hiking.utils import DATA_HOME, console
 
 
 def main():
@@ -37,10 +37,12 @@ def main():
                 commands.command_export(args.export_dir, args.ids, args.daterange)
 
     except HikingJsonLoaderException as e:
-        print(f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n")
-        print(JSON_IMPORT_EXAMPLE)
+        console.print(f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n")
+        console.print(JSON_IMPORT_EXAMPLE)
     except HikingException as e:
-        print(f"Error: {e}")
+        console.print(f"Error: {e}")
+    except (KeyboardInterrupt, EOFError):
+        sys.exit(0)
 
 
 if __name__ == "__main__":  # pragma: no cover

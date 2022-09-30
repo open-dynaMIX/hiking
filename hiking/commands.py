@@ -102,10 +102,7 @@ def command_create_edit(pk: int = None, gpx: str = None):
 
     print_detail_stats(stats)
 
-    try:
-        confirmation = Confirm.ask("Should this hike be written to the DB?")
-    except (KeyboardInterrupt, EOFError):
-        return
+    confirmation = Confirm.ask("Should this hike be written to the DB?")
 
     if not confirmation:
         console.print("Aborting")
@@ -134,10 +131,7 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
         console.print(table)
 
     if not force:
-        try:
-            confirmation = Confirm.ask("Are you sure you want them deleted?")
-        except (KeyboardInterrupt, EOFError):
-            return
+        confirmation = Confirm.ask("Are you sure you want them deleted?")
 
         if not confirmation:
             console.print("Aborting")

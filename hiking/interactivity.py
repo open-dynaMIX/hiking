@@ -1,5 +1,4 @@
 import datetime
-import sys
 import tempfile
 from pathlib import Path
 from shutil import which
@@ -35,10 +34,7 @@ def display_gpx(gpx_xml: str):
         console.print("GPXSee not found. Install it to view your gpx")
         return
 
-    try:
-        confirmation = Confirm.ask("Open external GPX-viewer?")
-    except (KeyboardInterrupt, EOFError):
-        return
+    confirmation = Confirm.ask("Open external GPX-viewer?")
 
     if not confirmation:
         print("Aborting")
@@ -71,12 +67,9 @@ def single_interaction(attr: str, attr_config: dict, hike: Hike):
 
     while True:
         if not use_editor:
-            try:
-                user_input = prompt_class.ask(
-                    prompt, default=default, show_default=show_default
-                )
-            except (KeyboardInterrupt, EOFError):
-                sys.exit(0)
+            user_input = prompt_class.ask(
+                prompt, default=default, show_default=show_default
+            )
         else:
             user_input = editor_input(default)
 

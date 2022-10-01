@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import logging
 import sys
 
 from hiking import commands
@@ -8,7 +8,9 @@ from hiking.arg_parsing import parse_arguments
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.import_export import JSON_IMPORT_EXAMPLE
 from hiking.models import init_db
-from hiking.utils import DATA_HOME, console
+from hiking.utils import DATA_HOME
+
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -37,10 +39,12 @@ def main():
                 commands.command_export(args.export_dir, args.ids, args.daterange)
 
     except HikingJsonLoaderException as e:
-        console.print(f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n")
-        console.print(JSON_IMPORT_EXAMPLE)
+        logger.warning(
+            f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n"
+        )
+        logger.warning(JSON_IMPORT_EXAMPLE)
     except HikingException as e:
-        console.print(f"Error: {e}")
+        logger.error(f"Error: {e}")
     except (KeyboardInterrupt, EOFError):
         sys.exit(0)
 

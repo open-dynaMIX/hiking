@@ -105,7 +105,7 @@ def command_create_edit(pk: int = None, gpx: str = None):
     confirmation = Confirm.ask("Should this hike be written to the DB?")
 
     if not confirmation:
-        console.print("Aborting")
+        print("Aborting")
         return
 
     hike.save()
@@ -134,7 +134,7 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
         confirmation = Confirm.ask("Are you sure you want them deleted?")
 
         if not confirmation:
-            console.print("Aborting")
+            print("Aborting")
             return
 
     for hike in query:

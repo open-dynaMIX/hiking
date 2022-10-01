@@ -2,10 +2,10 @@ import datetime
 from dataclasses import dataclass
 from typing import List, Tuple, Union
 
-from sqlalchemy import Interval, desc, func
+from sqlalchemy import Interval, func
 from sqlalchemy.orm import Query, Session
 
-from hiking.models import Hike, Hike as HikeModel, session
+from hiking.models import Hike, session
 from hiking.utils import format_value
 
 
@@ -65,10 +65,6 @@ class HikeCollection:
         )
         return result
 
-    def longest_name_count(self) -> int:
-        longest = self.hikes.order_by(desc(func.length(HikeModel.name))).first()
-        return len(longest.name)
-
     def get_hikes_stats(self, order_params: Tuple[str, bool]) -> List[List[str]]:
         order = getattr(Hike, order_params[0])
         if order_params[1]:
@@ -79,18 +75,6 @@ class HikeCollection:
     def calc_and_format_value(self, calc: str, attr: str) -> str:
         result = getattr(self, calc)(attr)
         return format_value(result, attr)
-
-    def get_divider(self) -> List[str]:
-        return [
-            "=" * (2 + len(self.calc_and_format_value("max", "id"))),
-            "=" * 10,
-            "=" * self.longest_name_count(),
-            "=" * (3 + len(self.calc_and_format_value("sum", "distance"))),
-            "=" * (3 + len(self.calc_and_format_value("sum", "elevation_gain"))),
-            "=" * (3 + len(self.calc_and_format_value("sum", "elevation_loss"))),
-            "=" * (3 + len(self.calc_and_format_value("sum", "duration"))),
-            "=" * (3 + len(self.calc_and_format_value("max", "speed"))),
-        ]
 
     def get_totals(self) -> List[str]:
         def get_summary_cell(attr: str, supported_calculations: List[str]):
@@ -130,8 +114,7 @@ class HikeCollection:
 
         footer = None
         if add_totals and len(stats) > 1:
-            # Only add stats if more than one hike is present
-            # result.append(self.get_divider())
+            # Only add totals if more than one hike is present
             footer = self.get_totals()
 
         return result, footer

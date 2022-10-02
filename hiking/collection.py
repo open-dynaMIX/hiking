@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import List, Tuple, Union
 
 from sqlalchemy import Interval, func
-from sqlalchemy.orm import Query, Session
+from sqlalchemy.orm import Query
 
 from hiking.models import Hike, session
 from hiking.utils import format_value
@@ -12,7 +12,6 @@ from hiking.utils import format_value
 @dataclass
 class HikeCollection:
     hikes: Query
-    session: Session
 
     def get_hikes_attr_list(
         self, attr: str

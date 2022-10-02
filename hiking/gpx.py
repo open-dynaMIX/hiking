@@ -4,7 +4,7 @@ from geopy.distance import distance
 
 from hiking.plot import plot
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from models import Hike
 
 

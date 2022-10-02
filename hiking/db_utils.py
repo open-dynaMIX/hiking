@@ -24,5 +24,5 @@ def get_collection(
     daterange: "SlimDateRange",
 ):
     query = get_filtered_query(ids, daterange)
-    collection = HikeCollection(hikes=query, session=session)
+    collection = HikeCollection(hikes=query)
     return collection

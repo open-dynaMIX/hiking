@@ -1,5 +1,5 @@
 import datetime
-import os
+import shutil
 from decimal import Decimal
 from typing import List, Optional, Union
 
@@ -50,7 +50,7 @@ def plot(
 
     # plotille only allows for setting the plot width, but will add 33 more chars
     # to its output
-    plot_width = max(os.get_terminal_size().columns - 33, 47)
+    plot_width = max(shutil.get_terminal_size((47, 20)).columns - 33, 47)
 
     fig = plotille.Figure()
     fig.y_ticks_fkt = set_yticks

@@ -1,4 +1,5 @@
 import datetime
+import os
 from typing import List
 
 import gpxpy
@@ -17,12 +18,16 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from hiking.utils import DB_PATH, format_value, pretty_timedelta
 
 Base = declarative_base()
-engine = create_engine(f"sqlite:///{str(DB_PATH.absolute())}")
+engine = create_engine(
+    f"sqlite:///{str(DB_PATH.absolute())}"
+    if not os.environ.get("HIKING_TEST")
+    else "sqlite://"  # , echo=True
+)
 Session = sessionmaker(bind=engine)
 session = Session()
 
 
-def init_db():
+def create_tables():
     Base.metadata.create_all(engine)
 
 
@@ -106,9 +111,7 @@ class Hike(Base):
 
     @property
     def speed(self):
-        if self.distance and self.duration:
-            return self.distance * 60 / (self.duration.seconds / 60)
-        return 0.0
+        return self.distance * 60 / (self.duration.seconds / 60)
 
     @property
     def gpx(self):

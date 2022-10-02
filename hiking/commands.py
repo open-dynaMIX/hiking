@@ -124,7 +124,7 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
     if not quiet:
         console.print("This action will delete following hikes:\n")
         table = get_table(
-            HikeCollection(hikes=query, session=session),
+            HikeCollection(hikes=query),
             ("date", False),
             add_totals=False,
         )

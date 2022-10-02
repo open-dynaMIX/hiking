@@ -8,5 +8,13 @@ build/
 dist/
 *.egg-info/
 
-# custom
+# hiking custom
 user_data/
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+.cache
+.pytest_cache
+coverage.xml
+*,cover

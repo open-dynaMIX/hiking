@@ -7,29 +7,6 @@ import plotille
 
 from hiking.utils import format_value, pretty_timedelta
 
-# def get_range_decimal(y: List[Decimal]) -> Tuple[float, float]:
-#     top = max(y) + 2
-#     bottom = min(y) - 2
-#     return float(top), float(bottom)
-#
-#
-# def get_range_int(y: List[int]) -> Tuple[int, int]:
-#     top = max(y) + 100
-#     bottom = min(y) - 100
-#     return top, bottom
-#
-#
-# def get_range(
-#     y: List[Union[datetime.date, Decimal, int]]
-# ) -> [Tuple[Optional[int], Optional[int]]]:
-#     range_map = {
-#         Decimal: get_range_decimal,
-#         int: get_range_int,
-#     }
-#     if type(y[0]) in range_map:
-#         return range_map[type(y[0])](y)
-#     return None, None
-
 
 def plot(
     x: List[Union[datetime.date, Decimal, int, datetime.timedelta, float]],
@@ -49,15 +26,9 @@ def plot(
     y_limit_max: Optional[
         Union[datetime.date, Decimal, int, datetime.timedelta, float]
     ] = None,
-    # label: Optional[str] = "Hiking Stats",
-    # title: Optional[str] = "Hiking Stats",
-    # extra_gnuplot_arguments: Optional[List[str]] = None,
-    # plot_command: str = "plot '-' using 1:2 notitle w point pt '@'",
-    # ticks_scale: int = 0,
 ):
     x_type = type(x[0])
     y_type = type(y[0])
-    # top, bottom = get_range(y)
 
     def handle_ticks(tick: Union[float, datetime.date], _type: type):
         if _type == datetime.timedelta and isinstance(tick, float):

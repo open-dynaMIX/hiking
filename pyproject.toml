@@ -32,6 +32,7 @@ pytest-factoryboy = "^2.5.0"
 pytest-env = "^0.6.2"
 syrupy = "^3.0.2"
 pytest-cov = "^4.0.0"
+pytest-mock = "^3.9.0"
 
 [tool.isort]
 known_first_party = ["hiking"]

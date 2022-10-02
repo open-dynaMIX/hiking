@@ -1,4 +1,5 @@
 import datetime
+import sys
 from pathlib import Path
 
 import pytest
@@ -70,3 +71,10 @@ def collection(hike_factory):
     )
 
     return HikeCollection(session.query(Hike))
+
+
+@pytest.fixture
+def sys_argv():
+    old_sys_argv = sys.argv
+    yield sys.argv
+    sys.argv = old_sys_argv

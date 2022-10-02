@@ -9,7 +9,7 @@ from hiking.exceptions import HikingJsonLoaderException
 from hiking.models import Hike, session
 
 
-def validate_json_obj(hike_data):
+def validate_json_obj(hike_data: dict):
     expected_fields = {
         "name",
         "date",
@@ -19,8 +19,8 @@ def validate_json_obj(hike_data):
         "duration",
         "gpx_file",
     }
-    fields_not_present = expected_fields - set(hike_data.keys())
-    fields_unknown = set(hike_data.keys()) - expected_fields
+    fields_not_present = sorted(expected_fields - set(hike_data.keys()))
+    fields_unknown = sorted(set(hike_data.keys()) - expected_fields)
 
     if fields_not_present or fields_unknown:
         msg = "Invalid JSON data:"

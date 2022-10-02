@@ -116,8 +116,7 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
     if not all:
         query = session.query(Hike).filter(Hike.id.in_(ids))
     if not query.first():
-        console.print("No hikes found with provided ID(s)")
-        return
+        raise HikingException("No hikes found with provided ID(s)")
     elif query.count() < len(ids):
         raise HikingException("Invalid ID(s) provided")
 

@@ -40,12 +40,11 @@ def main():
 
     except HikingJsonLoaderException as e:
         logger.warning(
-            f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n"
+            f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n{JSON_IMPORT_EXAMPLE}"
         )
-        logger.warning(JSON_IMPORT_EXAMPLE)
     except HikingException as e:
         logger.error(f"Error: {e}")
-    except (KeyboardInterrupt, EOFError):
+    except (KeyboardInterrupt, EOFError):  # pragma: no cover
         sys.exit(0)
 
 

@@ -27,7 +27,7 @@ class HikeCollection:
             if is_interval:
                 return sum(attr_list, datetime.timedelta())
 
-            return sum(attr_list)
+            return sum(attr_list)  # pragma: no cover
 
         result = session.query(func.sum(getattr(Hike, attr))).first()[0]
         return result

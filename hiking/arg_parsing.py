@@ -345,6 +345,13 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         default=SlimDateRange(datetime.date.min, datetime.date.max),
     )
 
+    export.add_argument(
+        "-i",
+        "--include-ids",
+        help='Include IDs in export. Needed for "update", must be omitted for "create"',
+        action="store_true",
+    )
+
     set_default_subparser(parser, "show", raw_args)
 
     args = parser.parse_args(raw_args)

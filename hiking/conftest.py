@@ -1,5 +1,7 @@
 import datetime
+import json
 import sys
+import tempfile
 from pathlib import Path
 
 import pytest
@@ -11,6 +13,7 @@ from hiking.models import Hike, create_tables, engine, session
 
 OWN_DIR = Path(__file__).resolve().parent
 GPX_TEST_FILE = OWN_DIR / "tests" / "data" / "test.gpx"
+JSON_IMPORT_FILE = OWN_DIR / "tests" / "data" / "test_import.json"
 
 
 register(factories.HikeFactory)
@@ -41,6 +44,19 @@ def gpx_xml():
 @pytest.fixture
 def gpx_file():
     return GPX_TEST_FILE
+
+
+@pytest.fixture
+def import_json():
+    with JSON_IMPORT_FILE.open("r") as f:
+        data = json.loads(f.read())
+    return data
+
+
+@pytest.fixture
+def export_dir():
+    with tempfile.TemporaryDirectory() as temp_dir:
+        yield temp_dir
 
 
 @pytest.fixture

@@ -1,9 +1,11 @@
 import datetime
 import json
 from pathlib import Path
+from typing import List
 
 import gpxpy
 import sqlalchemy.orm
+from gpxpy.gpx import GPXException
 
 from hiking.exceptions import HikingJsonLoaderException
 from hiking.models import Hike, session
@@ -22,7 +24,10 @@ def validate_json_obj(hike_data: dict):
     fields_not_present = sorted(expected_fields - set(hike_data.keys()))
     fields_unknown = sorted(set(hike_data.keys()) - expected_fields)
 
-    if fields_not_present or fields_unknown:
+    if fields_not_present or (
+        fields_unknown
+        and sorted(fields_unknown) not in [["id"], ["body"], ["body", "id"]]
+    ):
         msg = "Invalid JSON data:"
         if fields_not_present:
             msg = f"{msg}\nMissing fields: {', '.join(fields_not_present)}"
@@ -31,7 +36,9 @@ def validate_json_obj(hike_data: dict):
         raise HikingJsonLoaderException(msg)
 
 
-def json_importer(json_data: dict):
+def json_importer(json_data: List[dict]):
+    to_add = []
+    to_merge = []
     for raw_hike in json_data:
         validate_json_obj(raw_hike)
 
@@ -53,28 +60,31 @@ def json_importer(json_data: dict):
                 )
             with gpx_file.open("r") as f:
                 gpx_xml = f.read()
-            assert gpxpy.parse(gpx_xml)
+            try:
+                gpxpy.parse(gpx_xml)
+            except GPXException as e:
+                raise HikingJsonLoaderException(e.args[0])
+
             raw_hike["gpx_xml"] = gpx_xml
         raw_hike.pop("gpx_file")
-        hike = Hike(**raw_hike)
-        session_method = "add"
-        if hike.id and not isinstance(hike.id, int):
-            raise HikingJsonLoaderException(
-                f'*.gpx file "{raw_hike["gpx_file"]}" not found'
-            )
-        elif hike.id:
-            session_method = "merge"
 
-        getattr(session, session_method)(hike)
+        append_to = to_add
+        if raw_hike.get("id") is not None:
+            append_to = to_merge
+        append_to.append(raw_hike)
+
+    session.bulk_insert_mappings(Hike, to_add)
+    session.bulk_update_mappings(Hike, to_merge)
     session.commit()
 
 
-def json_exporter(query: sqlalchemy.orm.Query, export_dir: Path):
+def json_exporter(
+    query: sqlalchemy.orm.Query, export_dir: Path, include_ids: bool = False
+):
     data = []
     gpx_dir = export_dir / "gpx"
     for hike in query:
         hike_data = {
-            "id": hike.id,
             "name": hike.name,
             "body": hike.body,
             "date": str(hike.date),
@@ -84,6 +94,9 @@ def json_exporter(query: sqlalchemy.orm.Query, export_dir: Path):
             "duration": round(hike.duration.total_seconds() / 60),
             "gpx_file": None,
         }
+        if include_ids:
+            hike_data["id"] = hike.id
+
         if hike.gpx_xml:
             gpx_dir.mkdir(exist_ok=True)
             gpx_file = gpx_dir / f"{str(hike.id)}.gpx"

@@ -139,13 +139,15 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
         hike.delete()
 
 
-def command_import(json_data: dict):
+def command_import(json_data: List[dict]):
     json_importer(json_data)
 
 
-def command_export(export_dir: Path, ids: List[int], daterange: "SlimDateRange"):
+def command_export(
+    export_dir: Path, ids: List[int], daterange: "SlimDateRange", include_ids: bool
+):
     query = get_filtered_query(ids, daterange)
-    json_exporter(query, export_dir)
+    json_exporter(query, export_dir, include_ids)
 
 
 def print_detail_stats(stats: dict, table_style: box = DEFAULT_BOX_STYLE):

@@ -22,6 +22,7 @@ ArgsMock = namedtuple(
         "plot",
         "gpx",
         "export_dir",
+        "include_ids",
     ],
     defaults=(None,) * 13,
 )

@@ -36,7 +36,9 @@ def main():
             case "import":
                 commands.command_import(args.json_data)
             case "export":
-                commands.command_export(args.export_dir, args.ids, args.daterange)
+                commands.command_export(
+                    args.export_dir, args.ids, args.daterange, args.include_ids
+                )
 
     except HikingJsonLoaderException as e:
         logger.warning(

@@ -116,3 +116,112 @@
   
   '''
 # ---
+# name: test_command_export_with_ids
+  list([
+    dict({
+      'body': '# Foo Hike',
+      'date': '1984-09-22',
+      'distance': 10.5,
+      'duration': 134,
+      'elevation_gain': 2040,
+      'elevation_loss': 2028,
+      'gpx_file': None,
+      'id': 1,
+      'name': 'Foo Hike',
+    }),
+    dict({
+      'body': '# Bar Hike',
+      'date': '1984-09-23',
+      'distance': 15.4,
+      'duration': 228,
+      'elevation_gain': 240,
+      'elevation_loss': 228,
+      'gpx_file': None,
+      'id': 2,
+      'name': 'Bar Hike',
+    }),
+    dict({
+      'body': '# Baz Hike',
+      'date': '1984-09-24',
+      'distance': 34.0,
+      'duration': 497,
+      'elevation_gain': 867,
+      'elevation_loss': 947,
+      'gpx_file': None,
+      'id': 3,
+      'name': 'Baz Hike',
+    }),
+  ])
+# ---
+# name: test_command_import
+  list([
+    '1',
+    '1970-01-01',
+    'endorsement hike',
+    '5.0',
+    '298',
+    '298',
+    '01:15',
+    '4.00',
+  ])
+# ---
+# name: test_command_import.1
+  list([
+    '2',
+    '1970-01-02',
+    'abnegation hike',
+    '5.0',
+    '298',
+    '298',
+    '01:15',
+    '4.00',
+  ])
+# ---
+# name: test_command_import.2
+  list([
+    '3',
+    '1970-01-03',
+    'depositor hike',
+    '7.4',
+    '1029',
+    '54',
+    '02:45',
+    '2.69',
+  ])
+# ---
+# name: test_command_import.3
+  list([
+    '4',
+    '1970-01-04',
+    "adrenaline's hike",
+    '6.6',
+    '420',
+    '420',
+    '02:00',
+    '3.30',
+  ])
+# ---
+# name: test_command_import.4
+  list([
+    '5',
+    '1970-01-05',
+    "shooter's hike",
+    '5.0',
+    '288',
+    '288',
+    '01:50',
+    '2.73',
+  ])
+# ---
+# name: test_command_import_update
+  list([
+    '1',
+    '2022-02-26',
+    'abnegation hike',
+    '5.0',
+    '298',
+    '298',
+    '01:15',
+    '4.00',
+  ])
+# ---

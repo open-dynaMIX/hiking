@@ -3,13 +3,14 @@ import itertools
 import json
 import tempfile
 from pathlib import Path
+from shutil import which
 
 import pytest
 
 from hiking import commands, interactivity
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.models import Hike, session
-from hiking.utils import SlimDateRange
+from hiking.utils import DEFAULT_BOX_STYLE, SlimDateRange
 
 itertools.product()
 
@@ -37,7 +38,7 @@ def test_command_create_edit(
         with Path(command[1]).open("w") as f:
             f.write("# My awesome hike\nLorem ipsum\n")
 
-    mocker.patch.object(interactivity.Confirm, "ask", return_value=do_write)
+    mocker.patch.object(commands.Confirm, "ask", return_value=do_write)
     mocker.patch.object(interactivity.FloatPrompt, "ask", return_value=23.5)
     mocker.patch.object(
         interactivity.IntPrompt,
@@ -260,3 +261,53 @@ def test_command_export_with_ids(snapshot, collection, export_dir):
         data = json.loads(f.read())
 
     assert data == snapshot
+
+
+@pytest.mark.parametrize(
+    "has_gpx, open_external_viewer, has_gpx_viewer",
+    [
+        (False, False, False),
+        (True, False, False),
+        (True, True, False),
+        (True, True, True),
+        (True, False, True),
+    ],
+)
+def test_command_show_detail(
+    mocker,
+    monkeypatch,
+    capsys,
+    snapshot,
+    known_hike,
+    gpx_xml,
+    has_gpx,
+    open_external_viewer,
+    has_gpx_viewer,
+):
+    # Using `cat` here, just to be sure to get the path to some executable.
+    # It will never be called, because of the mock one line below.
+    monkeypatch.setattr(
+        interactivity,
+        "GPX_VIEWER",
+        which("cat") if has_gpx_viewer else "not a path",
+    )
+    viewer_mock = mocker.patch.object(interactivity, "call")
+    mocker.patch.object(interactivity.Confirm, "ask", return_value=open_external_viewer)
+    if has_gpx:
+        known_hike.gpx_xml = gpx_xml
+        known_hike.save()
+
+    commands.command_show(
+        [known_hike.id],
+        SlimDateRange(datetime.date.min, datetime.date.max),
+        DEFAULT_BOX_STYLE,
+        ("date", False),
+        tuple(),
+    )
+
+    if has_gpx and open_external_viewer and has_gpx_viewer:
+        viewer_mock.assert_called_once()
+
+    captured = capsys.readouterr()[0]
+
+    assert captured == snapshot

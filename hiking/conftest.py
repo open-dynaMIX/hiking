@@ -95,6 +95,19 @@ def collection(hike_factory):
 
 
 @pytest.fixture
+def known_hike(hike_factory):
+    return hike_factory(
+        date=datetime.date(1984, 9, 23),
+        name="Foo Bar Hike",
+        body="# Foo Bar Hike\n\nMy awesome journey...",
+        distance=20.7,
+        elevation_gain=2040,
+        elevation_loss=2028,
+        duration=datetime.timedelta(minutes=434),
+    )
+
+
+@pytest.fixture
 def sys_argv():
     old_sys_argv = sys.argv
     yield sys.argv

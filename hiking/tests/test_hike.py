@@ -7,26 +7,18 @@ from hiking.gpx import get_elevation_profile
 from hiking.models import Hike, session
 
 
-def test_hike(hike_factory, snapshot):
-    hike = hike_factory(
-        date=datetime.date(1984, 9, 23),
-        name="Foo Bar Hike",
-        distance=20.7,
-        elevation_gain=2040,
-        elevation_loss=2028,
-        duration=datetime.timedelta(minutes=434),
-    )
-    assert hike.speed == 2.8617511520737327
-    assert hike.get_pretty_value("speed") == "2.86"
+def test_hike(known_hike, snapshot):
+    assert known_hike.speed == 2.8617511520737327
+    assert known_hike.get_pretty_value("speed") == "2.86"
 
-    assert hike.get_stats() == snapshot
-    assert hike.get_detail_stats() == snapshot
+    assert known_hike.get_stats() == snapshot
+    assert known_hike.get_detail_stats() == snapshot
 
     query = session.query(Hike)
     assert query.count() == 1
-    assert session.query(Hike).first().name == hike.name
-    hike.name = "new name"
-    hike.save()
+    assert session.query(Hike).first().name == known_hike.name
+    known_hike.name = "new name"
+    known_hike.save()
     assert session.query(Hike).first().name == "new name"
 
 

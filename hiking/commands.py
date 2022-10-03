@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from rich import box
 from rich.markdown import Markdown
@@ -158,12 +158,31 @@ def print_detail_stats(stats: dict, table_style: box = DEFAULT_BOX_STYLE):
     console.print(table)
 
 
+def detail_view(collection: HikeCollection):
+    hike = collection.hikes.first()
+    stats = hike.get_detail_stats()
+
+    print_detail_stats(stats)
+    console.print()
+
+    md = Markdown(hike.body or "")
+    if md:
+        console.print(md)
+        console.print()
+
+    print(get_elevation_profile(hike))
+
+    console.print()
+    if hike.gpx_xml:
+        display_gpx(hike.gpx_xml)
+
+
 def command_show(
     ids: List[int],
     daterange: "SlimDateRange",
     table_style: box,
     order_params: Tuple[str, bool],
-    plot_params: Tuple[str, str],
+    plot_params: Tuple[Optional[str], Optional[str]],
 ) -> None:
     if not session.query(Hike).first():
         console.print('No hikes in DB. Add some hikes with "create" or "import"')
@@ -179,21 +198,7 @@ def command_show(
         console.print(table)
 
     if len(ids) == 1:
-        hike = collection.hikes.first()
-        stats = hike.get_detail_stats()
-
-        print_detail_stats(stats, table_style)
-        console.print()
-
-        md = Markdown(hike.body or "")
-        if md:
-            console.print(md)
-            console.print()
-
-        print(get_elevation_profile(hike))
-
-        console.print()
-        display_gpx(hike.gpx_xml)
+        detail_view(collection)
 
     if plot_params:
         plot_params = draw_plot(collection, plot_params[0], plot_params[1])

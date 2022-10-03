@@ -39,6 +39,11 @@ def gpx_xml():
 
 
 @pytest.fixture
+def gpx_file():
+    return GPX_TEST_FILE
+
+
+@pytest.fixture
 def collection(hike_factory):
     hike_factory(
         date=datetime.date(1984, 9, 22),

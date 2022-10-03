@@ -83,11 +83,10 @@ def command_create_edit(pk: int = None, gpx: str = None):
 
     If `pk` is provided, `edit` will be performed.
     """
-    hike = session.query(Hike).get(pk) if pk else Hike()
+    hike = session.query(Hike).get(pk) if pk is not None else Hike()
 
     if not hike:
-        console.print("No hike found with provided ID")
-        return
+        raise HikingException("No hike found with provided ID")
 
     if gpx:
         hike.load_gpx(gpx)
@@ -104,7 +103,7 @@ def command_create_edit(pk: int = None, gpx: str = None):
 
     confirmation = Confirm.ask("Should this hike be written to the DB?")
 
-    if not confirmation:
+    if not confirmation:  # pragma: no cover
         print("Aborting")
         return
 

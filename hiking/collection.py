@@ -65,6 +65,12 @@ class HikeCollection:
         return result
 
     def get_hikes_stats(self, order_params: Tuple[str, bool]) -> List[List[str]]:
+        if order_params[0] == "speed":
+            hike_list = sorted(
+                self.hikes.all(), key=lambda x: x.speed, reverse=order_params[1]
+            )
+            return [hike.get_stats() for hike in hike_list]
+
         order = getattr(Hike, order_params[0])
         if order_params[1]:
             order = order.desc()

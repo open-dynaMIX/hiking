@@ -73,7 +73,7 @@ def draw_plot(
         y=y,
         xlabel=Hike.FIELD_PROPS[x_attr]["pretty_name"],
         ylabel=Hike.FIELD_PROPS[y_attr]["pretty_name"],
-        x_limit_min=1,
+        x_limit_min=1 if not x_attr == "date" else None,
     )
 
 
@@ -185,13 +185,13 @@ def command_show(
     plot_params: Tuple[Optional[str], Optional[str]],
 ) -> None:
     if not session.query(Hike).first():
-        console.print('No hikes in DB. Add some hikes with "create" or "import"')
-        return
+        raise HikingException(
+            'No hikes in DB. Add some hikes with "create" or "import"'
+        )
 
     collection = get_collection(ids, daterange)
     if not collection.hikes.first():
-        console.print("No hikes found")
-        return
+        raise HikingException("No hikes found with given parameters")
 
     if len(ids) != 1:
         table = get_table(collection, order_params, table_style)

@@ -6,6 +6,7 @@ from pathlib import Path
 from shutil import which
 
 import pytest
+from rich import box
 
 from hiking import commands, interactivity
 from hiking.exceptions import HikingException, HikingJsonLoaderException
@@ -311,3 +312,92 @@ def test_command_show_detail(
     captured = capsys.readouterr()[0]
 
     assert captured == snapshot
+
+
+@pytest.mark.parametrize(
+    "order_param, reverse, daterange, table_style, plot_params",
+    [
+        (
+            "date",
+            False,
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            DEFAULT_BOX_STYLE,
+            tuple(),
+        ),
+        (
+            "date",
+            True,
+            SlimDateRange(datetime.date(1984, 9, 22), datetime.date(1984, 9, 23)),
+            DEFAULT_BOX_STYLE,
+            tuple(),
+        ),
+        (
+            "distance",
+            True,
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            box.DOUBLE,
+            tuple(),
+        ),
+        (
+            "elevation_gain",
+            False,
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            box.DOUBLE,
+            tuple(),
+        ),
+        (
+            "speed",
+            True,
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            DEFAULT_BOX_STYLE,
+            ("date", "distance"),
+        ),
+    ],
+)
+def test_command_show_list(
+    capsys,
+    snapshot,
+    collection,
+    order_param,
+    reverse,
+    daterange,
+    table_style,
+    plot_params,
+):
+    commands.command_show(
+        [],
+        daterange,
+        table_style,
+        (order_param, reverse),
+        plot_params,
+    )
+
+    captured = capsys.readouterr()[0]
+
+    assert captured == snapshot
+
+
+def test_command_show_no_hikes():
+    with pytest.raises(HikingException) as e:
+        commands.command_show(
+            [],
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            DEFAULT_BOX_STYLE,
+            tuple(),
+            tuple(),
+        )
+
+    assert e.value.args[0] == 'No hikes in DB. Add some hikes with "create" or "import"'
+
+
+def test_command_show_no_hikes_with_params(hike):
+    with pytest.raises(HikingException) as e:
+        commands.command_show(
+            [hike.id + 1],  # no hike with this ID
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            DEFAULT_BOX_STYLE,
+            tuple(),
+            tuple(),
+        )
+
+    assert e.value.args[0] == "No hikes found with given parameters"

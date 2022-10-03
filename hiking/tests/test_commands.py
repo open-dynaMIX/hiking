@@ -94,3 +94,47 @@ def test_command_create_edit_invalid_id():
     with pytest.raises(HikingException) as e:
         commands.command_create_edit(pk=23)
     assert e.value.args[0] == "No hike found with provided ID"
+
+
+@pytest.mark.parametrize("all", [True, False])
+@pytest.mark.parametrize("force", [True, False])
+@pytest.mark.parametrize("quiet", [True, False])
+@pytest.mark.parametrize("do_write", [True, False])
+def test_command_delete(
+    snapshot, mocker, collection, capsys, all, force, quiet, do_write
+):
+    hikes = collection.hikes.all()
+    assert session.query(Hike).count() == 3
+
+    if not force:
+        mocker.patch.object(interactivity.Confirm, "ask", return_value=do_write)
+
+    commands.command_delete(
+        ids=[hikes[0].id, hikes[1].id], all=all, force=force, quiet=quiet
+    )
+
+    if not quiet:
+        captured = capsys.readouterr()[0]
+        assert captured == snapshot
+
+    if force or do_write:
+        if all:
+            assert session.query(Hike).count() == 0
+            return
+        assert session.query(Hike).count() == 1
+        assert session.query(Hike).first() == hikes[2]
+    elif not force and not do_write:
+        assert session.query(Hike).count() == 3
+
+
+def test_command_delete_failure(collection):
+    hikes = collection.hikes.all()
+    with pytest.raises(HikingException) as e:
+        commands.command_delete(
+            ids=[hikes[0].id, hikes[1].id, 23], all=False, force=False, quiet=False
+        )
+    assert e.value.args[0] == "Invalid ID(s) provided"
+
+    with pytest.raises(HikingException) as e:
+        commands.command_delete(ids=[23, 24], all=False, force=False, quiet=False)
+    assert e.value.args[0] == "No hikes found with provided ID(s)"

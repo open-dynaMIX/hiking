@@ -32,6 +32,8 @@ pytest-env = "^0.6.2"
 syrupy = "^3.0.2"
 pytest-cov = "^4.0.0"
 pytest-mock = "^3.10.0"
+pre-commit = "^2.20.0"
+gitlint = "^0.17.0"
 
 [tool.isort]
 known_first_party = ["hiking"]

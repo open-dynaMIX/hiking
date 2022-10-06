@@ -10,9 +10,9 @@ packages = [{include = "hiking"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 gpxpy = "^1.5.0"
-sqlalchemy = "^1.4.41"
+SQLAlchemy = "^1.4.41"
 plotille = "^4.0.2"
-rich = "^12.5.1"
+rich = "^12.6.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.8.0"
@@ -31,7 +31,7 @@ pytest-factoryboy = "^2.5.0"
 pytest-env = "^0.6.2"
 syrupy = "^3.0.2"
 pytest-cov = "^4.0.0"
-pytest-mock = "^3.9.0"
+pytest-mock = "^3.10.0"
 
 [tool.isort]
 known_first_party = ["hiking"]

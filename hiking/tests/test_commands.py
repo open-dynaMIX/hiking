@@ -147,9 +147,9 @@ def test_command_delete_failure(collection):
     assert e.value.args[0] == "No hikes found with provided ID(s)"
 
 
-def test_command_import(snapshot, import_json):
+def test_command_import(snapshot, json_import_data):
     assert session.query(Hike).count() == 0
-    commands.command_import(import_json)
+    commands.command_import(json_import_data)
     assert session.query(Hike).count() == 5
 
     for hike in session.query(Hike).all():

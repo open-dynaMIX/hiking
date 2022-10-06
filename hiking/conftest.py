@@ -48,10 +48,15 @@ def gpx_file():
 
 
 @pytest.fixture
-def import_json():
+def json_import_data():
     with JSON_IMPORT_FILE.open("r") as f:
         data = json.loads(f.read())
     return data
+
+
+@pytest.fixture
+def json_file():
+    return JSON_IMPORT_FILE
 
 
 @pytest.fixture

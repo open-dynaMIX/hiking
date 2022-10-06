@@ -201,5 +201,5 @@ def command_show(
         detail_view(collection)
 
     if plot_params:
-        plot_params = draw_plot(collection, plot_params[0], plot_params[1])
-        console.print(plot_params)
+        plot = draw_plot(collection, plot_params[0], plot_params[1])
+        print(plot)

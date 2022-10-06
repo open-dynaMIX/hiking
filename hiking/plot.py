@@ -40,7 +40,7 @@ def plot(
         elif _type == float:
             # setting to `speed` will get the right formatting
             return format_value(tick, "speed")
-        return tick
+        return tick  # pragma: no cover
 
     def set_yticks(tick, arg2):
         return handle_ticks(tick, y_type)

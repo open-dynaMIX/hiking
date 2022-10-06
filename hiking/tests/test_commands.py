@@ -343,7 +343,7 @@ def test_command_show_detail(
             False,
             SlimDateRange(datetime.date.min, datetime.date.max),
             box.DOUBLE,
-            tuple(),
+            ("duration", "distance"),
         ),
         (
             "speed",

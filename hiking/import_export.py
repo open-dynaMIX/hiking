@@ -7,8 +7,9 @@ import gpxpy
 import sqlalchemy.orm
 from gpxpy.gpx import GPXException
 
+from hiking.db_utils import session
 from hiking.exceptions import HikingJsonLoaderException
-from hiking.models import Hike, session
+from hiking.models import Hike
 
 
 def validate_json_obj(hike_data: dict):

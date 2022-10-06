@@ -6,13 +6,13 @@ from rich.markdown import Markdown
 from rich.prompt import Confirm
 from rich.table import Table
 
-from hiking.collection import HikeCollection
-from hiking.db_utils import get_collection, get_filtered_query
+from hiking.collection import HikeCollection, get_collection
+from hiking.db_utils import session
 from hiking.exceptions import HikingException
 from hiking.gpx import get_elevation_profile
 from hiking.import_export import json_exporter, json_importer
 from hiking.interactivity import display_gpx, user_create_edit_interaction
-from hiking.models import Hike, session
+from hiking.models import Hike, get_filtered_query
 from hiking.plot import plot
 from hiking.utils import DEFAULT_BOX_STYLE, SlimDateRange, console
 

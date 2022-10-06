@@ -5,8 +5,9 @@ from typing import List, Tuple, Union
 from sqlalchemy import Interval, func
 from sqlalchemy.orm import Query
 
-from hiking.models import Hike, session
-from hiking.utils import format_value
+from hiking.db_utils import session
+from hiking.models import Hike, get_filtered_query
+from hiking.utils import SlimDateRange, format_value
 
 
 @dataclass
@@ -133,3 +134,12 @@ class HikeCollection:
 
     def __repr__(self) -> str:
         return self.__str__()
+
+
+def get_collection(
+    ids: List[int],
+    daterange: "SlimDateRange",
+):
+    query = get_filtered_query(ids, daterange)
+    collection = HikeCollection(hikes=query)
+    return collection

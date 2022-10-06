@@ -9,8 +9,9 @@ import pytest
 from rich import box
 
 from hiking import commands, interactivity
+from hiking.db_utils import session
 from hiking.exceptions import HikingException, HikingJsonLoaderException
-from hiking.models import Hike, session
+from hiking.models import Hike
 from hiking.tests.utils import ansi_escape
 from hiking.utils import DEFAULT_BOX_STYLE, SlimDateRange
 

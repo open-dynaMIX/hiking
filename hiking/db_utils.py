@@ -1,28 +1,15 @@
-from typing import List
+import os
 
-from hiking.collection import HikeCollection
-from hiking.models import Hike, session
-from hiking.utils import SlimDateRange
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 
+from hiking.utils import DB_PATH
 
-def get_filtered_query(
-    ids: List[int],
-    daterange: "SlimDateRange",
-):
-    query = (
-        session.query(Hike)
-        .filter(Hike.date >= daterange.lower)
-        .filter(Hike.date <= daterange.upper)
-    )
-    if ids:
-        query = query.filter(Hike.id.in_(ids))
-    return query
-
-
-def get_collection(
-    ids: List[int],
-    daterange: "SlimDateRange",
-):
-    query = get_filtered_query(ids, daterange)
-    collection = HikeCollection(hikes=query)
-    return collection
+Base = declarative_base()
+engine = create_engine(
+    f"sqlite:///{str(DB_PATH.absolute())}"
+    if not os.environ.get("HIKING_TEST")
+    else "sqlite://"  # , echo=True
+)
+Session = sessionmaker(bind=engine)
+session = Session()

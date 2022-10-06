@@ -1,30 +1,11 @@
 import datetime
-import os
 from typing import List
 
 import gpxpy
-from sqlalchemy import (
-    Column,
-    Date,
-    Float,
-    Integer,
-    Interval,
-    String,
-    Text,
-    create_engine,
-)
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import Column, Date, Float, Integer, Interval, String, Text
 
-from hiking.utils import DB_PATH, format_value, pretty_timedelta
-
-Base = declarative_base()
-engine = create_engine(
-    f"sqlite:///{str(DB_PATH.absolute())}"
-    if not os.environ.get("HIKING_TEST")
-    else "sqlite://"  # , echo=True
-)
-Session = sessionmaker(bind=engine)
-session = Session()
+from hiking.db_utils import Base, engine, session
+from hiking.utils import SlimDateRange, format_value, pretty_timedelta
 
 
 def create_tables():
@@ -181,3 +162,17 @@ class Hike(Base):
 
     def __repr__(self) -> str:
         return self.__str__()
+
+
+def get_filtered_query(
+    ids: List[int],
+    daterange: "SlimDateRange",
+):
+    query = (
+        session.query(Hike)
+        .filter(Hike.date >= daterange.lower)
+        .filter(Hike.date <= daterange.upper)
+    )
+    if ids:
+        query = query.filter(Hike.id.in_(ids))
+    return query

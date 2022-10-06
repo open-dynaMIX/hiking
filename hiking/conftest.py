@@ -9,7 +9,8 @@ from pytest_factoryboy.fixture import register
 
 from hiking import factories
 from hiking.collection import HikeCollection
-from hiking.models import Hike, create_tables, engine, session
+from hiking.db_utils import engine, session
+from hiking.models import Hike, create_tables
 
 OWN_DIR = Path(__file__).resolve().parent
 GPX_TEST_FILE = OWN_DIR / "tests" / "data" / "test.gpx"

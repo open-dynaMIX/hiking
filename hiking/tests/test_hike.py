@@ -3,8 +3,9 @@ import datetime
 import pytest
 from gpxpy.gpx import GPX
 
+from hiking.db_utils import session
 from hiking.gpx import get_elevation_profile
-from hiking.models import Hike, session
+from hiking.models import Hike
 
 
 def test_hike(known_hike, snapshot):

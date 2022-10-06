@@ -2,7 +2,8 @@ import datetime
 
 import factory.fuzzy
 
-from hiking.models import Hike, session
+from hiking.db_utils import session
+from hiking.models import Hike
 
 
 class HikeFactory(factory.alchemy.SQLAlchemyModelFactory):

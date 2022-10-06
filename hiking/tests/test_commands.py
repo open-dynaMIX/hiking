@@ -11,6 +11,7 @@ from rich import box
 from hiking import commands, interactivity
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.models import Hike, session
+from hiking.tests.utils import ansi_escape
 from hiking.utils import DEFAULT_BOX_STYLE, SlimDateRange
 
 itertools.product()
@@ -120,7 +121,7 @@ def test_command_delete(
 
     if not quiet:
         captured = capsys.readouterr()[0]
-        assert captured == snapshot
+        assert ansi_escape(captured) == snapshot
 
     if force or do_write:
         if all:
@@ -311,7 +312,7 @@ def test_command_show_detail(
 
     captured = capsys.readouterr()[0]
 
-    assert captured == snapshot
+    assert ansi_escape(captured) == snapshot
 
 
 @pytest.mark.parametrize(
@@ -374,7 +375,7 @@ def test_command_show_list(
 
     captured = capsys.readouterr()[0]
 
-    assert captured == snapshot
+    assert ansi_escape(captured) == snapshot
 
 
 def test_command_show_no_hikes():

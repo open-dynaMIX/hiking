@@ -5,6 +5,7 @@ import pytest
 
 from hiking import __main__, commands
 from hiking.__main__ import main
+from hiking.tests.utils import ansi_escape
 
 ArgsMock = namedtuple(
     "args",
@@ -32,7 +33,7 @@ def test_main_end_to_end(snapshot, capsys, sys_argv, collection):
     sys.argv = ["tests", "show", "--order-key=-distance"]
     main()
     captured = capsys.readouterr()[0]
-    assert captured == snapshot
+    assert ansi_escape(captured) == snapshot
 
 
 @pytest.mark.parametrize(

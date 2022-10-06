@@ -1,8 +1,9 @@
 <div align="center">
 <h1>hiking</h1>
 
+<a href="https://github.com/open-dynaMIX/hiking/actions?query=workflow%3ATests"><img src="https://github.com/open-dynaMIX/hiking/workflows/Tests/badge.svg"></a>
 <img src="https://badgen.net/badge/python/3.10/blue?icon=python" alt="Python version 3.10">
-<a href="https://github.com/open-dynaMIX/hiking"><img src="https://img.shields.io/badge/coverage-YOLO-ff00ff" alt="coverage 0%"></a>
+<a href="https://github.com/open-dynaMIX/hiking"><img src="https://img.shields.io/badge/coverage-100%25-brightgreen.svg" alt="coverage 0%"></a>
 <a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="code style black"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/open-dynaMIX/hiking.svg" alt="license MIT"></a>
 
@@ -85,7 +86,6 @@ km/h          3.38
  * linux only probably idc
  * python>=3.10 only - gonna try the new goodies
  * CLI only coz your js sucks
- * no tests coz life is short
  * no releases, learn to python
  * no docs kinda, try `--help` or read the code
 

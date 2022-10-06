@@ -1,0 +1,6 @@
+[general]
+ignore=body-is-missing
+contrib=contrib-title-conventional-commits
+
+[ignore-by-title]
+ignore=title-max-length, body-is-missing, body-max-line-length, body-min-length

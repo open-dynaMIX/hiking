@@ -4,7 +4,7 @@ import json
 import os
 from itertools import zip_longest
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import gpxpy
 from rich import box
@@ -37,19 +37,39 @@ BOX_FORMATS = [
 ]
 
 
-def get_valid_fields_for_args():
-    return [field for field, config in Hike.FIELD_PROPS.items() if config["data_view"]]
+def get_valid_fields_for_args(exclude: Optional[List] = None):
+    exclude = exclude or []
+    return [
+        field
+        for field, config in Hike.FIELD_PROPS.items()
+        if config["data_view"] and field not in exclude
+    ]
 
 
 class DateRangeType:
     def __call__(self, raw: str, *args, **kwargs):
         start = end = raw
-        if len(raw.split("/")) == 2:
-            start, end = raw.split("/")
+        splitted = raw.split("/")
+        if len(splitted) == 2 and all(splitted):
+            start, end = splitted
+        elif start.endswith("/"):
+            start = start.rstrip("/")
+            end = None
+        elif end.startswith("/"):
+            end = end.lstrip("/")
+            start = None
 
         try:
-            start = datetime.datetime.strptime(start, "%Y-%m-%d").date()
-            end = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+            start = (
+                datetime.datetime.strptime(start, "%Y-%m-%d").date()
+                if start
+                else datetime.date.min
+            )
+            end = (
+                datetime.datetime.strptime(end, "%Y-%m-%d").date()
+                if end
+                else datetime.date.max
+            )
         except ValueError as e:
             raise argparse.ArgumentTypeError(e)
         return SlimDateRange(start, end)
@@ -105,7 +125,7 @@ def validate_plot(value: str) -> Tuple[str, str]:
     try:
         x, y = tuple(value.split(","))
         for i in x, y:
-            assert i in get_valid_fields_for_args()
+            assert i in get_valid_fields_for_args(["name"])
         return x, y
     except (ValueError, AssertionError):
         raise argparse.ArgumentTypeError("plot")
@@ -113,7 +133,7 @@ def validate_plot(value: str) -> Tuple[str, str]:
 
 def validate_table_style(value: str) -> Tuple[str, str]:
     try:
-        box_style = getattr(box, value)
+        box_style = getattr(box, value.upper())
     except (AttributeError):
         raise argparse.ArgumentTypeError("Invalid table-style")
     return box_style
@@ -124,7 +144,7 @@ def set_default_subparser(
 ):
     subparser_found = False
     for arg in raw_args:
-        if arg in ["-h", "--help"]:  # global help if no subparser
+        if arg in ["-h", "--help"]:  # pragma: no cover
             break
     else:
         for x in parser._subparsers._actions:
@@ -183,6 +203,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
             "Valid examples:\n"
             "1970-01-01\n"
             "1970-01-01/1970-02-01"
+            "1970-01-01/ (all hikes from start date)"
+            "/1970-01-01 (all hikes until end date)"
         ),
         type=DateRangeType(),
         default=SlimDateRange(datetime.date.min, datetime.date.max),
@@ -190,7 +212,7 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
 
     show.add_argument(
         "-t",
-        "--table_style",
+        "--table-style",
         help=(
             "Table format style (default: simple)\n"
             f"Available options:\n{format_list(BOX_FORMATS)}"
@@ -200,7 +222,7 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
     )
 
     show.add_argument(
-        "-s",
+        "-o",
         "--order-key",
         help=(
             'Key to use for hike sorting. To reverse, prepend with "-".\n'
@@ -219,7 +241,7 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
             "Example:\n"
             '"date,distance"\n'
             "Available options:\n"
-            f"{format_list(get_valid_fields_for_args())}"
+            f"{format_list(get_valid_fields_for_args(exclude=['name']))}"
         ),
         default=(),
         type=validate_plot,
@@ -343,6 +365,13 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         ),
         type=DateRangeType(),
         default=SlimDateRange(datetime.date.min, datetime.date.max),
+    )
+
+    export.add_argument(
+        "-i",
+        "--include-ids",
+        help='Include IDs in export. Needed for "update", must be omitted for "create"',
+        action="store_true",
     )
 
     set_default_subparser(parser, "show", raw_args)

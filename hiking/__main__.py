@@ -7,7 +7,7 @@ from hiking import commands
 from hiking.arg_parsing import parse_arguments
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.import_export import JSON_IMPORT_EXAMPLE
-from hiking.models import init_db
+from hiking.models import create_tables
 from hiking.utils import DATA_HOME
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ def main():
     args = parse_arguments(sys.argv[1:])
 
     DATA_HOME.mkdir(exist_ok=True)
-    init_db()
+    create_tables()
 
     try:
         match args.command:
@@ -36,16 +36,17 @@ def main():
             case "import":
                 commands.command_import(args.json_data)
             case "export":
-                commands.command_export(args.export_dir, args.ids, args.daterange)
+                commands.command_export(
+                    args.export_dir, args.ids, args.daterange, args.include_ids
+                )
 
     except HikingJsonLoaderException as e:
         logger.warning(
-            f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n"
+            f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n{JSON_IMPORT_EXAMPLE}"
         )
-        logger.warning(JSON_IMPORT_EXAMPLE)
     except HikingException as e:
         logger.error(f"Error: {e}")
-    except (KeyboardInterrupt, EOFError):
+    except (KeyboardInterrupt, EOFError):  # pragma: no cover
         sys.exit(0)
 
 

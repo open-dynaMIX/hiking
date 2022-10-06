@@ -3,16 +3,16 @@ from dataclasses import dataclass
 from typing import List, Tuple, Union
 
 from sqlalchemy import Interval, func
-from sqlalchemy.orm import Query, Session
+from sqlalchemy.orm import Query
 
-from hiking.models import Hike, session
-from hiking.utils import format_value
+from hiking.db_utils import session
+from hiking.models import Hike, get_filtered_query
+from hiking.utils import SlimDateRange, format_value
 
 
 @dataclass
 class HikeCollection:
     hikes: Query
-    session: Session
 
     def get_hikes_attr_list(
         self, attr: str
@@ -28,7 +28,7 @@ class HikeCollection:
             if is_interval:
                 return sum(attr_list, datetime.timedelta())
 
-            return sum(attr_list)
+            return sum(attr_list)  # pragma: no cover
 
         result = session.query(func.sum(getattr(Hike, attr))).first()[0]
         return result
@@ -66,6 +66,12 @@ class HikeCollection:
         return result
 
     def get_hikes_stats(self, order_params: Tuple[str, bool]) -> List[List[str]]:
+        if order_params[0] == "speed":
+            hike_list = sorted(
+                self.hikes.all(), key=lambda x: x.speed, reverse=order_params[1]
+            )
+            return [hike.get_stats() for hike in hike_list]
+
         order = getattr(Hike, order_params[0])
         if order_params[1]:
             order = order.desc()
@@ -128,3 +134,12 @@ class HikeCollection:
 
     def __repr__(self) -> str:
         return self.__str__()
+
+
+def get_collection(
+    ids: List[int],
+    daterange: "SlimDateRange",
+):
+    query = get_filtered_query(ids, daterange)
+    collection = HikeCollection(hikes=query)
+    return collection

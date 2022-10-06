@@ -1,0 +1,70 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # This is needed for gitlint to work
+          fetch-depth: 0
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "poetry"
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run black
+        run: poetry run black --check --diff .
+
+      - name: Run flake8
+        run: poetry run flake8
+
+      - name: Run gitlint
+        run: poetry run gitlint
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "poetry"
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Build and install package
+        run: |
+          poetry build
+          pip install dist/hiking-*.whl
+
+      - name: Run tests
+        run: poetry run pytest --no-cov-on-fail --cov -vv

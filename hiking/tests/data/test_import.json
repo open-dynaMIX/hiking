@@ -1,0 +1,47 @@
+[
+    {
+        "name": "endorsement hike",
+        "date": "1970-01-01",
+        "distance": 5.0,
+        "elevation_gain": 298,
+        "elevation_loss": 298,
+        "duration": 75,
+        "gpx_file": null
+    },
+    {
+        "name": "abnegation hike",
+        "date": "1970-01-02",
+        "distance": 5.0,
+        "elevation_gain": 298,
+        "elevation_loss": 298,
+        "duration": 75,
+        "gpx_file": null
+    },
+    {
+        "name": "depositor hike",
+        "date": "1970-01-03",
+        "distance": 7.4,
+        "elevation_gain": 1029,
+        "elevation_loss": 54,
+        "duration": 165,
+        "gpx_file": null
+    },
+    {
+        "name": "adrenaline's hike",
+        "date": "1970-01-04",
+        "distance": 6.6,
+        "elevation_gain": 420,
+        "elevation_loss": 420,
+        "duration": 120,
+        "gpx_file": null
+    },
+    {
+        "name": "shooter's hike",
+        "date": "1970-01-05",
+        "distance": 5.0,
+        "elevation_gain": 288,
+        "elevation_loss": 288,
+        "duration": 110,
+        "gpx_file": null
+    }
+]

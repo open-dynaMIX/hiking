@@ -1,0 +1,617 @@
+# name: test_collection_attr_functions[body-config3]
+  list([
+    '# Foo Hike',
+    '# Bar Hike',
+    '# Baz Hike',
+  ])
+# ---
+# name: test_collection_attr_functions[date-config1]
+  list([
+    datetime.date(1984, 9, 22),
+    datetime.date(1984, 9, 23),
+    datetime.date(1984, 9, 24),
+  ])
+# ---
+# name: test_collection_attr_functions[distance-config4]
+  list([
+    10.5,
+    15.4,
+    34.0,
+  ])
+# ---
+# name: test_collection_attr_functions[distance-config4].1
+  59.9
+# ---
+# name: test_collection_attr_functions[distance-config4].2
+  '59.9'
+# ---
+# name: test_collection_attr_functions[distance-config4].3
+  19.966666666666665
+# ---
+# name: test_collection_attr_functions[distance-config4].4
+  '20.0'
+# ---
+# name: test_collection_attr_functions[distance-config4].5
+  34.0
+# ---
+# name: test_collection_attr_functions[distance-config4].6
+  '34.0'
+# ---
+# name: test_collection_attr_functions[distance-config4].7
+  10.5
+# ---
+# name: test_collection_attr_functions[distance-config4].8
+  '10.5'
+# ---
+# name: test_collection_attr_functions[duration-config7]
+  list([
+    datetime.timedelta(seconds=8040),
+    datetime.timedelta(seconds=13680),
+    datetime.timedelta(seconds=29820),
+  ])
+# ---
+# name: test_collection_attr_functions[duration-config7].1
+  datetime.timedelta(seconds=51540)
+# ---
+# name: test_collection_attr_functions[duration-config7].2
+  '14:19'
+# ---
+# name: test_collection_attr_functions[duration-config7].3
+  datetime.timedelta(seconds=17180)
+# ---
+# name: test_collection_attr_functions[duration-config7].4
+  '04:46'
+# ---
+# name: test_collection_attr_functions[duration-config7].5
+  datetime.timedelta(seconds=29820)
+# ---
+# name: test_collection_attr_functions[duration-config7].6
+  '08:17'
+# ---
+# name: test_collection_attr_functions[duration-config7].7
+  datetime.timedelta(seconds=8040)
+# ---
+# name: test_collection_attr_functions[duration-config7].8
+  '02:14'
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5]
+  list([
+    2040,
+    240,
+    867,
+  ])
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].1
+  3147
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].2
+  '3147'
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].3
+  1049.0
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].4
+  '1049'
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].5
+  2040
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].6
+  '2040'
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].7
+  240
+# ---
+# name: test_collection_attr_functions[elevation_gain-config5].8
+  '240'
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6]
+  list([
+    2028,
+    228,
+    947,
+  ])
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].1
+  3203
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].2
+  '3203'
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].3
+  1067.6666666666667
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].4
+  '1068'
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].5
+  2028
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].6
+  '2028'
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].7
+  228
+# ---
+# name: test_collection_attr_functions[elevation_loss-config6].8
+  '228'
+# ---
+# name: test_collection_attr_functions[gpx-config9]
+  list([
+    None,
+    None,
+    None,
+  ])
+# ---
+# name: test_collection_attr_functions[id-config0]
+  list([
+    1,
+    2,
+    3,
+  ])
+# ---
+# name: test_collection_attr_functions[name-config2]
+  list([
+    'Foo Hike',
+    'Bar Hike',
+    'Baz Hike',
+  ])
+# ---
+# name: test_collection_attr_functions[speed-config8]
+  list([
+    4.701492537313433,
+    4.052631578947368,
+    4.104627766599598,
+  ])
+# ---
+# name: test_collection_attr_functions[speed-config8].1
+  4.2862506276201335
+# ---
+# name: test_collection_attr_functions[speed-config8].2
+  '4.29'
+# ---
+# name: test_collection_attr_functions[speed-config8].3
+  4.701492537313433
+# ---
+# name: test_collection_attr_functions[speed-config8].4
+  '4.70'
+# ---
+# name: test_collection_attr_functions[speed-config8].5
+  4.052631578947368
+# ---
+# name: test_collection_attr_functions[speed-config8].6
+  '4.05'
+# ---
+# name: test_collection_collection_stats[order_params0]
+  list([
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params0].1
+  list([
+    '',
+    'STATS',
+    '3',
+    dict({
+      'Σ ': '59.9',
+      '↑ ': '34.0',
+      '↓ ': '10.5',
+      '⌀ ': '20.0',
+    }),
+    dict({
+      'Σ ': '3147',
+      '↑ ': '2040',
+      '↓ ': '240',
+      '⌀ ': '1049',
+    }),
+    dict({
+      'Σ ': '3203',
+      '↑ ': '2028',
+      '↓ ': '228',
+      '⌀ ': '1068',
+    }),
+    dict({
+      'Σ ': '14:19',
+      '↑ ': '08:17',
+      '↓ ': '02:14',
+      '⌀ ': '04:46',
+    }),
+    dict({
+      'Σ ': '-',
+      '↑ ': '4.70',
+      '↓ ': '4.05',
+      '⌀ ': '4.29',
+    }),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params1]
+  list([
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params1].1
+  list([
+    '',
+    'STATS',
+    '3',
+    dict({
+      'Σ ': '59.9',
+      '↑ ': '34.0',
+      '↓ ': '10.5',
+      '⌀ ': '20.0',
+    }),
+    dict({
+      'Σ ': '3147',
+      '↑ ': '2040',
+      '↓ ': '240',
+      '⌀ ': '1049',
+    }),
+    dict({
+      'Σ ': '3203',
+      '↑ ': '2028',
+      '↓ ': '228',
+      '⌀ ': '1068',
+    }),
+    dict({
+      'Σ ': '14:19',
+      '↑ ': '08:17',
+      '↓ ': '02:14',
+      '⌀ ': '04:46',
+    }),
+    dict({
+      'Σ ': '-',
+      '↑ ': '4.70',
+      '↓ ': '4.05',
+      '⌀ ': '4.29',
+    }),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params2]
+  list([
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params2].1
+  list([
+    '',
+    'STATS',
+    '3',
+    dict({
+      'Σ ': '59.9',
+      '↑ ': '34.0',
+      '↓ ': '10.5',
+      '⌀ ': '20.0',
+    }),
+    dict({
+      'Σ ': '3147',
+      '↑ ': '2040',
+      '↓ ': '240',
+      '⌀ ': '1049',
+    }),
+    dict({
+      'Σ ': '3203',
+      '↑ ': '2028',
+      '↓ ': '228',
+      '⌀ ': '1068',
+    }),
+    dict({
+      'Σ ': '14:19',
+      '↑ ': '08:17',
+      '↓ ': '02:14',
+      '⌀ ': '04:46',
+    }),
+    dict({
+      'Σ ': '-',
+      '↑ ': '4.70',
+      '↓ ': '4.05',
+      '⌀ ': '4.29',
+    }),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params3]
+  list([
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+  ])
+# ---
+# name: test_collection_collection_stats[order_params3].1
+  list([
+    '',
+    'STATS',
+    '3',
+    dict({
+      'Σ ': '59.9',
+      '↑ ': '34.0',
+      '↓ ': '10.5',
+      '⌀ ': '20.0',
+    }),
+    dict({
+      'Σ ': '3147',
+      '↑ ': '2040',
+      '↓ ': '240',
+      '⌀ ': '1049',
+    }),
+    dict({
+      'Σ ': '3203',
+      '↑ ': '2028',
+      '↓ ': '228',
+      '⌀ ': '1068',
+    }),
+    dict({
+      'Σ ': '14:19',
+      '↑ ': '08:17',
+      '↓ ': '02:14',
+      '⌀ ': '04:46',
+    }),
+    dict({
+      'Σ ': '-',
+      '↑ ': '4.70',
+      '↓ ': '4.05',
+      '⌀ ': '4.29',
+    }),
+  ])
+# ---
+# name: test_collection_get_totals
+  list([
+    '',
+    'STATS',
+    '3',
+    dict({
+      'Σ ': '59.9',
+      '↑ ': '34.0',
+      '↓ ': '10.5',
+      '⌀ ': '20.0',
+    }),
+    dict({
+      'Σ ': '3147',
+      '↑ ': '2040',
+      '↓ ': '240',
+      '⌀ ': '1049',
+    }),
+    dict({
+      'Σ ': '3203',
+      '↑ ': '2028',
+      '↓ ': '228',
+      '⌀ ': '1068',
+    }),
+    dict({
+      'Σ ': '14:19',
+      '↑ ': '08:17',
+      '↓ ': '02:14',
+      '⌀ ': '04:46',
+    }),
+    dict({
+      'Σ ': '-',
+      '↑ ': '4.70',
+      '↓ ': '4.05',
+      '⌀ ': '4.29',
+    }),
+  ])
+# ---
+# name: test_collection_hikes_stats[order_params0]
+  list([
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+  ])
+# ---
+# name: test_collection_hikes_stats[order_params1]
+  list([
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+  ])
+# ---
+# name: test_collection_hikes_stats[order_params2]
+  list([
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+  ])
+# ---
+# name: test_collection_hikes_stats[order_params3]
+  list([
+    list([
+      '1984-09-22',
+      'Foo Hike',
+      '10.5',
+      '2040',
+      '2028',
+      '02:14',
+      '4.70',
+    ]),
+    list([
+      '1984-09-24',
+      'Baz Hike',
+      '34.0',
+      '867',
+      '947',
+      '08:17',
+      '4.10',
+    ]),
+    list([
+      '1984-09-23',
+      'Bar Hike',
+      '15.4',
+      '240',
+      '228',
+      '03:48',
+      '4.05',
+    ]),
+  ])
+# ---

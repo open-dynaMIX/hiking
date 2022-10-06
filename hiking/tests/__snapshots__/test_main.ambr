@@ -1,0 +1,43 @@
+# name: test_main_end_to_end
+  '''
+                                     Hikes                                    
+   ────────────────────────────────────────────────────────────────────────── 
+    ID   Date         Name         ➡ km      ⬈ m      ⬊ m         ⏱     km/h  
+   ────────────────────────────────────────────────────────────────────────── 
+     3   1984-09-24   Baz Hike     34.0      867      947     08:17     4.10  
+     2   1984-09-23   Bar Hike     15.4      240      228     03:48     4.05  
+     1   1984-09-22   Foo Hike     10.5     2040     2028     02:14     4.70  
+   ────────────────────────────────────────────────────────────────────────── 
+         STATS        3          Σ 59.9   Σ 3147   Σ 3203   Σ 14:19   Σ    -  
+                                 ⌀ 20.0   ⌀ 1049   ⌀ 1068   ⌀ 04:46   ⌀ 4.29  
+                                 ↑ 34.0   ↑ 2040   ↑ 2028   ↑ 08:17   ↑ 4.70  
+                                 ↓ 10.5   ↓  240   ↓  228   ↓ 02:14   ↓ 4.05  
+   ────────────────────────────────────────────────────────────────────────── 
+  
+  '''
+# ---
+# name: test_main_hiking_exception
+  'Error: No hikes found with provided ID(s)'
+# ---
+# name: test_main_hiking_json_loader_exception
+  '''
+  Invalid data in hiking.json: Invalid JSON data:
+  Missing fields: date, distance, duration, elevation_gain, elevation_loss, gpx_file, name
+  Unknown fields: foo
+  
+  Expected format:
+  [
+      {
+          "id": "$Integer (optional; update if present)",
+          "name": "$String",
+          "body": "$String",
+          "date": "YYY-MM-DD",
+          "distance": "$Foat",
+          "elevation_gain": "$Integer",
+          "elevation_loss": "$Integer",
+          "duration": "$Integer",
+          "gpx": "$String (path to file; optional)"
+      }
+  ]
+  '''
+# ---

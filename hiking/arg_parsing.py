@@ -178,6 +178,11 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         formatter_class=argparse.RawTextHelpFormatter, prog="hiking"
     )
 
+    debug_arg_dict = {
+        "help": "Show debug information (log queries)",
+        "action": "store_true",
+    }
+
     subparsers = parser.add_subparsers(dest="command")
 
     show = subparsers.add_parser(
@@ -247,6 +252,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         type=validate_plot,
     )
 
+    show.add_argument("--debug", **debug_arg_dict)
+
     create = subparsers.add_parser(
         "create",
         help="Create a new record",
@@ -260,6 +267,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         type=GPXFileType("r"),
         help="Import from *.gpx-file",
     )
+
+    create.add_argument("--debug", **debug_arg_dict)
 
     edit = subparsers.add_parser(
         "edit",
@@ -281,6 +290,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         type=GPXFileType("r"),
         help="Import from *.gpx-file",
     )
+
+    edit.add_argument("--debug", **debug_arg_dict)
 
     delete = subparsers.add_parser(
         "delete",
@@ -318,6 +329,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         type=int,
     )
 
+    delete.add_argument("--debug", **debug_arg_dict)
+
     _import = subparsers.add_parser(
         "import",
         help="Import records from JSON",
@@ -331,6 +344,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         help="Path to JSON file",
         type=JsonFileType("r"),
     )
+
+    _import.add_argument("--debug", **debug_arg_dict)
 
     export = subparsers.add_parser(
         "export",
@@ -373,6 +388,8 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
         help='Include IDs in export. Needed for "update", must be omitted for "create"',
         action="store_true",
     )
+
+    export.add_argument("--debug", **debug_arg_dict)
 
     set_default_subparser(parser, "show", raw_args)
 

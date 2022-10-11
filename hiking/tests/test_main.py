@@ -24,16 +24,23 @@ ArgsMock = namedtuple(
         "gpx",
         "export_dir",
         "include_ids",
+        "debug",
     ],
-    defaults=(None,) * 13,
+    defaults=(None,) * 14,
 )
 
 
-def test_main_end_to_end(snapshot, capsys, sys_argv, collection):
-    sys.argv = ["tests", "show", "--order-key=-distance"]
+@pytest.mark.parametrize("debug", [False, True])
+def test_main_end_to_end(snapshot, capsys, caplog, sys_argv, collection, debug):
+    args = ["tests", "show", "--order-key=-distance"]
+    if debug:
+        args.append("--debug")
+    sys.argv = args
     main()
     captured = capsys.readouterr()[0]
+
     assert ansi_escape(captured) == snapshot
+    assert len(caplog.messages) == (61 if debug else 0)
 
 
 @pytest.mark.parametrize(
@@ -65,8 +72,8 @@ def test_main_hiking_json_loader_exception(mocker, caplog, snapshot):
         return_value=args,
     )
     main()
-    assert len(caplog.records) == 1
-    assert caplog.records[0].msg == snapshot
+    assert len(caplog.messages) == 1
+    assert caplog.messages[0] == snapshot
 
 
 def test_main_hiking_exception(mocker, caplog, snapshot):
@@ -77,5 +84,5 @@ def test_main_hiking_exception(mocker, caplog, snapshot):
         return_value=args,
     )
     main()
-    assert len(caplog.records) == 1
-    assert caplog.records[0].msg == snapshot
+    assert len(caplog.messages) == 1
+    assert caplog.messages[0] == snapshot

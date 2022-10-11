@@ -8,13 +8,15 @@ from hiking.arg_parsing import parse_arguments
 from hiking.exceptions import HikingException, HikingJsonLoaderException
 from hiking.import_export import JSON_IMPORT_EXAMPLE
 from hiking.models import create_tables
-from hiking.utils import DATA_HOME
+from hiking.utils import DATA_HOME, setup_logging
 
 logger = logging.getLogger(__name__)
 
 
 def main():
     args = parse_arguments(sys.argv[1:])
+
+    setup_logging(args.debug)
 
     DATA_HOME.mkdir(exist_ok=True)
     create_tables()

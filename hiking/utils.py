@@ -1,4 +1,5 @@
 import datetime
+import logging
 import os
 from collections import namedtuple
 from pathlib import Path
@@ -18,8 +19,20 @@ EDITOR = os.environ.get("EDITOR", "vi")
 GPX_VIEWER = "/usr/bin/gpxsee"
 DEFAULT_BOX_STYLE = box.HORIZONTALS
 console = Console()
-
 SlimDateRange = namedtuple("SlimDateRange", ["lower", "upper"])
+
+log_level = logging.WARNING
+
+
+def setup_logging(debug: bool):
+    global log_level
+    if debug:
+        log_level = logging.DEBUG
+    logging.basicConfig(format="%(levelname)-8s %(name)s:%(lineno)d %(message)s")
+    logging.root.setLevel(log_level)
+    logging.getLogger("sqlalchemy.engine").setLevel(
+        logging.INFO if debug else logging.WARNING
+    )
 
 
 def pretty_timedelta(value: datetime.timedelta) -> str:

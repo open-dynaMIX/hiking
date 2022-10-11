@@ -5,7 +5,6 @@ from typing import List, Tuple, Union
 from sqlalchemy import Interval, func
 from sqlalchemy.orm import Query
 
-from hiking.db_utils import session
 from hiking.models import Hike, get_filtered_query
 from hiking.utils import SlimDateRange, format_value
 
@@ -30,7 +29,7 @@ class HikeCollection:
 
             return sum(attr_list)  # pragma: no cover
 
-        result = session.query(func.sum(getattr(Hike, attr))).first()[0]
+        result = self.hikes.with_entities(func.sum(getattr(Hike, attr))).scalar()
         return result
 
     def avg(self, attr: str = "distance") -> Union[float, datetime.timedelta]:

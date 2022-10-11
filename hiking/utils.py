@@ -19,6 +19,8 @@ GPX_VIEWER = "/usr/bin/gpxsee"
 DEFAULT_BOX_STYLE = box.HORIZONTALS
 console = Console()
 
+SlimDateRange = namedtuple("SlimDateRange", ["lower", "upper"])
+
 
 def pretty_timedelta(value: datetime.timedelta) -> str:
     hours = str(int(value.total_seconds() // 3600)).rjust(2, "0")
@@ -54,6 +56,3 @@ def format_value(
     if len(strs[1]) < assure_decimal_places:
         strs[1] += "".ljust(assure_decimal_places - len(strs[1]), "0")
     return ".".join(strs) if strs[1] else strs[0]
-
-
-SlimDateRange = namedtuple("SlimDateRange", ["lower", "upper"])

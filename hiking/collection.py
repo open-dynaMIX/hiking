@@ -129,7 +129,7 @@ class HikeCollection:
         return (
             f"<HikeCollection - "
             f"containing {self.hikes.count()} hikes - "
-            f"total {self.sum()}km>"
+            f"total {self.calc_and_format_value('sum', 'distance')} km>"
         )
 
     def __repr__(self) -> str:

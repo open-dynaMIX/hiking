@@ -158,7 +158,7 @@ class Hike(Base):
         return session.commit()
 
     def __str__(self) -> str:
-        return f"<Hike - {self.name} - {self.date} - {self.distance}km>"
+        return f"<Hike - {self.name} - {self.date} - {self.distance} km>"
 
     def __repr__(self) -> str:
         return self.__str__()

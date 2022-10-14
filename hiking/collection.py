@@ -38,7 +38,10 @@ class HikeCollection:
                 sum([h.duration for h in self.hikes.all()], datetime.timedelta())
                 / self.hikes.count()
             )
-        return sum(getattr(h, attr) for h in self.hikes.all()) / self.hikes.count()
+        elif attr == "speed":
+            return sum(getattr(h, attr) for h in self.hikes.all()) / self.hikes.count()
+
+        return self.hikes.with_entities(func.avg(getattr(Hike, attr))).scalar()
 
     def max(
         self, attr: str = "distance"

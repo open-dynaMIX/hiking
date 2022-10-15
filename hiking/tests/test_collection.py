@@ -57,7 +57,8 @@ def test_collection_hikes_stats(collection, snapshot, order_params):
     for hike in stats:
         del hike[0]
 
-    assert stats == snapshot
+    prefix = "-" if order_params[1] else ""
+    assert stats == snapshot(name=f'order_param: "{prefix}{order_params[0]}"')
 
 
 def test_collection_get_totals(collection, snapshot):
@@ -79,5 +80,7 @@ def test_collection_collection_stats(collection, snapshot, order_params):
     for hike in stats:
         del hike[0]
 
-    assert stats == snapshot
-    assert footer == snapshot
+    prefix = "-" if order_params[1] else ""
+
+    assert stats == snapshot(name=f'order_param: "{prefix}{order_params[0]}" - stats')
+    assert footer == snapshot(name=f'order_param: "{prefix}{order_params[0]}" - footer')

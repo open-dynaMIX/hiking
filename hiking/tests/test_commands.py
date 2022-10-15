@@ -117,7 +117,7 @@ def test_command_delete(
         mocker.patch.object(interactivity.Confirm, "ask", return_value=do_write)
 
     commands.command_delete(
-        ids=[hikes[0].id, hikes[1].id], all=all, force=force, quiet=quiet
+        ids=[hikes[0].id, hikes[1].id], delete_all=all, force=force, quiet=quiet
     )
 
     if not quiet:
@@ -138,12 +138,17 @@ def test_command_delete_failure(collection):
     hikes = collection.hikes.all()
     with pytest.raises(HikingException) as e:
         commands.command_delete(
-            ids=[hikes[0].id, hikes[1].id, 23], all=False, force=False, quiet=False
+            ids=[hikes[0].id, hikes[1].id, 23],
+            delete_all=False,
+            force=False,
+            quiet=False,
         )
     assert e.value.args[0] == "Invalid ID(s) provided"
 
     with pytest.raises(HikingException) as e:
-        commands.command_delete(ids=[23, 24], all=False, force=False, quiet=False)
+        commands.command_delete(
+            ids=[23, 24], delete_all=False, force=False, quiet=False
+        )
     assert e.value.args[0] == "No hikes found with provided ID(s)"
 
 

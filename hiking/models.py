@@ -1,8 +1,9 @@
 import datetime
-from typing import List
+from typing import List, Optional
 
 import gpxpy
 from sqlalchemy import Column, Date, Float, Integer, Interval, String, Text
+from sqlalchemy.orm import load_only
 
 from hiking.db_utils import Base, engine, session
 from hiking.utils import SlimDateRange, format_value, pretty_timedelta
@@ -165,14 +166,28 @@ class Hike(Base):
 
 
 def get_filtered_query(
-    ids: List[int],
-    daterange: "SlimDateRange",
+    ids: Optional[List[int]] = None,
+    daterange: Optional["SlimDateRange"] = None,
 ):
-    query = (
-        session.query(Hike)
-        .filter(Hike.date >= daterange.lower)
-        .filter(Hike.date <= daterange.upper)
-    )
+    query = session.query(Hike)
+    if daterange:
+        query = query.filter(Hike.date >= daterange.lower).filter(
+            Hike.date <= daterange.upper
+        )
     if ids:
         query = query.filter(Hike.id.in_(ids))
+
+    # Only fetch columns needed for tabular stats
+    query = query.options(
+        load_only(
+            Hike.id,
+            Hike.name,
+            Hike.date,
+            Hike.distance,
+            Hike.elevation_gain,
+            Hike.elevation_loss,
+            Hike.duration,
+        )
+    )
+
     return query

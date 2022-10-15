@@ -6,7 +6,7 @@ from rich.markdown import Markdown
 from rich.prompt import Confirm
 from rich.table import Table
 
-from hiking.collection import HikeCollection, get_collection
+from hiking.collection import HikeCollection
 from hiking.db_utils import session
 from hiking.exceptions import HikingException
 from hiking.gpx import get_elevation_profile
@@ -110,19 +110,20 @@ def command_create_edit(pk: int = None, gpx: str = None):
     hike.save()
 
 
-def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
-    query = session.query(Hike)
-    if not all:
-        query = session.query(Hike).filter(Hike.id.in_(ids))
-    if not query.first():
+def command_delete(ids: List[int], delete_all: bool, force: bool, quiet: bool):
+    collection = HikeCollection(
+        hikes=get_filtered_query(ids=None if delete_all else ids, daterange=None)
+    )
+
+    if not collection.hikes.first():
         raise HikingException("No hikes found with provided ID(s)")
-    elif query.count() < len(ids):
+    elif ids and collection.hikes.count() < len(ids):
         raise HikingException("Invalid ID(s) provided")
 
     if not quiet:
         console.print("This action will delete following hikes:\n")
         table = get_table(
-            HikeCollection(hikes=query),
+            collection,
             ("date", False),
             add_totals=False,
         )
@@ -135,7 +136,7 @@ def command_delete(ids: List[int], all: bool, force: bool, quiet: bool):
             print("Aborting")
             return
 
-    for hike in query:
+    for hike in collection.hikes:
         hike.delete()
 
 
@@ -189,7 +190,7 @@ def command_show(
             'No hikes in DB. Add some hikes with "create" or "import"'
         )
 
-    collection = get_collection(ids, daterange)
+    collection = HikeCollection(hikes=get_filtered_query(ids, daterange))
     if not collection.hikes.first():
         raise HikingException("No hikes found with given parameters")
 

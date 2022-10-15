@@ -40,7 +40,7 @@ def test_main_end_to_end(snapshot, capsys, caplog, sys_argv, collection, debug):
     captured = capsys.readouterr()[0]
 
     assert ansi_escape(captured) == snapshot
-    assert len(caplog.messages) == (55 if debug else 0)
+    assert len(caplog.messages) == (55 if debug else 0), "\n".join(caplog.messages)
 
 
 @pytest.mark.parametrize(

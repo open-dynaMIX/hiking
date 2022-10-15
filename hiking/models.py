@@ -1,4 +1,5 @@
 import datetime
+from collections import namedtuple
 from typing import List, Optional
 
 import gpxpy
@@ -13,81 +14,112 @@ def create_tables():
     Base.metadata.create_all(engine)
 
 
+CalculatedField = namedtuple("CalculatedField", ["info"])
+
+
+def info_dict(
+    name: str,
+    pretty_name: str,
+    supported_calculations: Optional[List[str]] = None,
+    data_view: bool = True,
+    calculated_value: bool = False,
+):
+    return {
+        "name": name,
+        "pretty_name": pretty_name,
+        "supported_calculations": supported_calculations or [],
+        "data_view": data_view,
+        "calculated_value": calculated_value,
+    }
+
+
 class Hike(Base):
     __tablename__ = "hikes"
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    body = Column(Text, nullable=True)
-    date = Column(Date, nullable=False)
-    distance = Column(Float, nullable=False)
-    elevation_gain = Column(Integer, nullable=False)
-    elevation_loss = Column(Integer, nullable=False)
-    duration = Column(Interval, nullable=False)
-    gpx_xml = Column(Text)
+    id = Column(
+        Integer,
+        primary_key=True,
+        info=info_dict(name="id", pretty_name="ID"),
+    )
+    date = Column(
+        Date,
+        nullable=False,
+        info=info_dict(name="date", pretty_name="Date"),
+    )
+    name = Column(
+        String,
+        nullable=False,
+        info=info_dict(name="name", pretty_name="Name"),
+    )
+    body = Column(
+        Text,
+        nullable=True,
+        info=info_dict(name="body", pretty_name="Body", data_view=False),
+    )
+    distance = Column(
+        Float,
+        nullable=False,
+        info=info_dict(
+            name="distance",
+            pretty_name="➡ km",
+            supported_calculations=["sum", "avg", "min", "max"],
+        ),
+    )
+    elevation_gain = Column(
+        Integer,
+        nullable=False,
+        info=info_dict(
+            name="elevation_gain",
+            pretty_name="⬈ m",
+            supported_calculations=["sum", "avg", "min", "max"],
+        ),
+    )
+    elevation_loss = Column(
+        Integer,
+        nullable=False,
+        info=info_dict(
+            name="elevation_loss",
+            pretty_name="⬊ m",
+            supported_calculations=["sum", "avg", "min", "max"],
+        ),
+    )
+    duration = Column(
+        Interval,
+        nullable=False,
+        info=info_dict(
+            name="duration",
+            pretty_name="⏱ ",
+            supported_calculations=["sum", "avg", "min", "max"],
+        ),
+    )
+    gpx_xml = Column(
+        Text,
+        info=info_dict(
+            name="gpx",
+            pretty_name="GPX",
+            data_view=False,
+        ),
+    )
 
-    FIELD_PROPS = {
-        "id": {
-            "pretty_name": "ID",
-            "supported_calculations": [],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "date": {
-            "pretty_name": "Date",
-            "supported_calculations": [],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "name": {
-            "pretty_name": "Name",
-            "supported_calculations": [],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "body": {
-            "pretty_name": "Body",
-            "supported_calculations": [],
-            "data_view": False,
-            "calculated_value": False,
-        },
-        "distance": {
-            "pretty_name": "➡ km",
-            "supported_calculations": ["sum", "avg", "min", "max"],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "elevation_gain": {
-            "pretty_name": "⬈ m",
-            "supported_calculations": ["sum", "avg", "min", "max"],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "elevation_loss": {
-            "pretty_name": "⬊ m",
-            "supported_calculations": ["sum", "avg", "min", "max"],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "duration": {
-            "pretty_name": "⏱ ",
-            "supported_calculations": ["sum", "avg", "min", "max"],
-            "data_view": True,
-            "calculated_value": False,
-        },
-        "speed": {
-            "pretty_name": "km/h",
-            "supported_calculations": ["avg", "min", "max"],
-            "data_view": True,
-            "calculated_value": True,
-        },
-        "gpx": {
-            "pretty_name": "GPX",
-            "supported_calculations": [],
-            "data_view": False,
-            "calculated_value": False,
-        },
-    }
+    FIELDS = [
+        id,
+        date,
+        name,
+        body,
+        distance,
+        elevation_gain,
+        elevation_loss,
+        duration,
+        gpx_xml,
+        CalculatedField(
+            info=info_dict(
+                name="speed",
+                pretty_name="km/h",
+                supported_calculations=["avg", "min", "max"],
+                calculated_value=True,
+            )
+        ),
+    ]
 
     _gpx = None
 
@@ -110,26 +142,26 @@ class Hike(Base):
 
     def get_stats(self) -> List[str]:
         serialized = []
-        for attr, config in self.FIELD_PROPS.items():
-            if not config["data_view"]:
+        for field in self.FIELDS:
+            if not field.info["data_view"]:
                 continue
 
-            value = self.get_pretty_value(attr)
+            value = self.get_pretty_value(field.info["name"])
             serialized.append(value)
 
         return serialized
 
     def get_detail_stats(self) -> dict:
         serialized = {}
-        for f, config in self.FIELD_PROPS.items():
-            if not config["data_view"]:
+        for field in self.FIELDS:
+            if not field.info["data_view"]:
                 continue
-            value = getattr(self, f)
+            value = getattr(self, field.info["name"])
             if isinstance(value, datetime.timedelta):
                 value = pretty_timedelta(value)
-            elif f == "speed":
+            elif field.info["name"] == "speed":
                 value = round(value, 2)
-            serialized[config["pretty_name"]] = value
+            serialized[field.info["pretty_name"]] = value
 
         return serialized
 

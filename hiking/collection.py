@@ -22,7 +22,7 @@ class HikeCollection:
         self, attr: str = "distance"
     ) -> Union[float, int, datetime.date, datetime.timedelta]:
         is_interval = isinstance(getattr(Hike, attr).expression.type, Interval)
-        if Hike.FIELD_PROPS[attr]["calculated_value"] or is_interval:
+        if getattr(Hike, attr).info["calculated_value"] or is_interval:
             attr_list = self.get_hikes_attr_list(attr)
             if is_interval:
                 return sum(attr_list, datetime.timedelta())
@@ -86,27 +86,28 @@ class HikeCollection:
 
     def get_totals(self) -> List[str]:
         def get_summary_cell(attr: str, supported_calculations: List[str]):
-            if supported_calculations:
-                cell = {}
-                for calc, pretty_calc in [
-                    ("sum", "Σ "),
-                    ("avg", "⌀ "),
-                    ("max", "↑ "),
-                    ("min", "↓ "),
-                ]:
-                    cell[pretty_calc] = "-"
-                    if calc in supported_calculations:
-                        cell[pretty_calc] = self.calc_and_format_value(calc, attr)
-                return cell
+            cell = {}
+            for calc, pretty_calc in [
+                ("sum", "Σ "),
+                ("avg", "⌀ "),
+                ("max", "↑ "),
+                ("min", "↓ "),
+            ]:
+                cell[pretty_calc] = "-"
+                if calc in supported_calculations:
+                    cell[pretty_calc] = self.calc_and_format_value(calc, attr)
+            return cell
 
         d = [
             "",
             "STATS",
             str(self.hikes.count()),
             *[
-                get_summary_cell(attr, config["supported_calculations"])
-                for attr, config in Hike.FIELD_PROPS.items()
-                if config["supported_calculations"]
+                get_summary_cell(
+                    field.info["name"], field.info["supported_calculations"]
+                )
+                for field in Hike.FIELDS
+                if field.info["supported_calculations"]
             ],
         ]
         return d

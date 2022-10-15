@@ -40,9 +40,9 @@ BOX_FORMATS = [
 def get_valid_fields_for_args(exclude: Optional[List] = None):
     exclude = exclude or []
     return [
-        field
-        for field, config in Hike.FIELD_PROPS.items()
-        if config["data_view"] and field not in exclude
+        field.info["name"]
+        for field in Hike.FIELDS
+        if field.info["data_view"] and field.info["name"] not in exclude
     ]
 
 

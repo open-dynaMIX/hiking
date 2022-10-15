@@ -3,25 +3,43 @@ import pytest
 from hiking.models import Hike
 
 
-@pytest.mark.parametrize("attr, config", [(a, c) for a, c in Hike.FIELD_PROPS.items()])
-def test_collection_attr_functions(collection, snapshot, attr, config):
-    assert collection.get_hikes_attr_list(attr) == snapshot
+@pytest.mark.parametrize("field", [f.info for f in Hike.FIELDS])
+def test_collection_attr_functions(collection, snapshot, field):
+    assert collection.get_hikes_attr_list(field["name"]) == snapshot(
+        name=f"{field['name']} - attr_list"
+    )
 
-    if "sum" in config["supported_calculations"]:
-        assert collection.sum(attr) == snapshot
-        assert collection.calc_and_format_value("sum", attr) == snapshot
+    if "sum" in field["supported_calculations"]:
+        assert collection.sum(field["name"]) == snapshot(
+            name=f"{field['name']} - sum - raw"
+        )
+        assert collection.calc_and_format_value("sum", field["name"]) == snapshot(
+            name=f"{field['name']} - sum - pretty"
+        )
 
-    if "avg" in config["supported_calculations"]:
-        assert collection.avg(attr) == snapshot
-        assert collection.calc_and_format_value("avg", attr) == snapshot
+    if "avg" in field["supported_calculations"]:
+        assert collection.avg(field["name"]) == snapshot(
+            name=f"{field['name']} - avg - raw"
+        )
+        assert collection.calc_and_format_value("avg", field["name"]) == snapshot(
+            name=f"{field['name']} - avg - pretty"
+        )
 
-    if "max" in config["supported_calculations"]:
-        assert collection.max(attr) == snapshot
-        assert collection.calc_and_format_value("max", attr) == snapshot
+    if "max" in field["supported_calculations"]:
+        assert collection.max(field["name"]) == snapshot(
+            name=f"{field['name']} - max - raw"
+        )
+        assert collection.calc_and_format_value("max", field["name"]) == snapshot(
+            name=f"{field['name']} - max - pretty"
+        )
 
-    if "min" in config["supported_calculations"]:
-        assert collection.min(attr) == snapshot
-        assert collection.calc_and_format_value("min", attr) == snapshot
+    if "min" in field["supported_calculations"]:
+        assert collection.min(field["name"]) == snapshot(
+            name=f"{field['name']} - min - raw"
+        )
+        assert collection.calc_and_format_value("min", field["name"]) == snapshot(
+            name=f"{field['name']} - min - pretty"
+        )
 
 
 @pytest.mark.parametrize(

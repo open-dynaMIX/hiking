@@ -24,7 +24,7 @@ def get_table(
     add_totals: bool = True,
 ) -> Table:
     data, footer = collection.get_collection_stats(order_params, add_totals=add_totals)
-    headers = {attr: config["pretty_name"] for attr, config in Hike.FIELD_PROPS.items()}
+    headers = {field.info["name"]: field.info["pretty_name"] for field in Hike.FIELDS}
 
     arrow = "▲" if order_params[1] else "▼"
     headers[order_params[0]] = f"{headers[order_params[0]]} {arrow}"
@@ -71,8 +71,8 @@ def draw_plot(
     return plot(
         x=x,
         y=y,
-        xlabel=Hike.FIELD_PROPS[x_attr]["pretty_name"],
-        ylabel=Hike.FIELD_PROPS[y_attr]["pretty_name"],
+        xlabel=getattr(Hike, x_attr).info["pretty_name"],
+        ylabel=getattr(Hike, y_attr).info["pretty_name"],
         x_limit_min=1 if not x_attr == "date" else None,
     )
 

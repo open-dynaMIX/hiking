@@ -1,186 +1,186 @@
-# name: test_collection_attr_functions[body-config3]
-  list([
-    '# Foo Hike',
-    '# Bar Hike',
-    '# Baz Hike',
-  ])
-# ---
-# name: test_collection_attr_functions[date-config1]
-  list([
-    datetime.date(1984, 9, 22),
-    datetime.date(1984, 9, 23),
-    datetime.date(1984, 9, 24),
-  ])
-# ---
-# name: test_collection_attr_functions[distance-config4]
-  list([
-    10.5,
-    15.4,
-    34.0,
-  ])
-# ---
-# name: test_collection_attr_functions[distance-config4].1
-  59.9
-# ---
-# name: test_collection_attr_functions[distance-config4].2
-  '59.9'
-# ---
-# name: test_collection_attr_functions[distance-config4].3
-  19.966666666666665
-# ---
-# name: test_collection_attr_functions[distance-config4].4
-  '20.0'
-# ---
-# name: test_collection_attr_functions[distance-config4].5
-  34.0
-# ---
-# name: test_collection_attr_functions[distance-config4].6
-  '34.0'
-# ---
-# name: test_collection_attr_functions[distance-config4].7
-  10.5
-# ---
-# name: test_collection_attr_functions[distance-config4].8
-  '10.5'
-# ---
-# name: test_collection_attr_functions[duration-config7]
-  list([
-    datetime.timedelta(seconds=8040),
-    datetime.timedelta(seconds=13680),
-    datetime.timedelta(seconds=29820),
-  ])
-# ---
-# name: test_collection_attr_functions[duration-config7].1
-  datetime.timedelta(seconds=51540)
-# ---
-# name: test_collection_attr_functions[duration-config7].2
-  '14:19'
-# ---
-# name: test_collection_attr_functions[duration-config7].3
-  datetime.timedelta(seconds=17180)
-# ---
-# name: test_collection_attr_functions[duration-config7].4
-  '04:46'
-# ---
-# name: test_collection_attr_functions[duration-config7].5
-  datetime.timedelta(seconds=29820)
-# ---
-# name: test_collection_attr_functions[duration-config7].6
-  '08:17'
-# ---
-# name: test_collection_attr_functions[duration-config7].7
-  datetime.timedelta(seconds=8040)
-# ---
-# name: test_collection_attr_functions[duration-config7].8
-  '02:14'
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5]
-  list([
-    2040,
-    240,
-    867,
-  ])
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].1
-  3147
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].2
-  '3147'
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].3
-  1049.0
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].4
-  '1049'
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].5
-  2040
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].6
-  '2040'
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].7
-  240
-# ---
-# name: test_collection_attr_functions[elevation_gain-config5].8
-  '240'
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6]
-  list([
-    2028,
-    228,
-    947,
-  ])
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].1
-  3203
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].2
-  '3203'
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].3
-  1067.6666666666667
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].4
-  '1068'
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].5
-  2028
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].6
-  '2028'
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].7
-  228
-# ---
-# name: test_collection_attr_functions[elevation_loss-config6].8
-  '228'
-# ---
-# name: test_collection_attr_functions[gpx-config9]
-  list([
-    None,
-    None,
-    None,
-  ])
-# ---
-# name: test_collection_attr_functions[id-config0]
+# name: test_collection_attr_functions[field0][id - attr_list]
   list([
     1,
     2,
     3,
   ])
 # ---
-# name: test_collection_attr_functions[name-config2]
+# name: test_collection_attr_functions[field1][date - attr_list]
+  list([
+    datetime.date(1984, 9, 22),
+    datetime.date(1984, 9, 23),
+    datetime.date(1984, 9, 24),
+  ])
+# ---
+# name: test_collection_attr_functions[field2][name - attr_list]
   list([
     'Foo Hike',
     'Bar Hike',
     'Baz Hike',
   ])
 # ---
-# name: test_collection_attr_functions[speed-config8]
+# name: test_collection_attr_functions[field3][body - attr_list]
+  list([
+    '# Foo Hike',
+    '# Bar Hike',
+    '# Baz Hike',
+  ])
+# ---
+# name: test_collection_attr_functions[field4][distance - attr_list]
+  list([
+    10.5,
+    15.4,
+    34.0,
+  ])
+# ---
+# name: test_collection_attr_functions[field4][distance - avg - pretty]
+  '20.0'
+# ---
+# name: test_collection_attr_functions[field4][distance - avg - raw]
+  19.966666666666665
+# ---
+# name: test_collection_attr_functions[field4][distance - max - pretty]
+  '34.0'
+# ---
+# name: test_collection_attr_functions[field4][distance - max - raw]
+  34.0
+# ---
+# name: test_collection_attr_functions[field4][distance - min - pretty]
+  '10.5'
+# ---
+# name: test_collection_attr_functions[field4][distance - min - raw]
+  10.5
+# ---
+# name: test_collection_attr_functions[field4][distance - sum - pretty]
+  '59.9'
+# ---
+# name: test_collection_attr_functions[field4][distance - sum - raw]
+  59.9
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - attr_list]
+  list([
+    2040,
+    240,
+    867,
+  ])
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - avg - pretty]
+  '1049'
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - avg - raw]
+  1049.0
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - max - pretty]
+  '2040'
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - max - raw]
+  2040
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - min - pretty]
+  '240'
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - min - raw]
+  240
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - sum - pretty]
+  '3147'
+# ---
+# name: test_collection_attr_functions[field5][elevation_gain - sum - raw]
+  3147
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - attr_list]
+  list([
+    2028,
+    228,
+    947,
+  ])
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - avg - pretty]
+  '1068'
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - avg - raw]
+  1067.6666666666667
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - max - pretty]
+  '2028'
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - max - raw]
+  2028
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - min - pretty]
+  '228'
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - min - raw]
+  228
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - sum - pretty]
+  '3203'
+# ---
+# name: test_collection_attr_functions[field6][elevation_loss - sum - raw]
+  3203
+# ---
+# name: test_collection_attr_functions[field7][duration - attr_list]
+  list([
+    datetime.timedelta(seconds=8040),
+    datetime.timedelta(seconds=13680),
+    datetime.timedelta(seconds=29820),
+  ])
+# ---
+# name: test_collection_attr_functions[field7][duration - avg - pretty]
+  '04:46'
+# ---
+# name: test_collection_attr_functions[field7][duration - avg - raw]
+  datetime.timedelta(seconds=17180)
+# ---
+# name: test_collection_attr_functions[field7][duration - max - pretty]
+  '08:17'
+# ---
+# name: test_collection_attr_functions[field7][duration - max - raw]
+  datetime.timedelta(seconds=29820)
+# ---
+# name: test_collection_attr_functions[field7][duration - min - pretty]
+  '02:14'
+# ---
+# name: test_collection_attr_functions[field7][duration - min - raw]
+  datetime.timedelta(seconds=8040)
+# ---
+# name: test_collection_attr_functions[field7][duration - sum - pretty]
+  '14:19'
+# ---
+# name: test_collection_attr_functions[field7][duration - sum - raw]
+  datetime.timedelta(seconds=51540)
+# ---
+# name: test_collection_attr_functions[field8][gpx - attr_list]
+  list([
+    None,
+    None,
+    None,
+  ])
+# ---
+# name: test_collection_attr_functions[field9][speed - attr_list]
   list([
     4.701492537313433,
     4.052631578947368,
     4.104627766599598,
   ])
 # ---
-# name: test_collection_attr_functions[speed-config8].1
-  4.2862506276201335
-# ---
-# name: test_collection_attr_functions[speed-config8].2
+# name: test_collection_attr_functions[field9][speed - avg - pretty]
   '4.29'
 # ---
-# name: test_collection_attr_functions[speed-config8].3
-  4.701492537313433
+# name: test_collection_attr_functions[field9][speed - avg - raw]
+  4.2862506276201335
 # ---
-# name: test_collection_attr_functions[speed-config8].4
+# name: test_collection_attr_functions[field9][speed - max - pretty]
   '4.70'
 # ---
-# name: test_collection_attr_functions[speed-config8].5
-  4.052631578947368
+# name: test_collection_attr_functions[field9][speed - max - raw]
+  4.701492537313433
 # ---
-# name: test_collection_attr_functions[speed-config8].6
+# name: test_collection_attr_functions[field9][speed - min - pretty]
   '4.05'
+# ---
+# name: test_collection_attr_functions[field9][speed - min - raw]
+  4.052631578947368
 # ---
 # name: test_collection_collection_stats[order_params0]
   list([

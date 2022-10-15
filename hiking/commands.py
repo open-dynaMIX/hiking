@@ -147,7 +147,7 @@ def command_import(json_data: List[dict]):
 def command_export(
     export_dir: Path, ids: List[int], daterange: "SlimDateRange", include_ids: bool
 ):
-    query = get_filtered_query(ids, daterange)
+    query = get_filtered_query(ids=ids, daterange=daterange, load_all_columns=True)
     json_exporter(query, export_dir, include_ids)
 
 

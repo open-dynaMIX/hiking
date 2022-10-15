@@ -168,6 +168,7 @@ class Hike(Base):
 def get_filtered_query(
     ids: Optional[List[int]] = None,
     daterange: Optional["SlimDateRange"] = None,
+    load_all_columns: bool = False,
 ):
     query = session.query(Hike)
     if daterange:
@@ -178,16 +179,17 @@ def get_filtered_query(
         query = query.filter(Hike.id.in_(ids))
 
     # Only fetch columns needed for tabular stats
-    query = query.options(
-        load_only(
-            Hike.id,
-            Hike.name,
-            Hike.date,
-            Hike.distance,
-            Hike.elevation_gain,
-            Hike.elevation_loss,
-            Hike.duration,
+    if not load_all_columns:
+        query = query.options(
+            load_only(
+                Hike.id,
+                Hike.name,
+                Hike.date,
+                Hike.distance,
+                Hike.elevation_gain,
+                Hike.elevation_loss,
+                Hike.duration,
+            )
         )
-    )
 
     return query

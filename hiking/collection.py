@@ -18,9 +18,7 @@ class HikeCollection:
     ) -> List[Union[float, int, datetime.date, datetime.timedelta]]:
         return [getattr(hike, attr) for hike in self.hikes.all()]
 
-    def sum(
-        self, attr: str = "distance"
-    ) -> Union[float, int, datetime.date, datetime.timedelta]:
+    def sum(self, attr: str) -> Union[float, int, datetime.date, datetime.timedelta]:
         is_interval = isinstance(getattr(Hike, attr).expression.type, Interval)
         if getattr(Hike, attr).info["calculated_value"] or is_interval:
             attr_list = self.get_hikes_attr_list(attr)
@@ -32,7 +30,7 @@ class HikeCollection:
         result = self.hikes.with_entities(func.sum(getattr(Hike, attr))).scalar()
         return result
 
-    def avg(self, attr: str = "distance") -> Union[float, datetime.timedelta]:
+    def avg(self, attr: str) -> Union[float, datetime.timedelta]:
         if attr == "duration":
             return (
                 sum([h.duration for h in self.hikes.all()], datetime.timedelta())
@@ -43,9 +41,7 @@ class HikeCollection:
 
         return self.hikes.with_entities(func.avg(getattr(Hike, attr))).scalar()
 
-    def max(
-        self, attr: str = "distance"
-    ) -> Union[float, int, datetime.date, datetime.timedelta]:
+    def max(self, attr: str) -> Union[float, int, datetime.date, datetime.timedelta]:
         if attr == "speed":
             return sorted(self.hikes.all(), key=lambda x: x.speed, reverse=True)[
                 0
@@ -56,9 +52,7 @@ class HikeCollection:
         )
         return result
 
-    def min(
-        self, attr: str = "distance"
-    ) -> Union[float, int, datetime.date, datetime.timedelta]:
+    def min(self, attr: str) -> Union[float, int, datetime.date, datetime.timedelta]:
         if attr == "speed":
             return sorted(self.hikes.all(), key=lambda x: x.speed)[0].speed
 

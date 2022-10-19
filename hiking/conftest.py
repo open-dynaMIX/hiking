@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from pytest_factoryboy.fixture import register
 
-from hiking import factories
+from hiking import __main__, factories
 from hiking.collection import HikeCollection
 from hiking.db_utils import engine, session
 from hiking.models import create_tables, get_filtered_query
@@ -118,3 +118,8 @@ def sys_argv():
     old_sys_argv = sys.argv
     yield sys.argv
     sys.argv = old_sys_argv
+
+
+@pytest.fixture(autouse=True)
+def mock_data_home(mocker):
+    mocker.patch.object(__main__, "DATA_HOME")

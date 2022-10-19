@@ -91,7 +91,7 @@ def command_create_edit(pk: int = None, gpx: str = None):
     if gpx:
         hike.load_gpx(gpx)
 
-    user_create_edit_interaction(hike)
+    user_create_edit_interaction(hike, is_import_from_gpx=bool(gpx))
 
     stats = hike.get_detail_stats()
     stats["GPX"] = "available" if hike.gpx_xml else "not available"

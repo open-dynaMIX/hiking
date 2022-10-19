@@ -88,7 +88,7 @@ def single_interaction(attr: str, attr_config: dict, hike: Hike):
             break
 
 
-def user_create_edit_interaction(hike: Hike):
+def user_create_edit_interaction(hike: Hike, is_import_from_gpx: bool):
     def validate_gpx(raw_path: str):
         path = Path(raw_path)
         error_msg = "Cannot read *.gpx file"
@@ -182,4 +182,7 @@ def user_create_edit_interaction(hike: Hike):
         if attr == "body":
             # In case of a `create`, `hike.name` was empty earlier
             config["default"] = f"# {hike.name}  (Markdown supported)"
-        single_interaction(attr, config, hike)
+
+        # Only prompt for gpx file if none was provided as argument
+        if attr != "gpx_xml" or not is_import_from_gpx:
+            single_interaction(attr, config, hike)

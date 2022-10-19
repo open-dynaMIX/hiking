@@ -19,21 +19,33 @@ itertools.product()
 
 
 @pytest.mark.parametrize(
-    "do_edit, has_gpx, write_body",
+    "do_edit, write_body",
     [
-        (False, False, False),
-        (False, False, True),
-        (False, True, False),
-        (False, True, True),
-        (True, False, False),
-        (True, False, True),
-        (True, True, False),
-        (True, True, True),
+        (False, False),
+        (False, True),
+        (False, False),
+        (False, True),
+        (True, False),
+        (True, True),
+        (True, False),
+        (True, True),
     ],
+)
+@pytest.mark.parametrize(
+    "set_gpx_interactively, set_gpx_as_arg",
+    [(False, False), (True, False), (False, True), (True, True)],
 )
 @pytest.mark.parametrize("do_write", [True, False])
 def test_command_create_edit(
-    hike_factory, mocker, gpx_xml, gpx_file, do_edit, has_gpx, write_body, do_write
+    hike_factory,
+    mocker,
+    gpx_xml,
+    gpx_file,
+    do_edit,
+    set_gpx_interactively,
+    set_gpx_as_arg,
+    write_body,
+    do_write,
 ):
     def editor_call_mock(command: list):
         if not write_body:
@@ -52,14 +64,16 @@ def test_command_create_edit(
             304,  # duration in minutes
         ],
     )
-    mocker.patch.object(
+    gpx_file_mock = mocker.patch.object(
         interactivity.Prompt,
         "ask",
         side_effect=[
             "not a date",  # expects a date; we test the loop
             "1970-01-01",  # give it what it wants
             "My awesome hike",  # set the hike title
-            str(gpx_file.absolute()) if has_gpx else None,  # conditionally set gpx file
+            str(gpx_file.absolute())
+            if set_gpx_interactively
+            else None,  # conditionally set gpx file
         ],
     )
     mocker.patch.object(interactivity, "call", new=editor_call_mock)
@@ -69,7 +83,7 @@ def test_command_create_edit(
     if do_edit:
         hike = hike_factory(body=None)
         kwargs["pk"] = hike.id
-    if has_gpx:
+    if set_gpx_as_arg:
         kwargs["gpx"] = gpx_xml
 
     commands.command_create_edit(**kwargs)
@@ -95,6 +109,9 @@ def test_command_create_edit(
     assert db_hike.elevation_gain == 2310
     assert db_hike.elevation_loss == 235
     assert db_hike.duration == datetime.timedelta(minutes=304)
+
+    # Only prompt for gpx file if none was provided as argument
+    assert gpx_file_mock.call_count == (3 if set_gpx_as_arg else 4)
 
 
 def test_command_create_edit_invalid_id():

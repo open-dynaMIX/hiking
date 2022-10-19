@@ -10,7 +10,7 @@ from pytest_factoryboy.fixture import register
 from hiking import factories
 from hiking.collection import HikeCollection
 from hiking.db_utils import engine, session
-from hiking.models import Hike, create_tables
+from hiking.models import create_tables, get_filtered_query
 
 OWN_DIR = Path(__file__).resolve().parent
 GPX_TEST_FILE = OWN_DIR / "tests" / "data" / "test.gpx"
@@ -97,7 +97,7 @@ def collection(hike_factory):
         duration=datetime.timedelta(minutes=497),
     )
 
-    return HikeCollection(session.query(Hike))
+    return HikeCollection(get_filtered_query())
 
 
 @pytest.fixture

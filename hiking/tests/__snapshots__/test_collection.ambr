@@ -491,7 +491,7 @@
     }),
   ])
 # ---
-# name: test_collection_hikes_stats[order_params0][order_param: "date"]
+# name: test_collection_hikes_stats[order_params0][order_param: "date - stats"]
   list([
     list([
       '1984-09-22',
@@ -522,7 +522,13 @@
     ]),
   ])
 # ---
-# name: test_collection_hikes_stats[order_params1][order_param: "-date"]
+# name: test_collection_hikes_stats[order_params0][order_param: "date" - query]
+  '''
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  FROM hikes ORDER BY hikes.date
+  '''
+# ---
+# name: test_collection_hikes_stats[order_params1][order_param: "-date - stats"]
   list([
     list([
       '1984-09-24',
@@ -553,7 +559,13 @@
     ]),
   ])
 # ---
-# name: test_collection_hikes_stats[order_params2][order_param: "elevation_gain"]
+# name: test_collection_hikes_stats[order_params1][order_param: "-date" - query]
+  '''
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  FROM hikes ORDER BY hikes.date DESC
+  '''
+# ---
+# name: test_collection_hikes_stats[order_params2][order_param: "elevation_gain - stats"]
   list([
     list([
       '1984-09-23',
@@ -584,7 +596,13 @@
     ]),
   ])
 # ---
-# name: test_collection_hikes_stats[order_params3][order_param: "-elevation_gain"]
+# name: test_collection_hikes_stats[order_params2][order_param: "elevation_gain" - query]
+  '''
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  FROM hikes ORDER BY hikes.elevation_gain
+  '''
+# ---
+# name: test_collection_hikes_stats[order_params3][order_param: "-elevation_gain - stats"]
   list([
     list([
       '1984-09-22',
@@ -614,4 +632,10 @@
       '4.05',
     ]),
   ])
+# ---
+# name: test_collection_hikes_stats[order_params3][order_param: "-elevation_gain" - query]
+  '''
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  FROM hikes ORDER BY hikes.elevation_gain DESC
+  '''
 # ---

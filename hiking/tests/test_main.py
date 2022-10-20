@@ -26,7 +26,7 @@ ArgsMock = namedtuple(
         "include_ids",
         "debug",
     ],
-    defaults=(None,) * 14,
+    defaults=(None,) * 14,  # `command` is required
 )
 
 

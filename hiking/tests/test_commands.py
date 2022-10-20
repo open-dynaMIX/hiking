@@ -178,7 +178,8 @@ def test_command_import(snapshot, json_import_data):
         assert hike.get_stats() == snapshot
 
 
-def test_command_import_update(snapshot, hike):
+@pytest.mark.parametrize("add_gpx", [False, True])
+def test_command_import_update(snapshot, hike, gpx_file, add_gpx):
     assert session.query(Hike).count() == 1
     commands.command_import(
         [
@@ -190,13 +191,14 @@ def test_command_import_update(snapshot, hike):
                 "elevation_gain": 298,
                 "elevation_loss": 298,
                 "duration": 75,
-                "gpx_file": None,
+                "gpx_file": str(gpx_file.absolute()) if add_gpx else None,
             }
         ]
     )
 
     assert session.query(Hike).count() == 1
     assert session.query(Hike).first().get_stats() == snapshot
+    assert session.query(Hike).first().gpx == snapshot
 
 
 def test_command_import_failure(snapshot, hike):

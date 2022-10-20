@@ -213,7 +213,7 @@
     '2.73',
   ])
 # ---
-# name: test_command_import_update
+# name: test_command_import_update[False]
   list([
     '1',
     '2022-02-26',
@@ -224,6 +224,24 @@
     '01:15',
     '4.00',
   ])
+# ---
+# name: test_command_import_update[False].1
+  None
+# ---
+# name: test_command_import_update[True]
+  list([
+    '1',
+    '2022-02-26',
+    'abnegation hike',
+    '5.0',
+    '298',
+    '298',
+    '01:15',
+    '4.00',
+  ])
+# ---
+# name: test_command_import_update[True].1
+  GPX(waypoints=[GPXWaypoint(45.772163216, 14.357652292, name='Name 1', description='Desc 1', symbol='Flag, Blue', comment='Comment 1'), GPXWaypoint(45.757933259, 14.294899916, elevation=-0.11438, name='Name 2', description='Desc 2', symbol='Flag, Blue', comment='Comment 2'), GPXWaypoint(45.735199945, 14.377516648, elevation=-0.11438, name='Name 3', description='Desc 3', symbol='Flag, Blue', comment='Comment 3')], tracks=[GPXTrack(name='Track 1', segments=[GPXTrackSegment(points=[...])]), GPXTrack(name='Track 2', segments=[GPXTrackSegment(points=[...])])])
 # ---
 # name: test_command_show_detail[False-False-False]
   '''

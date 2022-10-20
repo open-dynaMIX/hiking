@@ -11,6 +11,7 @@ from hiking import __main__, factories
 from hiking.collection import HikeCollection
 from hiking.db_utils import engine, session
 from hiking.models import create_tables, get_filtered_query
+from hiking.utils import setup_logging
 
 OWN_DIR = Path(__file__).resolve().parent
 GPX_TEST_FILE = OWN_DIR / "tests" / "data" / "test.gpx"
@@ -33,6 +34,23 @@ def db():
     session.commit()
     session.close()
     session.begin()
+
+
+@pytest.fixture
+def debug_logging():
+    setup_logging(debug=True)
+    try:
+        yield
+    finally:
+        setup_logging(debug=False)
+
+
+@pytest.fixture
+def unset_debug_logging():
+    try:
+        yield
+    finally:
+        setup_logging(debug=False)
 
 
 @pytest.fixture

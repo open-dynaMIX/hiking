@@ -1,7 +1,6 @@
 import pytest
 
 from hiking.models import Hike
-from hiking.utils import setup_logging
 
 
 @pytest.mark.parametrize("field", [f.info for f in Hike.FIELDS])
@@ -52,8 +51,9 @@ def test_collection_attr_functions(collection, snapshot, field):
         ("elevation_gain", True),
     ],
 )
-def test_collection_hikes_stats(collection, snapshot, caplog, order_params):
-    setup_logging(debug=True)
+def test_collection_hikes_stats(
+    collection, snapshot, caplog, debug_logging, order_params
+):
     stats = collection.get_hikes_stats(order_params)
     # remove the IDs for comparison
     for hike in stats:

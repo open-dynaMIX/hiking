@@ -31,7 +31,9 @@ ArgsMock = namedtuple(
 
 
 @pytest.mark.parametrize("debug", [False, True])
-def test_main_end_to_end(snapshot, capsys, caplog, sys_argv, collection, debug):
+def test_main_end_to_end(
+    snapshot, capsys, caplog, sys_argv, unset_debug_logging, collection, debug
+):
     args = ["tests", "show", "--order-key=-distance"]
     if debug:
         args.append("--debug")

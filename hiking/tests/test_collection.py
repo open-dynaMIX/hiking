@@ -9,37 +9,14 @@ def test_collection_attr_functions(collection, snapshot, field):
         name=f"{field['name']} - attr_list"
     )
 
-    if "sum" in field["supported_calculations"]:
-        assert collection.sum(field["name"]) == snapshot(
-            name=f"{field['name']} - sum - raw"
-        )
-        assert collection.calc_and_format_value("sum", field["name"]) == snapshot(
-            name=f"{field['name']} - sum - pretty"
-        )
-
-    if "avg" in field["supported_calculations"]:
-        assert collection.avg(field["name"]) == snapshot(
-            name=f"{field['name']} - avg - raw"
-        )
-        assert collection.calc_and_format_value("avg", field["name"]) == snapshot(
-            name=f"{field['name']} - avg - pretty"
-        )
-
-    if "max" in field["supported_calculations"]:
-        assert collection.max(field["name"]) == snapshot(
-            name=f"{field['name']} - max - raw"
-        )
-        assert collection.calc_and_format_value("max", field["name"]) == snapshot(
-            name=f"{field['name']} - max - pretty"
-        )
-
-    if "min" in field["supported_calculations"]:
-        assert collection.min(field["name"]) == snapshot(
-            name=f"{field['name']} - min - raw"
-        )
-        assert collection.calc_and_format_value("min", field["name"]) == snapshot(
-            name=f"{field['name']} - min - pretty"
-        )
+    for calc in ["sum", "avg", "min", "max"]:
+        if calc in field["supported_calculations"]:
+            assert getattr(collection, calc)(field["name"]) == snapshot(
+                name=f"{field['name']} - {calc} - raw"
+            )
+            assert collection.calc_and_format_value(calc, field["name"]) == snapshot(
+                name=f"{field['name']} - {calc} - pretty"
+            )
 
 
 @pytest.mark.parametrize(

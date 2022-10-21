@@ -28,12 +28,14 @@ def setup_db():
 
 @pytest.fixture(autouse=True)
 def db():
-    yield
-    with engine.connect() as con:
-        con.execute("DELETE FROM hikes;")
-    session.commit()
-    session.close()
-    session.begin()
+    try:
+        yield
+    finally:
+        with engine.connect() as con:
+            con.execute("DELETE FROM hikes;")
+        session.commit()
+        session.close()
+        session.begin()
 
 
 @pytest.fixture
@@ -134,8 +136,10 @@ def known_hike(hike_factory):
 @pytest.fixture
 def sys_argv():
     old_sys_argv = sys.argv
-    yield sys.argv
-    sys.argv = old_sys_argv
+    try:
+        yield sys.argv
+    finally:
+        sys.argv = old_sys_argv
 
 
 @pytest.fixture(autouse=True)

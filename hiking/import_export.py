@@ -69,10 +69,10 @@ def json_importer(json_data: List[dict]):
             raw_hike["gpx_xml"] = gpx_xml
         raw_hike.pop("gpx_file")
 
-        append_to = to_add
         if raw_hike.get("id") is not None:
-            append_to = to_merge
-        append_to.append(raw_hike)
+            to_merge.append(raw_hike)
+            continue
+        to_add.append(raw_hike)
 
     session.bulk_insert_mappings(Hike, to_add)
     session.bulk_update_mappings(Hike, to_merge)

@@ -32,10 +32,6 @@ def test_collection_hikes_stats(
     collection, snapshot, caplog, debug_logging, order_params
 ):
     stats = collection.get_hikes_stats(order_params)
-    # remove the IDs for comparison
-    for hike in stats:
-        del hike[0]
-
     prefix = "-" if order_params[1] else ""
     assert stats == snapshot(name=f'order_param: "{prefix}{order_params[0]} - stats"')
 
@@ -62,9 +58,6 @@ def test_collection_get_totals(collection, snapshot):
 )
 def test_collection_collection_stats(collection, snapshot, order_params):
     stats, footer = collection.get_collection_stats(order_params)
-    # remove the IDs for comparison
-    for hike in stats:
-        del hike[0]
 
     prefix = "-" if order_params[1] else ""
 

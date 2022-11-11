@@ -67,4 +67,4 @@ jobs:
           pip install dist/hiking-*.whl
 
       - name: Run tests
-        run: poetry run pytest --no-cov-on-fail --cov -vv
+        run: poetry run pytest --no-cov-on-fail --cov

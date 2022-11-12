@@ -305,7 +305,7 @@ def test_command_show_detail(
     monkeypatch,
     capsys,
     snapshot,
-    known_hike,
+    hike,
     gpx_xml,
     has_gpx,
     open_external_viewer,
@@ -321,11 +321,11 @@ def test_command_show_detail(
     viewer_mock = mocker.patch.object(interactivity, "call")
     mocker.patch.object(interactivity.Confirm, "ask", return_value=open_external_viewer)
     if has_gpx:
-        known_hike.gpx_xml = gpx_xml
-        known_hike.save()
+        hike.gpx_xml = gpx_xml
+        hike.save()
 
     commands.command_show(
-        [known_hike.id],
+        [hike.id],
         SlimDateRange(datetime.date.min, datetime.date.max),
         DEFAULT_BOX_STYLE,
         ("date", False),
@@ -353,7 +353,7 @@ def test_command_show_detail(
         (
             "date",
             True,
-            SlimDateRange(datetime.date(1984, 9, 22), datetime.date(1984, 9, 23)),
+            SlimDateRange(datetime.date(2002, 6, 1), datetime.date(2012, 8, 1)),
             DEFAULT_BOX_STYLE,
             tuple(),
         ),

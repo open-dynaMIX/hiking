@@ -1,4 +1,3 @@
-import datetime
 import json
 import sys
 import tempfile
@@ -87,50 +86,8 @@ def export_dir():
 
 @pytest.fixture
 def collection(hike_factory):
-    hike_factory(
-        date=datetime.date(1984, 9, 22),
-        name="Foo Hike",
-        body="# Foo Hike",
-        distance=10.5,
-        elevation_gain=2040,
-        elevation_loss=2028,
-        duration=datetime.timedelta(minutes=134),
-    )
-
-    hike_factory(
-        date=datetime.date(1984, 9, 23),
-        name="Bar Hike",
-        body="# Bar Hike",
-        distance=15.4,
-        elevation_gain=240,
-        elevation_loss=228,
-        duration=datetime.timedelta(minutes=228),
-    )
-
-    hike_factory(
-        date=datetime.date(1984, 9, 24),
-        name="Baz Hike",
-        body="# Baz Hike",
-        distance=34.0,
-        elevation_gain=867,
-        elevation_loss=947,
-        duration=datetime.timedelta(minutes=497),
-    )
-
+    hike_factory.create_batch(3)
     return HikeCollection(get_filtered_query())
-
-
-@pytest.fixture
-def known_hike(hike_factory):
-    return hike_factory(
-        date=datetime.date(1984, 9, 23),
-        name="Foo Bar Hike",
-        body="# Foo Bar Hike\n\nMy awesome journey...",
-        distance=20.7,
-        elevation_gain=2040,
-        elevation_loss=2028,
-        duration=datetime.timedelta(minutes=434),
-    )
 
 
 @pytest.fixture

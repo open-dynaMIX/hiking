@@ -8,18 +8,18 @@ from hiking.gpx import get_elevation_profile
 from hiking.models import Hike
 
 
-def test_hike(known_hike, snapshot):
-    assert known_hike.speed == 2.8617511520737327
-    assert known_hike.get_pretty_value("speed") == "2.86"
+def test_hike(hike, snapshot):
+    assert hike.speed == 4.532832478508993
+    assert hike.get_pretty_value("speed") == "4.53"
 
-    assert known_hike.get_stats() == snapshot
-    assert known_hike.get_detail_stats() == snapshot
+    assert hike.get_stats() == snapshot
+    assert hike.get_detail_stats() == snapshot
 
     query = session.query(Hike)
     assert query.count() == 1
-    assert session.query(Hike).first().name == known_hike.name
-    known_hike.name = "new name"
-    known_hike.save()
+    assert session.query(Hike).first().name == hike.name
+    hike.name = "new name"
+    hike.save()
     assert session.query(Hike).first().name == "new name"
 
 

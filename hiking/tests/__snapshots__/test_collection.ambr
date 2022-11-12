@@ -7,148 +7,148 @@
 # ---
 # name: test_collection_attr_functions[field1][date - attr_list]
   list([
-    datetime.date(1984, 9, 22),
-    datetime.date(1984, 9, 23),
-    datetime.date(1984, 9, 24),
+    datetime.date(2010, 5, 20),
+    datetime.date(2013, 6, 3),
+    datetime.date(1985, 7, 31),
   ])
 # ---
 # name: test_collection_attr_functions[field2][name - attr_list]
   list([
-    'Foo Hike',
-    'Bar Hike',
-    'Baz Hike',
+    'Paul Diaz',
+    'Kristina Hunt',
+    'Eric Jones',
   ])
 # ---
 # name: test_collection_attr_functions[field3][body - attr_list]
   list([
-    '# Foo Hike',
-    '# Bar Hike',
-    '# Baz Hike',
+    'Owner candidate condition which central. Owner support record upon election. Pattern pick camera benefit. Poor health purpose practice.',
+    'Summer best manager up. Without hit science onto practice federal. Fight type street.',
+    'Garden yet collection their can generation do. Consider last crime country understand important. Instead I often cup receive it task.',
   ])
 # ---
 # name: test_collection_attr_functions[field4][distance - attr_list]
   list([
-    10.5,
-    15.4,
-    34.0,
+    17.43,
+    17.8,
+    14.95,
   ])
 # ---
 # name: test_collection_attr_functions[field4][distance - avg - pretty]
-  '20.0'
+  '16.7'
 # ---
 # name: test_collection_attr_functions[field4][distance - avg - raw]
-  19.966666666666665
+  16.72666666666667
 # ---
 # name: test_collection_attr_functions[field4][distance - max - pretty]
-  '34.0'
+  '17.8'
 # ---
 # name: test_collection_attr_functions[field4][distance - max - raw]
-  34.0
+  17.8
 # ---
 # name: test_collection_attr_functions[field4][distance - min - pretty]
-  '10.5'
+  '14.9'
 # ---
 # name: test_collection_attr_functions[field4][distance - min - raw]
-  10.5
+  14.95
 # ---
 # name: test_collection_attr_functions[field4][distance - sum - pretty]
-  '59.9'
+  '50.2'
 # ---
 # name: test_collection_attr_functions[field4][distance - sum - raw]
-  59.9
+  50.18000000000001
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - attr_list]
   list([
-    2040,
-    240,
-    867,
+    3268,
+    2732,
+    2452,
   ])
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - avg - pretty]
-  '1049'
+  '2817'
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - avg - raw]
-  1049.0
+  2817.3333333333335
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - max - pretty]
-  '2040'
+  '3268'
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - max - raw]
-  2040
+  3268
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - min - pretty]
-  '240'
+  '2452'
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - min - raw]
-  240
+  2452
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - sum - pretty]
-  '3147'
+  '8452'
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - sum - raw]
-  3147
+  8452
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - attr_list]
   list([
-    2028,
-    228,
-    947,
+    2652,
+    3346,
+    733,
   ])
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - avg - pretty]
-  '1068'
+  '2244'
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - avg - raw]
-  1067.6666666666667
+  2243.6666666666665
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - max - pretty]
-  '2028'
+  '3346'
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - max - raw]
-  2028
+  3346
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - min - pretty]
-  '228'
+  '733'
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - min - raw]
-  228
+  733
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - sum - pretty]
-  '3203'
+  '6731'
 # ---
 # name: test_collection_attr_functions[field6][elevation_loss - sum - raw]
-  3203
+  6731
 # ---
 # name: test_collection_attr_functions[field7][duration - attr_list]
   list([
-    datetime.timedelta(seconds=8040),
-    datetime.timedelta(seconds=13680),
-    datetime.timedelta(seconds=29820),
+    datetime.timedelta(seconds=13843, microseconds=990515),
+    datetime.timedelta(seconds=12506, microseconds=309075),
+    datetime.timedelta(seconds=11832, microseconds=211302),
   ])
 # ---
 # name: test_collection_attr_functions[field7][duration - avg - pretty]
-  '04:46'
+  '03:32'
 # ---
 # name: test_collection_attr_functions[field7][duration - avg - raw]
-  datetime.timedelta(seconds=17180)
+  datetime.timedelta(seconds=12727, microseconds=503631)
 # ---
 # name: test_collection_attr_functions[field7][duration - max - pretty]
-  '08:17'
+  '03:50'
 # ---
 # name: test_collection_attr_functions[field7][duration - max - raw]
-  datetime.timedelta(seconds=29820)
+  datetime.timedelta(seconds=13843, microseconds=990515)
 # ---
 # name: test_collection_attr_functions[field7][duration - min - pretty]
-  '02:14'
+  '03:17'
 # ---
 # name: test_collection_attr_functions[field7][duration - min - raw]
-  datetime.timedelta(seconds=8040)
+  datetime.timedelta(seconds=11832, microseconds=211302)
 # ---
 # name: test_collection_attr_functions[field7][duration - sum - pretty]
-  '14:19'
+  '10:36'
 # ---
 # name: test_collection_attr_functions[field7][duration - sum - raw]
-  datetime.timedelta(seconds=51540)
+  datetime.timedelta(seconds=38182, microseconds=510892)
 # ---
 # name: test_collection_attr_functions[field8][gpx - attr_list]
   list([
@@ -159,28 +159,28 @@
 # ---
 # name: test_collection_attr_functions[field9][speed - attr_list]
   list([
-    4.701492537313433,
-    4.052631578947368,
-    4.104627766599598,
+    4.532832478508993,
+    5.123940508555893,
+    4.54868154158215,
   ])
 # ---
 # name: test_collection_attr_functions[field9][speed - avg - pretty]
-  '4.29'
+  '4.74'
 # ---
 # name: test_collection_attr_functions[field9][speed - avg - raw]
-  4.2862506276201335
+  4.735151509549012
 # ---
 # name: test_collection_attr_functions[field9][speed - max - pretty]
-  '4.70'
+  '5.12'
 # ---
 # name: test_collection_attr_functions[field9][speed - max - raw]
-  4.701492537313433
+  5.123940508555893
 # ---
 # name: test_collection_attr_functions[field9][speed - min - pretty]
-  '4.05'
+  '4.53'
 # ---
 # name: test_collection_attr_functions[field9][speed - min - raw]
-  4.052631578947368
+  4.532832478508993
 # ---
 # name: test_collection_collection_stats[order_params0][order_param: "date" - footer]
   list([
@@ -188,68 +188,68 @@
     'STATS',
     '3',
     dict({
-      'Σ ': '59.9',
-      '↑ ': '34.0',
-      '↓ ': '10.5',
-      '⌀ ': '20.0',
+      'Σ ': '50.2',
+      '↑ ': '17.8',
+      '↓ ': '14.9',
+      '⌀ ': '16.7',
     }),
     dict({
-      'Σ ': '3147',
-      '↑ ': '2040',
-      '↓ ': '240',
-      '⌀ ': '1049',
+      'Σ ': '8452',
+      '↑ ': '3268',
+      '↓ ': '2452',
+      '⌀ ': '2817',
     }),
     dict({
-      'Σ ': '3203',
-      '↑ ': '2028',
-      '↓ ': '228',
-      '⌀ ': '1068',
+      'Σ ': '6731',
+      '↑ ': '3346',
+      '↓ ': '733',
+      '⌀ ': '2244',
     }),
     dict({
-      'Σ ': '14:19',
-      '↑ ': '08:17',
-      '↓ ': '02:14',
-      '⌀ ': '04:46',
+      'Σ ': '10:36',
+      '↑ ': '03:50',
+      '↓ ': '03:17',
+      '⌀ ': '03:32',
     }),
     dict({
       'Σ ': '-',
-      '↑ ': '4.70',
-      '↓ ': '4.05',
-      '⌀ ': '4.29',
+      '↑ ': '5.12',
+      '↓ ': '4.53',
+      '⌀ ': '4.74',
     }),
   ])
 # ---
 # name: test_collection_collection_stats[order_params0][order_param: "date" - stats]
   list([
     list([
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
+    ]),
+    list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
     ]),
     list([
       '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
-    ]),
-    list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
   ])
 # ---
@@ -259,68 +259,68 @@
     'STATS',
     '3',
     dict({
-      'Σ ': '59.9',
-      '↑ ': '34.0',
-      '↓ ': '10.5',
-      '⌀ ': '20.0',
+      'Σ ': '50.2',
+      '↑ ': '17.8',
+      '↓ ': '14.9',
+      '⌀ ': '16.7',
     }),
     dict({
-      'Σ ': '3147',
-      '↑ ': '2040',
-      '↓ ': '240',
-      '⌀ ': '1049',
+      'Σ ': '8452',
+      '↑ ': '3268',
+      '↓ ': '2452',
+      '⌀ ': '2817',
     }),
     dict({
-      'Σ ': '3203',
-      '↑ ': '2028',
-      '↓ ': '228',
-      '⌀ ': '1068',
+      'Σ ': '6731',
+      '↑ ': '3346',
+      '↓ ': '733',
+      '⌀ ': '2244',
     }),
     dict({
-      'Σ ': '14:19',
-      '↑ ': '08:17',
-      '↓ ': '02:14',
-      '⌀ ': '04:46',
+      'Σ ': '10:36',
+      '↑ ': '03:50',
+      '↓ ': '03:17',
+      '⌀ ': '03:32',
     }),
     dict({
       'Σ ': '-',
-      '↑ ': '4.70',
-      '↓ ': '4.05',
-      '⌀ ': '4.29',
+      '↑ ': '5.12',
+      '↓ ': '4.53',
+      '⌀ ': '4.74',
     }),
   ])
 # ---
 # name: test_collection_collection_stats[order_params1][order_param: "-date" - stats]
   list([
     list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
-    ]),
-    list([
       '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
     list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
+    ]),
+    list([
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
   ])
 # ---
@@ -330,68 +330,68 @@
     'STATS',
     '3',
     dict({
-      'Σ ': '59.9',
-      '↑ ': '34.0',
-      '↓ ': '10.5',
-      '⌀ ': '20.0',
+      'Σ ': '50.2',
+      '↑ ': '17.8',
+      '↓ ': '14.9',
+      '⌀ ': '16.7',
     }),
     dict({
-      'Σ ': '3147',
-      '↑ ': '2040',
-      '↓ ': '240',
-      '⌀ ': '1049',
+      'Σ ': '8452',
+      '↑ ': '3268',
+      '↓ ': '2452',
+      '⌀ ': '2817',
     }),
     dict({
-      'Σ ': '3203',
-      '↑ ': '2028',
-      '↓ ': '228',
-      '⌀ ': '1068',
+      'Σ ': '6731',
+      '↑ ': '3346',
+      '↓ ': '733',
+      '⌀ ': '2244',
     }),
     dict({
-      'Σ ': '14:19',
-      '↑ ': '08:17',
-      '↓ ': '02:14',
-      '⌀ ': '04:46',
+      'Σ ': '10:36',
+      '↑ ': '03:50',
+      '↓ ': '03:17',
+      '⌀ ': '03:32',
     }),
     dict({
       'Σ ': '-',
-      '↑ ': '4.70',
-      '↓ ': '4.05',
-      '⌀ ': '4.29',
+      '↑ ': '5.12',
+      '↓ ': '4.53',
+      '⌀ ': '4.74',
     }),
   ])
 # ---
 # name: test_collection_collection_stats[order_params2][order_param: "elevation_gain" - stats]
   list([
     list([
-      '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
     list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
+      '2',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
     list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
     ]),
   ])
 # ---
@@ -401,34 +401,34 @@
     'STATS',
     '3',
     dict({
-      'Σ ': '59.9',
-      '↑ ': '34.0',
-      '↓ ': '10.5',
-      '⌀ ': '20.0',
+      'Σ ': '50.2',
+      '↑ ': '17.8',
+      '↓ ': '14.9',
+      '⌀ ': '16.7',
     }),
     dict({
-      'Σ ': '3147',
-      '↑ ': '2040',
-      '↓ ': '240',
-      '⌀ ': '1049',
+      'Σ ': '8452',
+      '↑ ': '3268',
+      '↓ ': '2452',
+      '⌀ ': '2817',
     }),
     dict({
-      'Σ ': '3203',
-      '↑ ': '2028',
-      '↓ ': '228',
-      '⌀ ': '1068',
+      'Σ ': '6731',
+      '↑ ': '3346',
+      '↓ ': '733',
+      '⌀ ': '2244',
     }),
     dict({
-      'Σ ': '14:19',
-      '↑ ': '08:17',
-      '↓ ': '02:14',
-      '⌀ ': '04:46',
+      'Σ ': '10:36',
+      '↑ ': '03:50',
+      '↓ ': '03:17',
+      '⌀ ': '03:32',
     }),
     dict({
       'Σ ': '-',
-      '↑ ': '4.70',
-      '↓ ': '4.05',
-      '⌀ ': '4.29',
+      '↑ ': '5.12',
+      '↓ ': '4.53',
+      '⌀ ': '4.74',
     }),
   ])
 # ---
@@ -436,33 +436,33 @@
   list([
     list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
-    ]),
-    list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
     ]),
     list([
       '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
+    ]),
+    list([
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
   ])
 # ---
@@ -472,68 +472,68 @@
     'STATS',
     '3',
     dict({
-      'Σ ': '59.9',
-      '↑ ': '34.0',
-      '↓ ': '10.5',
-      '⌀ ': '20.0',
+      'Σ ': '50.2',
+      '↑ ': '17.8',
+      '↓ ': '14.9',
+      '⌀ ': '16.7',
     }),
     dict({
-      'Σ ': '3147',
-      '↑ ': '2040',
-      '↓ ': '240',
-      '⌀ ': '1049',
+      'Σ ': '8452',
+      '↑ ': '3268',
+      '↓ ': '2452',
+      '⌀ ': '2817',
     }),
     dict({
-      'Σ ': '3203',
-      '↑ ': '2028',
-      '↓ ': '228',
-      '⌀ ': '1068',
+      'Σ ': '6731',
+      '↑ ': '3346',
+      '↓ ': '733',
+      '⌀ ': '2244',
     }),
     dict({
-      'Σ ': '14:19',
-      '↑ ': '08:17',
-      '↓ ': '02:14',
-      '⌀ ': '04:46',
+      'Σ ': '10:36',
+      '↑ ': '03:50',
+      '↓ ': '03:17',
+      '⌀ ': '03:32',
     }),
     dict({
       'Σ ': '-',
-      '↑ ': '4.70',
-      '↓ ': '4.05',
-      '⌀ ': '4.29',
+      '↑ ': '5.12',
+      '↓ ': '4.53',
+      '⌀ ': '4.74',
     }),
   ])
 # ---
 # name: test_collection_hikes_stats[order_params0][order_param: "date - stats"]
   list([
     list([
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
+    ]),
+    list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
     ]),
     list([
       '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
-    ]),
-    list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
   ])
 # ---
@@ -546,34 +546,34 @@
 # name: test_collection_hikes_stats[order_params1][order_param: "-date - stats"]
   list([
     list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
-    ]),
-    list([
       '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
     list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
+    ]),
+    list([
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
   ])
 # ---
@@ -586,34 +586,34 @@
 # name: test_collection_hikes_stats[order_params2][order_param: "elevation_gain - stats"]
   list([
     list([
-      '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
     list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
+      '2',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
     list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
     ]),
   ])
 # ---
@@ -627,33 +627,33 @@
   list([
     list([
       '1',
-      '1984-09-22',
-      'Foo Hike',
-      '10.5',
-      '2040',
-      '2028',
-      '02:14',
-      '4.70',
-    ]),
-    list([
-      '3',
-      '1984-09-24',
-      'Baz Hike',
-      '34.0',
-      '867',
-      '947',
-      '08:17',
-      '4.10',
+      '2010-05-20',
+      'Paul Diaz',
+      '17.4',
+      '3268',
+      '2652',
+      '03:50',
+      '4.53',
     ]),
     list([
       '2',
-      '1984-09-23',
-      'Bar Hike',
-      '15.4',
-      '240',
-      '228',
-      '03:48',
-      '4.05',
+      '2013-06-03',
+      'Kristina Hunt',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
+    ]),
+    list([
+      '3',
+      '1985-07-31',
+      'Eric Jones',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
   ])
 # ---

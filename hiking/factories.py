@@ -1,4 +1,5 @@
 import datetime
+import random
 
 import factory.fuzzy
 
@@ -11,16 +12,16 @@ class HikeFactory(factory.alchemy.SQLAlchemyModelFactory):
     name = factory.Faker("name")
     body = factory.Faker("paragraph")
     date = factory.Faker("date_object")
-    distance = factory.fuzzy.FuzzyFloat(5.0, 40.0)
+    distance = factory.fuzzy.FuzzyFloat(5.0, 40.0, precision=4)
     elevation_gain = factory.fuzzy.FuzzyInteger(200, 3500)
     elevation_loss = factory.fuzzy.FuzzyInteger(200, 3500)
-    duration = factory.fuzzy.FuzzyChoice(
-        [
-            datetime.timedelta(minutes=i)
-            for i in [45, 60, 75, 90, 105, 120, 135, 150, 165, 180]
-        ]
-    )
     gpx_xml = None
+
+    @factory.lazy_attribute
+    def duration(self):
+        # make sure generated hikes have a realistic speed
+        speed = random.uniform(4.0, 5.5)
+        return datetime.timedelta(hours=(self.distance / speed))
 
     class Meta:
         model = Hike

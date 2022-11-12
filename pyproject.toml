@@ -45,7 +45,7 @@ combine_as_imports = true
 line_length = 88
 
 [tool.pytest.ini_options]
-addopts = "-vv --randomly-seed=506608131 --randomly-dont-reorganize"
+addopts = "-vv --randomly-seed=2715570422 --randomly-dont-reorganize"
 env = [
     "HIKING_TEST=true",
 ]

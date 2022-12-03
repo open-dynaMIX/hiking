@@ -122,7 +122,7 @@ def user_create_edit_interaction(hike: Hike, is_import_from_gpx: bool):
         },
         "body": {
             "prompt": None,
-            "default": None,  # We set this as soon as we get the hike name
+            "default": hike.body,
             "prompt_class": None,
             "exceptions": (),
             "assignment_func": lambda v: v,
@@ -179,7 +179,7 @@ def user_create_edit_interaction(hike: Hike, is_import_from_gpx: bool):
     }
 
     for attr, config in attr_map.items():
-        if attr == "body":
+        if attr == "body" and not config["default"]:
             # In case of a `create`, `hike.name` was empty earlier
             config["default"] = f"# {hike.name}  (Markdown supported)"
 

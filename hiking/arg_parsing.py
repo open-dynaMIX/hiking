@@ -47,6 +47,18 @@ def get_valid_fields_for_args(exclude: Optional[List] = None):
 
 
 class DateRangeType:
+    description = (
+        "Only include hikes contained in provided daterange (default: all hikes)"
+    )
+    examples = (
+        "Valid examples:\n"
+        "1970-01-01\n"
+        "1970-01-01/1970-02-01\n"
+        "1970-01-01/ (all hikes from start date)\n"
+        "/1970-01-01 (all hikes until end date)"
+    )
+    help = f"{description}\n{examples}"
+
     def __call__(self, raw: str, *args, **kwargs):
         start = end = raw
         splitted = raw.split("/")
@@ -71,7 +83,7 @@ class DateRangeType:
                 else datetime.date.max
             )
         except ValueError as e:
-            raise argparse.ArgumentTypeError(e)
+            raise argparse.ArgumentTypeError(f"{e.args[0]}\n{self.examples}")
         return SlimDateRange(start, end)
 
 
@@ -203,14 +215,7 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
     show.add_argument(
         "-d",
         "--daterange",
-        help=(
-            "Only show hikes in provided daterange (default: any time)\n"
-            "Valid examples:\n"
-            "1970-01-01\n"
-            "1970-01-01/1970-02-01"
-            "1970-01-01/ (all hikes from start date)"
-            "/1970-01-01 (all hikes until end date)"
-        ),
+        help=DateRangeType.help,
         type=DateRangeType(),
         default=SlimDateRange(datetime.date.min, datetime.date.max),
     )
@@ -372,12 +377,7 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
     export.add_argument(
         "-d",
         "--daterange",
-        help=(
-            "Only show hikes in provided daterange (default: any time)\n"
-            "Valid examples:\n"
-            "1970-01-01\n"
-            "1970-01-01/1970-02-01"
-        ),
+        help=DateRangeType.help,
         type=DateRangeType(),
         default=SlimDateRange(datetime.date.min, datetime.date.max),
     )

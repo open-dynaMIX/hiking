@@ -3,7 +3,7 @@ from collections import namedtuple
 from typing import List, Optional
 
 import gpxpy
-from sqlalchemy import Column, Date, Float, Integer, Interval, String, Text
+from sqlalchemy import Column, Date, Float, Integer, Interval, String, Text, or_
 from sqlalchemy.orm import load_only
 
 from hiking.db_utils import Base, engine, session
@@ -200,12 +200,20 @@ class Hike(Base):
 def get_filtered_query(
     ids: Optional[List[int]] = None,
     daterange: Optional["SlimDateRange"] = None,
+    search: Optional[str] = None,
     load_all_columns: bool = False,
 ):
     query = session.query(Hike)
     if daterange:
         query = query.filter(Hike.date >= daterange.lower).filter(
             Hike.date <= daterange.upper
+        )
+    if search:
+        query = query.filter(
+            or_(
+                Hike.name.icontains(search, autoescape=True),
+                Hike.body.icontains(search, autoescape=True),
+            )
         )
     if ids:
         query = query.filter(Hike.id.in_(ids))

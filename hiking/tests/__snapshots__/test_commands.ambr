@@ -444,7 +444,7 @@
   
   '''
 # ---
-# name: test_command_show_list[date-False-daterange0-table_style0-plot_params0]
+# name: test_command_show_list[date-False-daterange0-None-table_style0-plot_params0]
   '''
                                        Hikes                                      
    ────────────────────────────────────────────────────────────────────────────── 
@@ -463,7 +463,7 @@
   
   '''
 # ---
-# name: test_command_show_list[date-True-daterange1-table_style1-plot_params1]
+# name: test_command_show_list[date-False-daterange5-Paul-table_style5-plot_params5]
   '''
                                  Hikes                               
    ───────────────────────────────────────────────────────────────── 
@@ -474,7 +474,29 @@
   
   '''
 # ---
-# name: test_command_show_list[distance-True-daterange2-table_style2-plot_params2]
+# name: test_command_show_list[date-False-daterange6-FOO-table_style6-plot_params6]
+  '''
+                                 Hikes                               
+   ───────────────────────────────────────────────────────────────── 
+    ID   Date         Name        ➡ km    ⬈ m    ⬊ m       ⏱   km/h  
+   ───────────────────────────────────────────────────────────────── 
+     1   2010-05-20   Paul Diaz   17.4   3268   2652   03:50   4.53  
+   ───────────────────────────────────────────────────────────────── 
+  
+  '''
+# ---
+# name: test_command_show_list[date-True-daterange1-None-table_style1-plot_params1]
+  '''
+                                 Hikes                               
+   ───────────────────────────────────────────────────────────────── 
+    ID   Date         Name        ➡ km    ⬈ m    ⬊ m       ⏱   km/h  
+   ───────────────────────────────────────────────────────────────── 
+     1   2010-05-20   Paul Diaz   17.4   3268   2652   03:50   4.53  
+   ───────────────────────────────────────────────────────────────── 
+  
+  '''
+# ---
+# name: test_command_show_list[distance-True-daterange2-None-table_style2-plot_params2]
   '''
                                        Hikes                                      
   ╔════╦════════════╦══════════════╦════════╦════════╦════════╦═════════╦════════╗
@@ -493,7 +515,7 @@
   
   '''
 # ---
-# name: test_command_show_list[elevation_gain-False-daterange3-table_style3-plot_params3]
+# name: test_command_show_list[elevation_gain-False-daterange3-None-table_style3-plot_params3]
   '''
                                        Hikes                                      
   ╔════╦════════════╦══════════════╦════════╦════════╦════════╦═════════╦════════╗
@@ -536,7 +558,7 @@
   
   '''
 # ---
-# name: test_command_show_list[speed-True-daterange4-table_style4-plot_params4]
+# name: test_command_show_list[speed-True-daterange4-None-table_style4-plot_params4]
   '''
                                        Hikes                                      
    ────────────────────────────────────────────────────────────────────────────── 

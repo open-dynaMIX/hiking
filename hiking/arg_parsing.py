@@ -221,6 +221,13 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
     )
 
     show.add_argument(
+        "-s",
+        "--search",
+        help="Search for text in name and body (case insensitive)",
+        type=str,
+    )
+
+    show.add_argument(
         "-t",
         "--table-style",
         help=(

@@ -27,6 +27,7 @@ def main():
                 commands.command_show(
                     args.ids,
                     args.daterange,
+                    args.search,
                     args.table_style,
                     args.order_key,
                     args.plot,

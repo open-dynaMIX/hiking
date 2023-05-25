@@ -327,6 +327,7 @@ def test_command_show_detail(
     commands.command_show(
         [hike.id],
         SlimDateRange(datetime.date.min, datetime.date.max),
+        None,
         DEFAULT_BOX_STYLE,
         ("date", False),
         tuple(),
@@ -341,12 +342,13 @@ def test_command_show_detail(
 
 
 @pytest.mark.parametrize(
-    "order_param, reverse, daterange, table_style, plot_params",
+    "order_param, reverse, daterange, search, table_style, plot_params",
     [
         (
             "date",
             False,
             SlimDateRange(datetime.date.min, datetime.date.max),
+            None,
             DEFAULT_BOX_STYLE,
             tuple(),
         ),
@@ -354,6 +356,7 @@ def test_command_show_detail(
             "date",
             True,
             SlimDateRange(datetime.date(2002, 6, 1), datetime.date(2012, 8, 1)),
+            None,
             DEFAULT_BOX_STYLE,
             tuple(),
         ),
@@ -361,6 +364,7 @@ def test_command_show_detail(
             "distance",
             True,
             SlimDateRange(datetime.date.min, datetime.date.max),
+            None,
             box.DOUBLE,
             tuple(),
         ),
@@ -368,6 +372,7 @@ def test_command_show_detail(
             "elevation_gain",
             False,
             SlimDateRange(datetime.date.min, datetime.date.max),
+            None,
             box.DOUBLE,
             ("duration", "distance"),
         ),
@@ -375,8 +380,25 @@ def test_command_show_detail(
             "speed",
             True,
             SlimDateRange(datetime.date.min, datetime.date.max),
+            None,
             DEFAULT_BOX_STYLE,
             ("date", "distance"),
+        ),
+        (
+            "date",
+            False,
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            "Paul",
+            DEFAULT_BOX_STYLE,
+            tuple(),
+        ),
+        (
+            "date",
+            False,
+            SlimDateRange(datetime.date.min, datetime.date.max),
+            "FOO",
+            DEFAULT_BOX_STYLE,
+            tuple(),
         ),
     ],
 )
@@ -387,12 +409,17 @@ def test_command_show_list(
     order_param,
     reverse,
     daterange,
+    search,
     table_style,
     plot_params,
 ):
+    hike = collection.hikes.first()
+    hike.body = "foo"
+    hike.save()
     commands.command_show(
         [],
         daterange,
+        search,
         table_style,
         (order_param, reverse),
         plot_params,
@@ -408,6 +435,7 @@ def test_command_show_no_hikes():
         commands.command_show(
             [],
             SlimDateRange(datetime.date.min, datetime.date.max),
+            None,
             DEFAULT_BOX_STYLE,
             tuple(),
             tuple(),
@@ -421,6 +449,7 @@ def test_command_show_no_hikes_with_params(hike):
         commands.command_show(
             [hike.id + 1],  # no hike with this ID
             SlimDateRange(datetime.date.min, datetime.date.max),
+            None,
             DEFAULT_BOX_STYLE,
             tuple(),
             tuple(),

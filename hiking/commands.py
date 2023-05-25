@@ -181,6 +181,7 @@ def detail_view(collection: HikeCollection):
 def command_show(
     ids: List[int],
     daterange: "SlimDateRange",
+    search: Optional[str],
     table_style: box,
     order_params: Tuple[str, bool],
     plot_params: Tuple[Optional[str], Optional[str]],
@@ -190,7 +191,7 @@ def command_show(
             'No hikes in DB. Add some hikes with "create" or "import"'
         )
 
-    collection = HikeCollection(hikes=get_filtered_query(ids, daterange))
+    collection = HikeCollection(hikes=get_filtered_query(ids, daterange, search))
     if not collection.hikes.first():
         raise HikingException("No hikes found with given parameters")
 

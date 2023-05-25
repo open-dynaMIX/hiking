@@ -8,8 +8,8 @@ from pytest_factoryboy.fixture import register
 
 from hiking import __main__, factories
 from hiking.collection import HikeCollection
-from hiking.db_utils import engine, session
-from hiking.models import create_tables, get_filtered_query
+from hiking.db_utils import session
+from hiking.models import Hike, create_tables, get_filtered_query
 from hiking.utils import setup_logging
 
 OWN_DIR = Path(__file__).resolve().parent
@@ -26,15 +26,12 @@ def setup_db():
 
 
 @pytest.fixture(autouse=True)
-def db():
+def clear_db():
     try:
         yield
     finally:
-        with engine.connect() as con:
-            con.execute("DELETE FROM hikes;")
+        session.query(Hike).delete()
         session.commit()
-        session.close()
-        session.begin()
 
 
 @pytest.fixture

@@ -146,7 +146,7 @@ def validate_plot(value: str) -> Tuple[str, str]:
 def validate_table_style(value: str) -> Tuple[str, str]:
     try:
         box_style = getattr(box, value.upper())
-    except (AttributeError):
+    except AttributeError:
         raise argparse.ArgumentTypeError("Invalid table-style")
     return box_style
 

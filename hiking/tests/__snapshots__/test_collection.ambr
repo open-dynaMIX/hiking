@@ -8,23 +8,23 @@
 # ---
 # name: test_collection_attr_functions[field1][date - attr_list]
   list([
-    datetime.date(2010, 5, 20),
-    datetime.date(2013, 6, 3),
-    datetime.date(1985, 7, 31),
+    datetime.date(2020, 5, 16),
+    datetime.date(2005, 4, 5),
+    datetime.date(2024, 2, 27),
   ])
 # ---
 # name: test_collection_attr_functions[field2][name - attr_list]
   list([
     'Paul Diaz',
-    'Kristina Hunt',
-    'Eric Jones',
+    'Gina Lynch',
+    'John Rhodes',
   ])
 # ---
 # name: test_collection_attr_functions[field3][body - attr_list]
   list([
     'Owner candidate condition which central. Owner support record upon election. Pattern pick camera benefit. Poor health purpose practice.',
     'Summer best manager up. Without hit science onto practice federal. Fight type street.',
-    'Garden yet collection their can generation do. Consider last crime country understand important. Instead I often cup receive it task.',
+    'International music call field door prove. Hit treat garden become a art. Like learn short present store choose deep.',
   ])
 # ---
 # name: test_collection_attr_functions[field4][distance - attr_list]
@@ -38,7 +38,7 @@
   '16.7'
 # ---
 # name: test_collection_attr_functions[field4][distance - avg - raw]
-  16.72666666666667
+  16.726666666666667
 # ---
 # name: test_collection_attr_functions[field4][distance - max - pretty]
   '17.8'
@@ -56,7 +56,7 @@
   '50.2'
 # ---
 # name: test_collection_attr_functions[field4][distance - sum - raw]
-  50.18000000000001
+  50.18
 # ---
 # name: test_collection_attr_functions[field5][elevation_gain - attr_list]
   list([
@@ -223,18 +223,18 @@
 # name: test_collection_collection_stats[order_params0][order_param: "date" - stats]
   list([
     list([
-      '3',
-      '1985-07-31',
-      'Eric Jones',
-      '14.9',
-      '2452',
-      '733',
-      '03:17',
-      '4.55',
+      '2',
+      '2005-04-05',
+      'Gina Lynch',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -243,14 +243,14 @@
       '4.53',
     ]),
     list([
-      '2',
-      '2013-06-03',
-      'Kristina Hunt',
-      '17.8',
-      '2732',
-      '3346',
-      '03:28',
-      '5.12',
+      '3',
+      '2024-02-27',
+      'John Rhodes',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
   ])
 # ---
@@ -294,18 +294,18 @@
 # name: test_collection_collection_stats[order_params1][order_param: "-date" - stats]
   list([
     list([
-      '2',
-      '2013-06-03',
-      'Kristina Hunt',
-      '17.8',
-      '2732',
-      '3346',
-      '03:28',
-      '5.12',
+      '3',
+      '2024-02-27',
+      'John Rhodes',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -314,14 +314,14 @@
       '4.53',
     ]),
     list([
-      '3',
-      '1985-07-31',
-      'Eric Jones',
-      '14.9',
-      '2452',
-      '733',
-      '03:17',
-      '4.55',
+      '2',
+      '2005-04-05',
+      'Gina Lynch',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
   ])
 # ---
@@ -366,8 +366,8 @@
   list([
     list([
       '3',
-      '1985-07-31',
-      'Eric Jones',
+      '2024-02-27',
+      'John Rhodes',
       '14.9',
       '2452',
       '733',
@@ -376,8 +376,8 @@
     ]),
     list([
       '2',
-      '2013-06-03',
-      'Kristina Hunt',
+      '2005-04-05',
+      'Gina Lynch',
       '17.8',
       '2732',
       '3346',
@@ -386,7 +386,7 @@
     ]),
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -437,7 +437,7 @@
   list([
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -447,8 +447,8 @@
     ]),
     list([
       '2',
-      '2013-06-03',
-      'Kristina Hunt',
+      '2005-04-05',
+      'Gina Lynch',
       '17.8',
       '2732',
       '3346',
@@ -457,8 +457,8 @@
     ]),
     list([
       '3',
-      '1985-07-31',
-      'Eric Jones',
+      '2024-02-27',
+      'John Rhodes',
       '14.9',
       '2452',
       '733',
@@ -507,18 +507,18 @@
 # name: test_collection_hikes_stats[order_params0][order_param: "date - stats"]
   list([
     list([
-      '3',
-      '1985-07-31',
-      'Eric Jones',
-      '14.9',
-      '2452',
-      '733',
-      '03:17',
-      '4.55',
+      '2',
+      '2005-04-05',
+      'Gina Lynch',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -527,14 +527,14 @@
       '4.53',
     ]),
     list([
-      '2',
-      '2013-06-03',
-      'Kristina Hunt',
-      '17.8',
-      '2732',
-      '3346',
-      '03:28',
-      '5.12',
+      '3',
+      '2024-02-27',
+      'John Rhodes',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
   ])
 # ---
@@ -547,18 +547,18 @@
 # name: test_collection_hikes_stats[order_params1][order_param: "-date - stats"]
   list([
     list([
-      '2',
-      '2013-06-03',
-      'Kristina Hunt',
-      '17.8',
-      '2732',
-      '3346',
-      '03:28',
-      '5.12',
+      '3',
+      '2024-02-27',
+      'John Rhodes',
+      '14.9',
+      '2452',
+      '733',
+      '03:17',
+      '4.55',
     ]),
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -567,14 +567,14 @@
       '4.53',
     ]),
     list([
-      '3',
-      '1985-07-31',
-      'Eric Jones',
-      '14.9',
-      '2452',
-      '733',
-      '03:17',
-      '4.55',
+      '2',
+      '2005-04-05',
+      'Gina Lynch',
+      '17.8',
+      '2732',
+      '3346',
+      '03:28',
+      '5.12',
     ]),
   ])
 # ---
@@ -588,8 +588,8 @@
   list([
     list([
       '3',
-      '1985-07-31',
-      'Eric Jones',
+      '2024-02-27',
+      'John Rhodes',
       '14.9',
       '2452',
       '733',
@@ -598,8 +598,8 @@
     ]),
     list([
       '2',
-      '2013-06-03',
-      'Kristina Hunt',
+      '2005-04-05',
+      'Gina Lynch',
       '17.8',
       '2732',
       '3346',
@@ -608,7 +608,7 @@
     ]),
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -628,7 +628,7 @@
   list([
     list([
       '1',
-      '2010-05-20',
+      '2020-05-16',
       'Paul Diaz',
       '17.4',
       '3268',
@@ -638,8 +638,8 @@
     ]),
     list([
       '2',
-      '2013-06-03',
-      'Kristina Hunt',
+      '2005-04-05',
+      'Gina Lynch',
       '17.8',
       '2732',
       '3346',
@@ -648,8 +648,8 @@
     ]),
     list([
       '3',
-      '1985-07-31',
-      'Eric Jones',
+      '2024-02-27',
+      'John Rhodes',
       '14.9',
       '2452',
       '733',

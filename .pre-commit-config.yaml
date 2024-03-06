@@ -2,25 +2,25 @@ repos:
 -   repo: local
     hooks:
     - id: black
-      stages: [commit]
+      stages: [pre-commit]
       name: black
       language: system
-      entry: black
+      entry: poetry run black
       types: [python]
     - id: isort
-      stages: [commit]
+      stages: [pre-commit]
       name: isort
       language: system
-      entry: isort
+      entry: poetry run isort
       types: [python]
     - id: flake8
-      stages: [commit]
+      stages: [pre-commit]
       name: flake8
       language: system
-      entry: flake8
+      entry: poetry run flake8
       types: [python]
     - id: gitlint
       stages: [commit-msg]
       name: gitlint
-      entry: gitlint --msg-filename
+      entry: poetry run gitlint --msg-filename
       language: system

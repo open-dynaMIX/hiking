@@ -83,7 +83,7 @@ def command_create_edit(pk: int = None, gpx: str = None):
 
     If `pk` is provided, `edit` will be performed.
     """
-    hike = session.query(Hike).get(pk) if pk is not None else Hike()
+    hike = session.get(Hike, pk) if pk is not None else Hike()
 
     if not hike:
         raise HikingException("No hike found with provided ID")

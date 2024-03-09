@@ -71,9 +71,9 @@ def test_command_create_edit(
             "not a date",  # expects a date; we test the loop
             "1970-01-01",  # give it what it wants
             "My awesome hike",  # set the hike title
-            str(gpx_file.absolute())
-            if set_gpx_interactively
-            else None,  # conditionally set gpx file
+            (
+                str(gpx_file.absolute()) if set_gpx_interactively else None
+            ),  # conditionally set gpx file
         ],
     )
     mocker.patch.object(interactivity, "call", new=editor_call_mock)

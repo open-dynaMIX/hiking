@@ -158,9 +158,9 @@ def user_create_edit_interaction(hike: Hike, is_import_from_gpx: bool):
         },
         "duration": {
             "prompt": "Duration of hike in minutes",
-            "default": round(hike.duration.total_seconds() / 60)
-            if hike.duration
-            else None,
+            "default": (
+                round(hike.duration.total_seconds() / 60) if hike.duration else None
+            ),
             "prompt_class": IntPrompt,
             "exceptions": (ValueError,),
             "assignment_func": lambda v: datetime.timedelta(minutes=float(v)),

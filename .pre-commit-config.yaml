@@ -2,13 +2,13 @@ repos:
   - repo: local
     hooks:
       - id: ruff-format
-        stages: [ commit ]
+        stages: [ pre-commit ]
         name: ruff-format
         language: system
         entry: poetry run ruff format .
         types: [ python ]
       - id: ruff-check
-        stages: [ commit ]
+        stages: [ pre-commit ]
         name: ruff-check
         language: system
         entry: poetry run ruff check . --output-format=full --fix

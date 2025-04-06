@@ -2,7 +2,7 @@
 # name: test_hike
   list([
     '1',
-    '2010-05-20',
+    '2020-05-16',
     'Paul Diaz',
     '17.4',
     '3268',
@@ -13,7 +13,7 @@
 # ---
 # name: test_hike.1
   dict({
-    'Date': datetime.date(2010, 5, 20),
+    'Date': datetime.date(2020, 5, 16),
     'ID': 1,
     'Name': 'Paul Diaz',
     'km/h': 4.53,

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 import logging
 import sys
 
@@ -44,11 +43,11 @@ def main():
                 )
 
     except HikingJsonLoaderException as e:
-        logger.warning(
-            f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n{JSON_IMPORT_EXAMPLE}"
-        )
+        msg = f"Invalid data in hiking.json: {e.args[0]}\n\nExpected format:\n{JSON_IMPORT_EXAMPLE}"
+        logger.warning(msg)
     except HikingException as e:
-        logger.error(f"Error: {e}")
+        msg = f"Error: {e}"
+        logger.exception(msg)
     except (KeyboardInterrupt, EOFError):  # pragma: no cover
         sys.exit(0)
 

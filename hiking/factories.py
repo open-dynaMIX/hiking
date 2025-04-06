@@ -20,7 +20,7 @@ class HikeFactory(factory.alchemy.SQLAlchemyModelFactory):
     @factory.lazy_attribute
     def duration(self):
         # make sure generated hikes have a realistic speed
-        speed = random.uniform(4.0, 5.5)
+        speed = random.uniform(4.0, 5.5)  # noqa: S311
         return datetime.timedelta(hours=(self.distance / speed))
 
     class Meta:

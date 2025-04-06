@@ -1,7 +1,7 @@
 import datetime
 import shutil
 from decimal import Decimal
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import plotille
 
@@ -9,8 +9,8 @@ from hiking.utils import format_value, pretty_timedelta
 
 
 def plot(
-    x: List[Union[datetime.date, Decimal, int, datetime.timedelta, float]],
-    y: List[Union[datetime.date, Decimal, int, datetime.timedelta, float]],
+    x: list[Union[datetime.date, Decimal, int, datetime.timedelta, float]],
+    y: list[Union[datetime.date, Decimal, int, datetime.timedelta, float]],
     xlabel: Optional[str],
     ylabel: Optional[str],
     height: int = 20,
@@ -33,11 +33,11 @@ def plot(
     def handle_ticks(tick: Union[float, datetime.date], _type: type):
         if _type == datetime.timedelta and isinstance(tick, float):
             return pretty_timedelta(datetime.timedelta(seconds=tick))
-        elif _type == datetime.date and isinstance(tick, datetime.date):
+        if _type == datetime.date and isinstance(tick, datetime.date):
             return tick.strftime("%m-%d")
-        elif _type == int:
+        if _type is int:
             return format_value(tick, "elevation_gain")
-        elif _type == float:
+        if _type is float:
             # setting to `speed` will get the right formatting
             return format_value(tick, "speed")
         return tick  # pragma: no cover

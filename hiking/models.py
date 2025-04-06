@@ -1,6 +1,6 @@
 import datetime
 from collections import namedtuple
-from typing import List, Optional
+from typing import Optional
 
 import gpxpy
 from sqlalchemy import Column, Date, Float, Integer, Interval, String, Text, or_
@@ -14,13 +14,15 @@ def create_tables():
     Base.metadata.create_all(engine)
 
 
-CalculatedField = namedtuple("CalculatedField", ["info"])
+CalculatedField = namedtuple(  # noqa: PYI024
+    "CalculatedField", ["info"]
+)
 
 
 def info_dict(
     name: str,
     pretty_name: str,
-    supported_calculations: Optional[List[str]] = None,
+    supported_calculations: Optional[list[str]] = None,
     data_view: bool = True,
     calculated_value: bool = False,
 ):
@@ -140,7 +142,7 @@ class Hike(Base):
         value = getattr(self, attr)
         return format_value(value, attr)
 
-    def get_stats(self) -> List[str]:
+    def get_stats(self) -> list[str]:
         serialized = []
         for field in self.FIELDS:
             if not field.info["data_view"]:
@@ -198,7 +200,7 @@ class Hike(Base):
 
 
 def get_filtered_query(
-    ids: Optional[List[int]] = None,
+    ids: Optional[list[int]] = None,
     daterange: Optional["SlimDateRange"] = None,
     search: Optional[str] = None,
     load_all_columns: bool = False,

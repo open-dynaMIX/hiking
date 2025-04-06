@@ -19,13 +19,15 @@ EDITOR = os.environ.get("EDITOR", "vi")
 GPX_VIEWER = "/usr/bin/gpxsee"
 DEFAULT_BOX_STYLE = box.HORIZONTALS
 console = Console()
-SlimDateRange = namedtuple("SlimDateRange", ["lower", "upper"])
+SlimDateRange = namedtuple(  # noqa: PYI024
+    "SlimDateRange", ["lower", "upper"]
+)
 
 log_level = logging.WARNING
 
 
 def setup_logging(debug: bool):
-    global log_level
+    global log_level  # noqa: PLW0603
     if debug:
         log_level = logging.DEBUG
     logging.basicConfig(format="%(levelname)-8s %(name)s:%(lineno)d %(message)s")
@@ -47,9 +49,9 @@ def format_value(
 ) -> str:
     if isinstance(value, datetime.timedelta):
         return pretty_timedelta(value)
-    elif isinstance(value, datetime.date):
+    if isinstance(value, datetime.date):
         return str(value)
-    elif isinstance(value, str):
+    if isinstance(value, str):
         return value
 
     assure_decimal_places = 0

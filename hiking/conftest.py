@@ -54,8 +54,7 @@ def unset_debug_logging():
 @pytest.fixture
 def gpx_xml():
     with GPX_TEST_FILE.open("r") as f:
-        xml = f.read()
-    return xml
+        return f.read()
 
 
 @pytest.fixture
@@ -66,8 +65,7 @@ def gpx_file():
 @pytest.fixture
 def json_import_data():
     with JSON_IMPORT_FILE.open("r") as f:
-        data = json.loads(f.read())
-    return data
+        return json.loads(f.read())
 
 
 @pytest.fixture

@@ -3,7 +3,7 @@ import tempfile
 from pathlib import Path
 from shutil import which
 from subprocess import call
-from typing import Union
+from typing import Optional, Union
 
 import gpxpy
 from rich.prompt import Confirm, FloatPrompt, IntPrompt, Prompt
@@ -13,7 +13,7 @@ from hiking.utils import EDITOR, GPX_VIEWER, console
 
 
 def call_external_command(
-    command: str, initial_content: str = None, return_content: bool = False
+    command: str, initial_content: Optional[str] = None, return_content: bool = False
 ):
     with tempfile.NamedTemporaryFile(
         suffix=".gpx", mode="w+" if return_content else "w"
@@ -21,12 +21,11 @@ def call_external_command(
         if initial_content:
             tf.write(initial_content)
             tf.flush()
-        call([command, tf.name])
+        call([command, tf.name])  # noqa: S603
 
         if return_content:
             tf.seek(0)
-            new_content = tf.read()
-            return new_content
+            return tf.read()
 
 
 def display_gpx(gpx_xml: str):
@@ -37,7 +36,7 @@ def display_gpx(gpx_xml: str):
     confirmation = Confirm.ask("Open external GPX-viewer?")
 
     if not confirmation:
-        print("Aborting")
+        console.print("Aborting")
         return
     call_external_command("/usr/bin/gpxsee", initial_content=gpx_xml)
 
@@ -78,13 +77,12 @@ def single_interaction(attr: str, attr_config: dict, hike: Hike):
                 try:
                     setattr(hike, attr, assignment_func(user_input))
                 except exceptions as e:
-                    print(e)
+                    console.print(e)
                     continue
                 break
-            else:
-                setattr(hike, attr, assignment_func(user_input))
-                break
-        elif not user_input and (getattr(hike, attr) or not required):
+            setattr(hike, attr, assignment_func(user_input))
+            break
+        if not user_input and (getattr(hike, attr) or not required):
             break
 
 

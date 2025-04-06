@@ -7,7 +7,7 @@ from hiking.utils import DB_PATH
 
 Base = declarative_base()
 engine = create_engine(
-    f"sqlite:///{str(DB_PATH.absolute())}"
+    f"sqlite:///{DB_PATH.absolute()!s}"
     if not os.environ.get("HIKING_TEST")
     else "sqlite://"
 )

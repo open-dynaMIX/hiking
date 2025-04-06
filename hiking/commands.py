@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from rich import box
 from rich.markdown import Markdown
@@ -19,7 +19,7 @@ from hiking.utils import DEFAULT_BOX_STYLE, SlimDateRange, console
 
 def get_table(
     collection: HikeCollection,
-    order_params: Tuple[str, bool],
+    order_params: tuple[str, bool],
     table_style: box.Box = box.SIMPLE,
     add_totals: bool = True,
 ) -> Table:
@@ -73,11 +73,11 @@ def draw_plot(
         y=y,
         xlabel=getattr(Hike, x_attr).info["pretty_name"],
         ylabel=getattr(Hike, y_attr).info["pretty_name"],
-        x_limit_min=1 if not x_attr == "date" else None,
+        x_limit_min=1 if x_attr != "date" else None,
     )
 
 
-def command_create_edit(pk: int = None, gpx: str = None):
+def command_create_edit(pk: Optional[int] = None, gpx: Optional[str] = None):
     """
     Create or edit a record.
 
@@ -86,7 +86,8 @@ def command_create_edit(pk: int = None, gpx: str = None):
     hike = session.get(Hike, pk) if pk is not None else Hike()
 
     if not hike:
-        raise HikingException("No hike found with provided ID")
+        msg = "No hike found with provided ID"
+        raise HikingException(msg)
 
     if gpx:
         hike.load_gpx(gpx)
@@ -104,21 +105,23 @@ def command_create_edit(pk: int = None, gpx: str = None):
     confirmation = Confirm.ask("Should this hike be written to the DB?")
 
     if not confirmation:  # pragma: no cover
-        print("Aborting")
+        console.print("Aborting")
         return
 
     hike.save()
 
 
-def command_delete(ids: List[int], delete_all: bool, force: bool, quiet: bool):
+def command_delete(ids: list[int], delete_all: bool, force: bool, quiet: bool):
     collection = HikeCollection(
         hikes=get_filtered_query(ids=None if delete_all else ids, daterange=None)
     )
 
     if not collection.hikes.first():
-        raise HikingException("No hikes found with provided ID(s)")
-    elif ids and collection.hikes.count() < len(ids):
-        raise HikingException("Invalid ID(s) provided")
+        msg = "No hikes found with provided ID(s)"
+        raise HikingException(msg)
+    if ids and collection.hikes.count() < len(ids):
+        msg = "Invalid ID(s) provided"
+        raise HikingException(msg)
 
     if not quiet:
         console.print("This action will delete following hikes:\n")
@@ -133,19 +136,19 @@ def command_delete(ids: List[int], delete_all: bool, force: bool, quiet: bool):
         confirmation = Confirm.ask("Are you sure you want them deleted?")
 
         if not confirmation:
-            print("Aborting")
+            console.print("Aborting")
             return
 
     for hike in collection.hikes:
         hike.delete()
 
 
-def command_import(json_data: List[dict]):
+def command_import(json_data: list[dict]):
     json_importer(json_data)
 
 
 def command_export(
-    export_dir: Path, ids: List[int], daterange: "SlimDateRange", include_ids: bool
+    export_dir: Path, ids: list[int], daterange: "SlimDateRange", include_ids: bool
 ):
     query = get_filtered_query(ids=ids, daterange=daterange, load_all_columns=True)
     json_exporter(query, export_dir, include_ids)
@@ -171,7 +174,7 @@ def detail_view(collection: HikeCollection):
         console.print(md)
         console.print()
 
-    print(get_elevation_profile(hike))
+    print(get_elevation_profile(hike))  # noqa: T201
 
     console.print()
     if hike.gpx_xml:
@@ -179,21 +182,21 @@ def detail_view(collection: HikeCollection):
 
 
 def command_show(
-    ids: List[int],
+    ids: list[int],
     daterange: "SlimDateRange",
     search: Optional[str],
     table_style: box,
-    order_params: Tuple[str, bool],
-    plot_params: Tuple[Optional[str], Optional[str]],
+    order_params: tuple[str, bool],
+    plot_params: tuple[Optional[str], Optional[str]],
 ) -> None:
     if not session.query(Hike).first():
-        raise HikingException(
-            'No hikes in DB. Add some hikes with "create" or "import"'
-        )
+        msg = 'No hikes in DB. Add some hikes with "create" or "import"'
+        raise HikingException(msg)
 
     collection = HikeCollection(hikes=get_filtered_query(ids, daterange, search))
     if not collection.hikes.first():
-        raise HikingException("No hikes found with given parameters")
+        msg = "No hikes found with given parameters"
+        raise HikingException(msg)
 
     if len(ids) != 1:
         table = get_table(collection, order_params, table_style)
@@ -204,4 +207,4 @@ def command_show(
 
     if plot_params:
         plot = draw_plot(collection, plot_params[0], plot_params[1])
-        print(plot)
+        print(plot)  # noqa: T201

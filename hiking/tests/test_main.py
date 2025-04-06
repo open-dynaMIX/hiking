@@ -7,7 +7,7 @@ from hiking import __main__, commands
 from hiking.__main__ import main
 from hiking.tests.utils import ansi_escape
 
-ArgsMock = namedtuple(
+ArgsMock = namedtuple(  # noqa: PYI024
     "args",
     [
         "command",
@@ -55,7 +55,7 @@ def test_main_end_to_end(
         ("command_create_edit", ["create"]),
         ("command_delete", ["delete"]),
         ("command_import", ["import"]),
-        ("command_export", ["export", "/tmp/"]),
+        ("command_export", ["export", "/tmp/"]),  # noqa: S108  # TODO: maybe
     ],
 )
 def test_main_commands(mocker, sys_argv, command, args):

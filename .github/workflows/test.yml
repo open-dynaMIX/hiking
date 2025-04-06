@@ -33,11 +33,11 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Run black
-        run: poetry run black --check --diff .
+      - name: Run ruff format
+        run: poetry run ruff format . --diff
 
-      - name: Run flake8
-        run: poetry run flake8
+      - name: Run ruff check
+        run: poetry run ruff check . --output-format=full
 
       - name: Run gitlint
         run: poetry run gitlint

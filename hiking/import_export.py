@@ -1,7 +1,6 @@
 import datetime
 import json
 from pathlib import Path
-from typing import List
 
 import gpxpy
 import sqlalchemy.orm
@@ -37,7 +36,7 @@ def validate_json_obj(hike_data: dict):
         raise HikingJsonLoaderException(msg)
 
 
-def json_importer(json_data: List[dict]):
+def json_importer(json_data: list[dict]):
     to_add = []
     to_merge = []
     for raw_hike in json_data:
@@ -47,24 +46,25 @@ def json_importer(json_data: List[dict]):
             raw_hike["date"] = datetime.datetime.strptime(
                 raw_hike["date"], "%Y-%m-%d"
             ).date()
-        except ValueError:
-            raise HikingJsonLoaderException("Wrong date format")
+        except ValueError as e:
+            msg = "Wrong date format"
+            raise HikingJsonLoaderException(msg) from e
         try:
             raw_hike["duration"] = datetime.timedelta(minutes=raw_hike["duration"])
-        except TypeError:
-            raise HikingJsonLoaderException("Wrong duration format")
+        except TypeError as e:
+            msg = "Wrong duration format"
+            raise HikingJsonLoaderException(msg) from e
         if raw_hike["gpx_file"]:
             gpx_file = Path(raw_hike["gpx_file"])
             if not gpx_file.is_file() or not gpx_file.exists():
-                raise HikingJsonLoaderException(
-                    f'*.gpx file "{raw_hike["gpx_file"]}" not found'
-                )
+                msg = f'*.gpx file "{raw_hike["gpx_file"]}" not found'
+                raise HikingJsonLoaderException(msg)
             with gpx_file.open("r") as f:
                 gpx_xml = f.read()
             try:
                 gpxpy.parse(gpx_xml)
             except GPXException as e:
-                raise HikingJsonLoaderException(e.args[0])
+                raise HikingJsonLoaderException(e.args[0]) from e
 
             raw_hike["gpx_xml"] = gpx_xml
         raw_hike.pop("gpx_file")
@@ -100,8 +100,8 @@ def json_exporter(
 
         if hike.gpx_xml:
             gpx_dir.mkdir(exist_ok=True)
-            gpx_file = gpx_dir / f"{str(hike.id)}.gpx"
-            with open(gpx_file, "w") as f:
+            gpx_file = gpx_dir / f"{hike.id!s}.gpx"
+            with gpx_file.open("w") as f:
                 f.write(hike.gpx_xml)
             hike_data["gpx_file"] = str(gpx_file.absolute())
         data.append(hike_data)

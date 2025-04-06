@@ -23,10 +23,6 @@ itertools.product()
     [
         (False, False),
         (False, True),
-        (False, False),
-        (False, True),
-        (True, False),
-        (True, True),
         (True, False),
         (True, True),
     ],
@@ -49,7 +45,7 @@ def test_command_create_edit(
 ):
     def editor_call_mock(command: list):
         if not write_body:
-            return None
+            return
         with Path(command[1]).open("w") as f:
             f.write("# My awesome hike\nLorem ipsum\n")
 
@@ -91,7 +87,7 @@ def test_command_create_edit(
     if not do_edit and not do_write:
         assert session.query(Hike).count() == 0
         return
-    elif do_edit and not do_write:
+    if do_edit and not do_write:
         assert session.query(Hike).count() == 1
         assert session.query(Hike).first() == hike
         return
@@ -120,12 +116,12 @@ def test_command_create_edit_invalid_id():
     assert e.value.args[0] == "No hike found with provided ID"
 
 
-@pytest.mark.parametrize("all", [True, False])
+@pytest.mark.parametrize("delete_all", [True, False])
 @pytest.mark.parametrize("force", [True, False])
 @pytest.mark.parametrize("quiet", [True, False])
 @pytest.mark.parametrize("do_write", [True, False])
 def test_command_delete(
-    snapshot, mocker, collection, capsys, all, force, quiet, do_write
+    snapshot, mocker, collection, capsys, delete_all, force, quiet, do_write
 ):
     hikes = collection.hikes.all()
     assert session.query(Hike).count() == 3
@@ -134,7 +130,7 @@ def test_command_delete(
         mocker.patch.object(interactivity.Confirm, "ask", return_value=do_write)
 
     commands.command_delete(
-        ids=[hikes[0].id, hikes[1].id], delete_all=all, force=force, quiet=quiet
+        ids=[hikes[0].id, hikes[1].id], delete_all=delete_all, force=force, quiet=quiet
     )
 
     if not quiet:
@@ -142,7 +138,7 @@ def test_command_delete(
         assert ansi_escape(captured) == snapshot
 
     if force or do_write:
-        if all:
+        if delete_all:
             assert session.query(Hike).count() == 0
             return
         assert session.query(Hike).count() == 1
@@ -330,7 +326,7 @@ def test_command_show_detail(
         None,
         DEFAULT_BOX_STYLE,
         ("date", False),
-        tuple(),
+        (),
     )
 
     if has_gpx and open_external_viewer and has_gpx_viewer:
@@ -350,7 +346,7 @@ def test_command_show_detail(
             SlimDateRange(datetime.date.min, datetime.date.max),
             None,
             DEFAULT_BOX_STYLE,
-            tuple(),
+            (),
         ),
         (
             "date",
@@ -358,7 +354,7 @@ def test_command_show_detail(
             SlimDateRange(datetime.date(2002, 6, 1), datetime.date(2012, 8, 1)),
             None,
             DEFAULT_BOX_STYLE,
-            tuple(),
+            (),
         ),
         (
             "distance",
@@ -366,7 +362,7 @@ def test_command_show_detail(
             SlimDateRange(datetime.date.min, datetime.date.max),
             None,
             box.DOUBLE,
-            tuple(),
+            (),
         ),
         (
             "elevation_gain",
@@ -390,7 +386,7 @@ def test_command_show_detail(
             SlimDateRange(datetime.date.min, datetime.date.max),
             "Paul",
             DEFAULT_BOX_STYLE,
-            tuple(),
+            (),
         ),
         (
             "date",
@@ -398,7 +394,7 @@ def test_command_show_detail(
             SlimDateRange(datetime.date.min, datetime.date.max),
             "FOO",
             DEFAULT_BOX_STYLE,
-            tuple(),
+            (),
         ),
     ],
 )
@@ -437,8 +433,8 @@ def test_command_show_no_hikes():
             SlimDateRange(datetime.date.min, datetime.date.max),
             None,
             DEFAULT_BOX_STYLE,
-            tuple(),
-            tuple(),
+            (),
+            (),
         )
 
     assert e.value.args[0] == 'No hikes in DB. Add some hikes with "create" or "import"'
@@ -451,8 +447,8 @@ def test_command_show_no_hikes_with_params(hike):
             SlimDateRange(datetime.date.min, datetime.date.max),
             None,
             DEFAULT_BOX_STYLE,
-            tuple(),
-            tuple(),
+            (),
+            (),
         )
 
     assert e.value.args[0] == "No hikes found with given parameters"

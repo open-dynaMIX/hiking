@@ -4,7 +4,7 @@ import json
 import os
 from itertools import zip_longest
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import gpxpy
 from rich import box
@@ -37,7 +37,7 @@ BOX_FORMATS = [
 ]
 
 
-def get_valid_fields_for_args(exclude: Optional[List] = None):
+def get_valid_fields_for_args(exclude: Optional[list] = None):
     exclude = exclude or []
     return [
         field.info["name"]
@@ -83,7 +83,8 @@ class DateRangeType:
                 else datetime.date.max
             )
         except ValueError as e:
-            raise argparse.ArgumentTypeError(f"{e.args[0]}\n{self.examples}")
+            msg = f"{e.args[0]}\n{self.examples}"
+            raise argparse.ArgumentTypeError(msg) from e
         return SlimDateRange(start, end)
 
 
@@ -95,10 +96,11 @@ class WritableDirPathType:
             or not directory.is_dir()
             or not os.access(directory, os.W_OK)
         ):
-            raise argparse.ArgumentTypeError(
+            msg = (
                 f'Cannot write to directory: "{directory.absolute()}". '
                 f"Make sure it exists and is writable."
             )
+            raise argparse.ArgumentTypeError(msg)
         return directory
 
 
@@ -109,7 +111,8 @@ class GPXFileType(argparse.FileType):
             gpx_xml = file.read()
             gpxpy.parse(gpx_xml)
         except Exception as e:
-            raise argparse.ArgumentTypeError(f"Cannot read *.gpx file: {str(e)}")
+            msg = f"Cannot read *.gpx file: {e!s}"
+            raise argparse.ArgumentTypeError(msg) from e
         return gpx_xml
 
 
@@ -119,70 +122,72 @@ class JsonFileType(argparse.FileType):
         try:
             data = json.load(file)
         except Exception as e:
-            raise argparse.ArgumentTypeError(f"Cannot read *.json file: {str(e)}")
+            msg = f"Cannot read *.json file: {e!s}"
+            raise argparse.ArgumentTypeError(msg) from e
         return data
 
 
-def validate_order_key(value: str) -> Tuple[str, bool]:
+def validate_order_key(value: str) -> tuple[str, bool]:
     reverse = False
     if value.startswith("-"):
         reverse = True
         value = value.lstrip("-")
     if value not in get_valid_fields_for_args():
-        raise argparse.ArgumentTypeError("Invalid order_key")
+        msg = "Invalid order_key"
+        raise argparse.ArgumentTypeError(msg)
     return value, reverse
 
 
-def validate_plot(value: str) -> Tuple[str, str]:
+def validate_plot(value: str) -> tuple[str, str]:
     try:
         x, y = tuple(value.split(","))
         for i in x, y:
             assert i in get_valid_fields_for_args(["name"])
+    except (ValueError, AssertionError) as e:
+        msg = "plot"
+        raise argparse.ArgumentTypeError(msg) from e
+    else:
         return x, y
-    except (ValueError, AssertionError):
-        raise argparse.ArgumentTypeError("plot")
 
 
-def validate_table_style(value: str) -> Tuple[str, str]:
+def validate_table_style(value: str) -> tuple[str, str]:
     try:
         box_style = getattr(box, value.upper())
-    except AttributeError:
-        raise argparse.ArgumentTypeError("Invalid table-style")
+    except AttributeError as e:
+        msg = "Invalid table-style"
+        raise argparse.ArgumentTypeError(msg) from e
     return box_style
 
 
 def set_default_subparser(
-    parser: argparse.ArgumentParser, default_subcommand: str, raw_args: List[str]
+    parser: argparse.ArgumentParser, default_subcommand: str, raw_args: list[str]
 ):
     subparser_found = False
     for arg in raw_args:
         if arg in ["-h", "--help"]:  # pragma: no cover
             break
     else:
-        for x in parser._subparsers._actions:
-            if not isinstance(x, argparse._SubParsersAction):
+        for x in parser._subparsers._actions:  # noqa: SLF001
+            if not isinstance(x, argparse._SubParsersAction):  # noqa: SLF001
                 continue
-            for sp_name in x._name_parser_map.keys():
+            for sp_name in x._name_parser_map:  # noqa: SLF001
                 if sp_name in raw_args:
                     subparser_found = True
         if not subparser_found:
             raw_args.insert(0, default_subcommand)
 
 
-def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
-    """
-    Parse all arguments.
-    """
+def parse_arguments(raw_args: list[str]) -> argparse.Namespace:  # noqa: PLR0915
+    """Parse all arguments."""
 
-    def format_list(data: List[str]):
+    def format_list(data: list[str]):
         data.sort()
-        col_1 = data[: int(round(len(data) / 2))]
-        col_2 = data[int(round(len(data) / 2)) :]
+        col_1 = data[: round(len(data) / 2)]
+        col_2 = data[round(len(data) / 2) :]
         table_data = list(zip_longest(col_1, col_2, fillvalue=""))
         longest = 0
         for i in table_data:
-            if len(i[0]) > longest:
-                longest = len(i[0])
+            longest = max(longest, len(i[0]))
         result = [f"{i[0].ljust(longest)}{' ' * 5}{i[1]}" for i in table_data]
         return "\n".join(result)
 
@@ -403,13 +408,16 @@ def parse_arguments(raw_args: List[str]) -> argparse.Namespace:
     args = parser.parse_args(raw_args)
 
     if args.command == "delete" and not args.ids and not args.all:
-        raise parser.error("IDs or --all must be provided")
-    elif args.command == "delete" and args.ids and args.all:
-        raise parser.error("Ambiguous argument: IDs and --all provided")
+        msg = "IDs or --all must be provided"
+        raise parser.error(msg)
+    if args.command == "delete" and args.ids and args.all:
+        msg = "Ambiguous argument: IDs and --all provided"
+        raise parser.error(msg)
 
     try:
         WritableDirPathType()(DATA_HOME.parent)
-    except argparse.ArgumentTypeError:
-        raise parser.error(f"Cannot write to user data director: {DATA_HOME.parent}")
+    except argparse.ArgumentTypeError as e:
+        msg = f"Cannot write to user data director: {DATA_HOME.parent}"
+        raise parser.error(msg) from e
 
     return args

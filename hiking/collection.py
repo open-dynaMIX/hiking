@@ -1,6 +1,6 @@
 import datetime
 from dataclasses import dataclass
-from typing import List, Tuple, Union
+from typing import Union
 
 from sqlalchemy import Interval, func
 from sqlalchemy.orm import Query
@@ -15,7 +15,7 @@ class HikeCollection:
 
     def get_hikes_attr_list(
         self, attr: str
-    ) -> List[Union[float, int, datetime.date, datetime.timedelta]]:
+    ) -> list[Union[float, int, datetime.date, datetime.timedelta]]:
         return [getattr(hike, attr) for hike in self.hikes.all()]
 
     def sum(self, attr: str) -> Union[float, int, datetime.date, datetime.timedelta]:
@@ -27,8 +27,7 @@ class HikeCollection:
 
             return sum(attr_list)  # pragma: no cover
 
-        result = self.hikes.with_entities(func.sum(getattr(Hike, attr))).scalar()
-        return result
+        return self.hikes.with_entities(func.sum(getattr(Hike, attr))).scalar()
 
     def avg(self, attr: str) -> Union[float, datetime.timedelta]:
         if attr == "duration":
@@ -36,7 +35,7 @@ class HikeCollection:
                 sum([h.duration for h in self.hikes.all()], datetime.timedelta())
                 / self.hikes.count()
             )
-        elif attr == "speed":
+        if attr == "speed":
             return sum(getattr(h, attr) for h in self.hikes.all()) / self.hikes.count()
 
         return self.hikes.with_entities(func.avg(getattr(Hike, attr))).scalar()
@@ -47,21 +46,19 @@ class HikeCollection:
                 0
             ].speed
 
-        result = getattr(
+        return getattr(
             self.hikes.order_by(getattr(Hike, attr).desc()).limit(1).first(), attr
         )
-        return result
 
     def min(self, attr: str) -> Union[float, int, datetime.date, datetime.timedelta]:
         if attr == "speed":
             return sorted(self.hikes.all(), key=lambda x: x.speed)[0].speed
 
-        result = getattr(
+        return getattr(
             self.hikes.order_by(getattr(Hike, attr).asc()).limit(1).first(), attr
         )
-        return result
 
-    def get_hikes_stats(self, order_params: Tuple[str, bool]) -> List[List[str]]:
+    def get_hikes_stats(self, order_params: tuple[str, bool]) -> list[list[str]]:
         if order_params[0] == "speed":
             hike_list = sorted(
                 self.hikes.all(), key=lambda x: x.speed, reverse=order_params[1]
@@ -78,8 +75,8 @@ class HikeCollection:
         result = getattr(self, calc)(attr)
         return format_value(result, attr)
 
-    def get_totals(self) -> List[str]:
-        def get_summary_cell(attr: str, supported_calculations: List[str]):
+    def get_totals(self) -> list[str]:
+        def get_summary_cell(attr: str, supported_calculations: list[str]):
             cell = {}
             for calc, pretty_calc in [
                 ("sum", "Σ "),
@@ -92,7 +89,7 @@ class HikeCollection:
                     cell[pretty_calc] = self.calc_and_format_value(calc, attr)
             return cell
 
-        d = [
+        return [
             "",
             "STATS",
             str(self.hikes.count()),
@@ -104,11 +101,10 @@ class HikeCollection:
                 if field.info["supported_calculations"]
             ],
         ]
-        return d
 
     def get_collection_stats(
-        self, order_params: Tuple[str, bool], add_totals: bool = True
-    ) -> Tuple[List, List]:
+        self, order_params: tuple[str, bool], add_totals: bool = True
+    ) -> tuple[list, list]:
         stats = self.get_hikes_stats(order_params)
 
         result = [

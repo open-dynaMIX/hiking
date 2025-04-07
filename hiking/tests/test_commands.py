@@ -326,6 +326,7 @@ def test_command_show_detail(
         None,
         DEFAULT_BOX_STYLE,
         ("date", False),
+        False,
         (),
     )
 
@@ -418,6 +419,7 @@ def test_command_show_list(
         search,
         table_style,
         (order_param, reverse),
+        False,
         plot_params,
     )
 
@@ -434,6 +436,7 @@ def test_command_show_no_hikes():
             None,
             DEFAULT_BOX_STYLE,
             (),
+            False,
             (),
         )
 
@@ -448,6 +451,7 @@ def test_command_show_no_hikes_with_params(hike):
             None,
             DEFAULT_BOX_STYLE,
             (),
+            False,
             (),
         )
 

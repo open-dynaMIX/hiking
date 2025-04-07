@@ -29,6 +29,7 @@ def main():
                     args.search,
                     args.table_style,
                     args.order_key,
+                    args.no_gpx_viewer,
                     args.plot,
                 )
             case "create" | "edit":

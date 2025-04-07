@@ -162,8 +162,7 @@ def print_detail_stats(stats: dict, table_style: box = DEFAULT_BOX_STYLE):
     console.print(table)
 
 
-def detail_view(collection: HikeCollection):
-    hike = collection.hikes.first()
+def detail_view(hike: Hike, ask_gpx_viewer: bool):
     stats = hike.get_detail_stats()
 
     print_detail_stats(stats)
@@ -177,7 +176,7 @@ def detail_view(collection: HikeCollection):
     print(get_elevation_profile(hike))  # noqa: T201
 
     console.print()
-    if hike.gpx_xml:
+    if ask_gpx_viewer:
         display_gpx(hike.gpx_xml)
 
 
@@ -187,6 +186,7 @@ def command_show(
     search: Optional[str],
     table_style: box,
     order_params: tuple[str, bool],
+    no_gpx_viewer: bool,
     plot_params: tuple[Optional[str], Optional[str]],
 ) -> None:
     if not session.query(Hike).first():
@@ -203,7 +203,9 @@ def command_show(
         console.print(table)
 
     if len(ids) == 1:
-        detail_view(collection)
+        hike = collection.hikes.first()
+        ask_gpx_viewer = hike.gpx_xml and not no_gpx_viewer
+        detail_view(hike, ask_gpx_viewer)
 
     if plot_params:
         plot = draw_plot(collection, plot_params[0], plot_params[1])

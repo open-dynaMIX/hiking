@@ -33,7 +33,7 @@ def display_gpx(gpx_xml: str):
         console.print("GPXSee not found. Install it to view your gpx")
         return
 
-    confirmation = Confirm.ask("Open external GPX-viewer?")
+    confirmation = Confirm.ask("Open external GPX-viewer?", default=False)
 
     if not confirmation:
         console.print("Aborting")

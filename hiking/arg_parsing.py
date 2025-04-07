@@ -256,6 +256,13 @@ def parse_arguments(raw_args: list[str]) -> argparse.Namespace:  # noqa: PLR0915
     )
 
     show.add_argument(
+        "-g",
+        "--no-gpx-viewer",
+        help="Do not ask to open the external GPX-viewer",
+        action="store_true",
+    )
+
+    show.add_argument(
         "--plot",
         help=(
             "Fields to plot in a graph.\n"

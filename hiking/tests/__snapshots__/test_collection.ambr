@@ -27,136 +27,136 @@
     'International music call field door prove. Hit treat garden become a art. Like learn short present store choose deep.',
   ])
 # ---
-# name: test_collection_attr_functions[field4][distance - attr_list]
+# name: test_collection_attr_functions[field4][gpx - attr_list]
+  list([
+    None,
+    None,
+    None,
+  ])
+# ---
+# name: test_collection_attr_functions[field5][distance - attr_list]
   list([
     17.43,
     17.8,
     14.95,
   ])
 # ---
-# name: test_collection_attr_functions[field4][distance - avg - pretty]
+# name: test_collection_attr_functions[field5][distance - avg - pretty]
   '16.7'
 # ---
-# name: test_collection_attr_functions[field4][distance - avg - raw]
+# name: test_collection_attr_functions[field5][distance - avg - raw]
   16.726666666666667
 # ---
-# name: test_collection_attr_functions[field4][distance - max - pretty]
+# name: test_collection_attr_functions[field5][distance - max - pretty]
   '17.8'
 # ---
-# name: test_collection_attr_functions[field4][distance - max - raw]
+# name: test_collection_attr_functions[field5][distance - max - raw]
   17.8
 # ---
-# name: test_collection_attr_functions[field4][distance - min - pretty]
+# name: test_collection_attr_functions[field5][distance - min - pretty]
   '14.9'
 # ---
-# name: test_collection_attr_functions[field4][distance - min - raw]
+# name: test_collection_attr_functions[field5][distance - min - raw]
   14.95
 # ---
-# name: test_collection_attr_functions[field4][distance - sum - pretty]
+# name: test_collection_attr_functions[field5][distance - sum - pretty]
   '50.2'
 # ---
-# name: test_collection_attr_functions[field4][distance - sum - raw]
+# name: test_collection_attr_functions[field5][distance - sum - raw]
   50.18
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - attr_list]
+# name: test_collection_attr_functions[field6][elevation_gain - attr_list]
   list([
     3268,
     2732,
     2452,
   ])
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - avg - pretty]
+# name: test_collection_attr_functions[field6][elevation_gain - avg - pretty]
   '2817'
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - avg - raw]
+# name: test_collection_attr_functions[field6][elevation_gain - avg - raw]
   2817.3333333333335
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - max - pretty]
+# name: test_collection_attr_functions[field6][elevation_gain - max - pretty]
   '3268'
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - max - raw]
+# name: test_collection_attr_functions[field6][elevation_gain - max - raw]
   3268
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - min - pretty]
+# name: test_collection_attr_functions[field6][elevation_gain - min - pretty]
   '2452'
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - min - raw]
+# name: test_collection_attr_functions[field6][elevation_gain - min - raw]
   2452
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - sum - pretty]
+# name: test_collection_attr_functions[field6][elevation_gain - sum - pretty]
   '8452'
 # ---
-# name: test_collection_attr_functions[field5][elevation_gain - sum - raw]
+# name: test_collection_attr_functions[field6][elevation_gain - sum - raw]
   8452
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - attr_list]
+# name: test_collection_attr_functions[field7][elevation_loss - attr_list]
   list([
     2652,
     3346,
     733,
   ])
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - avg - pretty]
+# name: test_collection_attr_functions[field7][elevation_loss - avg - pretty]
   '2244'
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - avg - raw]
+# name: test_collection_attr_functions[field7][elevation_loss - avg - raw]
   2243.6666666666665
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - max - pretty]
+# name: test_collection_attr_functions[field7][elevation_loss - max - pretty]
   '3346'
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - max - raw]
+# name: test_collection_attr_functions[field7][elevation_loss - max - raw]
   3346
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - min - pretty]
+# name: test_collection_attr_functions[field7][elevation_loss - min - pretty]
   '733'
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - min - raw]
+# name: test_collection_attr_functions[field7][elevation_loss - min - raw]
   733
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - sum - pretty]
+# name: test_collection_attr_functions[field7][elevation_loss - sum - pretty]
   '6731'
 # ---
-# name: test_collection_attr_functions[field6][elevation_loss - sum - raw]
+# name: test_collection_attr_functions[field7][elevation_loss - sum - raw]
   6731
 # ---
-# name: test_collection_attr_functions[field7][duration - attr_list]
+# name: test_collection_attr_functions[field8][duration - attr_list]
   list([
     datetime.timedelta(seconds=13843, microseconds=990515),
     datetime.timedelta(seconds=12506, microseconds=309075),
     datetime.timedelta(seconds=11832, microseconds=211302),
   ])
 # ---
-# name: test_collection_attr_functions[field7][duration - avg - pretty]
+# name: test_collection_attr_functions[field8][duration - avg - pretty]
   '03:32'
 # ---
-# name: test_collection_attr_functions[field7][duration - avg - raw]
+# name: test_collection_attr_functions[field8][duration - avg - raw]
   datetime.timedelta(seconds=12727, microseconds=503631)
 # ---
-# name: test_collection_attr_functions[field7][duration - max - pretty]
+# name: test_collection_attr_functions[field8][duration - max - pretty]
   '03:50'
 # ---
-# name: test_collection_attr_functions[field7][duration - max - raw]
+# name: test_collection_attr_functions[field8][duration - max - raw]
   datetime.timedelta(seconds=13843, microseconds=990515)
 # ---
-# name: test_collection_attr_functions[field7][duration - min - pretty]
+# name: test_collection_attr_functions[field8][duration - min - pretty]
   '03:17'
 # ---
-# name: test_collection_attr_functions[field7][duration - min - raw]
+# name: test_collection_attr_functions[field8][duration - min - raw]
   datetime.timedelta(seconds=11832, microseconds=211302)
 # ---
-# name: test_collection_attr_functions[field7][duration - sum - pretty]
+# name: test_collection_attr_functions[field8][duration - sum - pretty]
   '10:36'
 # ---
-# name: test_collection_attr_functions[field7][duration - sum - raw]
+# name: test_collection_attr_functions[field8][duration - sum - raw]
   datetime.timedelta(seconds=38182, microseconds=510892)
-# ---
-# name: test_collection_attr_functions[field8][gpx - attr_list]
-  list([
-    None,
-    None,
-    None,
-  ])
 # ---
 # name: test_collection_attr_functions[field9][speed - attr_list]
   list([
@@ -226,6 +226,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -236,6 +237,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -246,6 +248,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -297,6 +300,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -307,6 +311,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -317,6 +322,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -368,6 +374,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -378,6 +385,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -388,6 +396,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -439,6 +448,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -449,6 +459,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -459,6 +470,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -510,6 +522,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -520,6 +533,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -530,6 +544,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -540,7 +555,7 @@
 # ---
 # name: test_collection_hikes_stats[order_params0][order_param: "date" - query]
   '''
-  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration, hikes.gpx_xml AS hikes_gpx_xml 
   FROM hikes ORDER BY hikes.date
   '''
 # ---
@@ -550,6 +565,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -560,6 +576,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -570,6 +587,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -580,7 +598,7 @@
 # ---
 # name: test_collection_hikes_stats[order_params1][order_param: "-date" - query]
   '''
-  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration, hikes.gpx_xml AS hikes_gpx_xml 
   FROM hikes ORDER BY hikes.date DESC
   '''
 # ---
@@ -590,6 +608,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -600,6 +619,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -610,6 +630,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -620,7 +641,7 @@
 # ---
 # name: test_collection_hikes_stats[order_params2][order_param: "elevation_gain" - query]
   '''
-  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration, hikes.gpx_xml AS hikes_gpx_xml 
   FROM hikes ORDER BY hikes.elevation_gain
   '''
 # ---
@@ -630,6 +651,7 @@
       '1',
       '2023-06-01',
       'Paul Diaz',
+      '✗',
       '17.4',
       '3268',
       '2652',
@@ -640,6 +662,7 @@
       '2',
       '2016-05-22',
       'Gina Lynch',
+      '✗',
       '17.8',
       '2732',
       '3346',
@@ -650,6 +673,7 @@
       '3',
       '2025-03-05',
       'John Rhodes',
+      '✗',
       '14.9',
       '2452',
       '733',
@@ -660,7 +684,7 @@
 # ---
 # name: test_collection_hikes_stats[order_params3][order_param: "-elevation_gain" - query]
   '''
-  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration 
+  SELECT hikes.id AS hikes_id, hikes.date AS hikes_date, hikes.name AS hikes_name, hikes.distance AS hikes_distance, hikes.elevation_gain AS hikes_elevation_gain, hikes.elevation_loss AS hikes_elevation_loss, hikes.duration AS hikes_duration, hikes.gpx_xml AS hikes_gpx_xml 
   FROM hikes ORDER BY hikes.elevation_gain DESC
   '''
 # ---

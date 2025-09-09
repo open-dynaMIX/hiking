@@ -43,16 +43,22 @@ def pretty_timedelta(value: datetime.timedelta) -> str:
     return f"{hours}:{minutes}"
 
 
-def format_value(
+def format_value(  # noqa: C901
     value: Union[str, datetime.timedelta, datetime.date, float],
     attr: Optional[str] = None,
 ) -> str:
+    if value is None and attr == "id":
+        # happens during create command
+        return ""
     if isinstance(value, datetime.timedelta):
         return pretty_timedelta(value)
     if isinstance(value, datetime.date):
         return str(value)
     if isinstance(value, str):
         return value
+
+    if attr == "gpx":
+        return "✓" if value else "✗"
 
     assure_decimal_places = 0
     round_to_decimal_places = 2

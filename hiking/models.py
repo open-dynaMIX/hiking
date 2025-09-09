@@ -1,4 +1,3 @@
-import datetime
 from collections import namedtuple
 from typing import Optional
 
@@ -7,7 +6,7 @@ from sqlalchemy import Column, Date, Float, Integer, Interval, String, Text, or_
 from sqlalchemy.orm import load_only
 
 from hiking.db_utils import Base, engine, session
-from hiking.utils import SlimDateRange, format_value, pretty_timedelta
+from hiking.utils import SlimDateRange, format_value
 
 
 def create_tables():
@@ -99,7 +98,6 @@ class Hike(Base):
         info=info_dict(
             name="gpx",
             pretty_name="GPX",
-            data_view=False,
         ),
     )
 
@@ -108,11 +106,11 @@ class Hike(Base):
         date,
         name,
         body,
+        gpx_xml,
         distance,
         elevation_gain,
         elevation_loss,
         duration,
-        gpx_xml,
         CalculatedField(
             info=info_dict(
                 name="speed",
@@ -158,11 +156,7 @@ class Hike(Base):
         for field in self.FIELDS:
             if not field.info["data_view"]:
                 continue
-            value = getattr(self, field.info["name"])
-            if isinstance(value, datetime.timedelta):
-                value = pretty_timedelta(value)
-            elif field.info["name"] == "speed":
-                value = round(value, 2)
+            value = self.get_pretty_value(field.info["name"])
             serialized[field.info["pretty_name"]] = value
 
         return serialized
@@ -231,6 +225,7 @@ def get_filtered_query(
                 Hike.elevation_gain,
                 Hike.elevation_loss,
                 Hike.duration,
+                Hike.gpx_xml,
             )
         )
 

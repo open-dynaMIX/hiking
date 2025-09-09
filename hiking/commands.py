@@ -51,6 +51,7 @@ def get_table(
     table.add_column("ID", justify="right", footer=footer and get_grid(footer[0]))
     table.add_column("Date", justify="left", footer=footer and get_grid(footer[1]))
     table.add_column("Name", justify="left", footer=footer and get_grid(footer[2]))
+    table.add_column("GPX", justify="right", footer=footer and get_grid(footer[0]))
     table.add_column("➡ km", justify="right", footer=footer and get_grid(footer[3]))
     table.add_column("⬈ m", justify="right", footer=footer and get_grid(footer[4]))
     table.add_column("⬊ m", justify="right", footer=footer and get_grid(footer[5]))

@@ -4,6 +4,7 @@
     '1',
     '2023-06-01',
     'Paul Diaz',
+    '✗',
     '17.4',
     '3268',
     '2652',
@@ -13,14 +14,15 @@
 # ---
 # name: test_hike.1
   dict({
-    'Date': datetime.date(2023, 6, 1),
-    'ID': 1,
+    'Date': '2023-06-01',
+    'GPX': '✗',
+    'ID': '1',
     'Name': 'Paul Diaz',
-    'km/h': 4.53,
+    'km/h': '4.53',
     '⏱ ': '03:50',
-    '➡ km': 17.43,
-    '⬈ m': 3268,
-    '⬊ m': 2652,
+    '➡ km': '17.4',
+    '⬈ m': '3268',
+    '⬊ m': '2652',
   })
 # ---
 # name: test_hike_gpx_elevation_profile[False]

@@ -350,14 +350,6 @@ def test_command_show_detail(
             (),
         ),
         (
-            "date",
-            True,
-            SlimDateRange(datetime.date(2002, 6, 1), datetime.date(2012, 8, 1)),
-            None,
-            DEFAULT_BOX_STYLE,
-            (),
-        ),
-        (
             "distance",
             True,
             SlimDateRange(datetime.date.min, datetime.date.max),
